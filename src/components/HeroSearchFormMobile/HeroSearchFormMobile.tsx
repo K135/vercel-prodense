@@ -132,7 +132,7 @@ const HeroSearchFormMobile = ({ className }: { className?: string }) => {
                     </ButtonThird>
                     <ButtonPrimary 
                       type="button" 
-                      onClick={(e) => {
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.preventDefault()
                         closeModal()
                         // Search functionality disabled - UI only
