@@ -1,4 +1,4 @@
-// File: /Users/apple/Projects/Prodance/FE/src/app/(app)/(home-pages)/page.tsx
+// File: /Users/apple/Projects/Prodance/vercel/src/app/(app)/(home-pages)/page.tsx
 import * as entry from '../../../../../src/app/(app)/(home-pages)/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
