@@ -96,7 +96,7 @@ const Page = async ({ params }: { params: Promise<{ handle?: string[] }> }) => {
             Something went wrong
           </h1>
           <p className="text-neutral-600 dark:text-neutral-400">
-            We're having trouble loading the dental listings. Please try again later.
+            We&apos;re having trouble loading the dental listings. Please try again later.
           </p>
         </div>
       </div>
