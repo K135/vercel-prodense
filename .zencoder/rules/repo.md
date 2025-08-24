@@ -1,7 +1,7 @@
 # Repository Overview — Prodance FE
 
 ## Project
-- **Package name**: chisfis-template
+- **Package name**: Prodense-template
 - **Display/brand**: Prodense/Prodance FE (per README branding)
 - **Description**: Next.js app with Tailwind CSS and TypeScript
 - **Version**: 2.1.0

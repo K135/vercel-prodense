@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/shared/Button'
+import ModernLoginButton from '@/components/ui/ModernLoginButton'
 import { 
   PhoneIcon, 
   EnvelopeIcon, 
@@ -215,13 +216,11 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
 
               {/* Login */}
               <div className="hidden md:flex items-center">
-                <Button 
+                <ModernLoginButton 
                   href="/login" 
-                  className="bg-[#0480ea] hover:bg-[#0480ea]/90 text-white flex items-center space-x-1 px-3 py-2 text-sm"
-                >
-                  <UserIcon className="h-4 w-4" />
-                  <span>Login</span>
-                </Button>
+                  size="sm"
+                  variant="subtle"
+                />
               </div>
 
               {/* Mobile Menu Button */}
@@ -318,14 +317,13 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
                 <PhoneArrowUpRightIcon className="h-5 w-5" />
                 <span>Emergency Hotline</span>
               </Link>
-              <Button 
+              <ModernLoginButton 
                 href="/login" 
-                className="w-full flex items-center justify-center space-x-2 bg-[#0480ea] hover:bg-[#0480ea]/90 text-white"
+                size="md"
+                variant="outline"
+                className="w-full"
                 onClick={() => setMobileMenuOpen(false)}
-              >
-                <UserIcon className="h-4 w-4" />
-                <span>Login</span>
-              </Button>
+              />
             </div>
           </div>
         </div>

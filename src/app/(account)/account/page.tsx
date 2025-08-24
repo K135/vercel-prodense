@@ -13,7 +13,7 @@ import Form from 'next/form'
 
 export const metadata: Metadata = {
   title: 'Account Page',
-  description: 'Booking online & rental online Next.js Template',
+  description: 'Top Dental Booking ',
 }
 
 const Page = () => {

@@ -15,7 +15,7 @@ import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Home 2',
-  description: 'Booking online & rental online Next.js Template',
+  description: 'Top Dental Booking ',
 }
 
 const SectionHero = () => {
@@ -34,7 +34,7 @@ const SectionHero = () => {
       <div className="absolute inset-x-0 top-[10%] mx-auto flex max-w-2xl flex-col items-center text-center sm:top-[15%]">
         <div className="flex flex-col gap-y-5 xl:gap-y-8">
           <span className="font-semibold text-neutral-900 sm:text-lg md:text-xl">
-            Booking tax-free from Chisfis platform
+            Booking tax-free from Prodense platform
           </span>
           <h2 className="text-4xl leading-[1.15]! font-bold text-black md:text-5xl lg:text-6xl xl:text-7xl">
             New generation <br /> of booking

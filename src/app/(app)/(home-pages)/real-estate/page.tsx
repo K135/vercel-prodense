@@ -27,7 +27,7 @@ import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Home Real Estate',
-  description: 'Booking online & rental online Next.js Template',
+  description: 'Top Dental Booking ',
 }
 
 const SectionHero = () => {

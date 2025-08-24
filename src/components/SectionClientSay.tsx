@@ -52,7 +52,7 @@ const SectionClientSay: FC<SectionClientSayProps> = ({
     loop: true,
   },
   heading = 'Good news from far away 🥇',
-  subHeading = "Let's see what people think of Chisfis",
+  subHeading = "Let's see what people think of Prodense",
 }) => {
   const theme = useContext(ThemeContext)
 

@@ -12,9 +12,9 @@ const Logo: React.FC<LogoProps> = ({ className = 'w-32 sm:w-36' }) => {
       <Image 
         src="/images/logos/Prodense health logo.png?v=2" 
         alt="Prodense Health" 
-        width={120} 
-        height={120} 
-        className="rounded-lg max-w-full h-auto"
+        width={200} 
+        height={200} 
+        className="rounded-lg w-full h-auto"
       />
     </Link>
   )
