@@ -15,14 +15,14 @@ interface Props {
 
 const SectionGridAuthorBox: FC<Props> = ({
   className = '',
-  authors,
+  authors = [],
   boxCard = 'box1',
   gridClassName = 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 ',
 }) => {
   return (
     <div className={`relative ${className}`}>
       <div className={`grid gap-6 md:gap-8 ${gridClassName}`}>
-        {authors.map((author, index) =>
+        {authors && authors.length > 0 && authors.map((author, index) =>
           boxCard === 'box2' ? (
             <CardAuthorBox2 key={author.id} author={author} />
           ) : (

@@ -53,7 +53,7 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
     {
       id: '6',
       href: '/find-clinic',
-      name: 'Find Nemotec Clinic',
+      name: 'Find Nemotec Center',
     },
   ]
 }

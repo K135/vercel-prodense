@@ -84,7 +84,7 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
                 className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg font-bold text-white transition-colors"
               >
                 <MapPinIcon className="h-4 w-4" />
-                <span>Find Nemotec Clinic</span>
+                <span>Find Nemotec Center</span>
               </Link>
             </div>
           </div>

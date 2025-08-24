@@ -25,7 +25,7 @@ const navigation: {
   ],
   quickLinks: [
     { name: 'About Us', href: '/about' },
-    { name: 'Find Dentists', href: '/dentists' },
+    { name: 'Find Dental Clinics', href: '/dental-clinics' },
     { name: 'Destinations', href: '/destinations' },
     { name: 'Treatment Packages', href: '/packages' },
     { name: 'Patient Reviews', href: '/reviews' },

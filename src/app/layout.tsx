@@ -14,7 +14,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: {
     template: '%s - Prodense',
-    default: 'Prodense - Booking online React ',
+    default: 'Prodense - Top Dental Booking ',
   },
   description: 'Top Dental Booking ',
   keywords: ['Prodense', 'Dental Booking online', 'Booking dental', 'Dental booking', 'Appointment online', 'Dentist'],

@@ -1,25 +1,25 @@
 import HeroSectionWithSearchForm1 from '@/components/hero-sections/HeroSectionWithSearchForm1'
-import { StaySearchForm } from '@/components/HeroSearchForm/StaySearchForm'
-import ListingFilterTabs from '@/components/ListingFilterTabs'
-import StayCard2 from '@/components/StayCard2'
-import { getStayCategoryByHandle } from '@/data/categories'
-import { getStayListingFilterOptions, getStayListings } from '@/data/listings'
+import DentalSearchForm from '@/components/DentalSearchForm'
+import DentalFilterSidebar from '@/components/DentalFilterSidebar'
+import DentalClinicCard from '@/components/DentalClinicCard'
+import { getDentalCategoryByHandle } from '@/data/dental'
+import { getDentalFilterOptions, getDentalClinicListings } from '@/data/dental'
 import { Button } from '@/shared/Button'
 import { Divider } from '@/shared/divider'
 import Pagination from '@/shared/Pagination'
 import convertNumbThousand from '@/utils/convertNumbThousand'
-import { House04Icon, MapPinpoint02Icon, MapsLocation01Icon } from '@hugeicons/core-free-icons'
+import { MedicalMaskIcon, MapPinpoint02Icon, MapsLocation01Icon, UserMd02Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
 export async function generateMetadata({ params }: { params: Promise<{ handle?: string[] }> }): Promise<Metadata> {
   const { handle } = await params
-  const category = await getStayCategoryByHandle(handle?.[0])
+  const category = await getDentalCategoryByHandle(handle?.[0])
   if (!category) {
     return {
-      title: 'Collection not found',
-      description: 'The collection you are looking for does not exist.',
+      title: 'Dental Clinics not found',
+      description: 'The dental clinic category you are looking for does not exist.',
     }
   }
   const { name, description } = category
@@ -27,65 +27,81 @@ export async function generateMetadata({ params }: { params: Promise<{ handle?: 
 }
 
 const Page = async ({ params }: { params: Promise<{ handle?: string[] }> }) => {
-  const { handle } = await params
+  try {
+    const { handle } = await params
 
-  const category = await getStayCategoryByHandle(handle?.[0])
-  const listings = await getStayListings()
-  const filterOptions = await getStayListingFilterOptions()
+    const category = await getDentalCategoryByHandle(handle?.[0])
+    const dentalClinics = (await getDentalClinicListings()) || []
+    const filterOptions = (await getDentalFilterOptions()) || []
 
-  if (!category?.id) {
-    return redirect('/stay-categories/all')
-  }
+    if (!category?.id) {
+      return redirect('/stay-categories/all')
+    }
 
   return (
     <div className="pb-28">
-      {/* Hero section */}
-      <div className="container">
-        <HeroSectionWithSearchForm1
-          heading={category.name}
-          image={category.coverImage}
-          imageAlt={category.name}
-          searchForm={<StaySearchForm formStyle="default" />}
-          description={
-            <div className="flex items-center sm:text-lg">
-              <HugeiconsIcon icon={MapPinpoint02Icon} size={20} color="currentColor" strokeWidth={1.5} />
-              <span className="ms-2.5">{category.region} </span>
-              <span className="mx-5"></span>
-              <HugeiconsIcon icon={House04Icon} size={20} color="currentColor" strokeWidth={1.5} />
-              <span className="ms-2.5">{convertNumbThousand(category.count)} stays</span>
-            </div>
-          }
-        />
+      {/* Header */}
+      <div className="container py-8">
+        <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">{category.name}</h1>
+        <p className="text-neutral-600 dark:text-neutral-400">{category.description}</p>
       </div>
 
-      {/* Content */}
-      <div className="relative container mt-14 lg:mt-24">
-        {/* start heading */}
-        <div className="flex flex-wrap items-end justify-between gap-x-2.5 gap-y-5">
-          <h2 id="heading" className="scroll-mt-20 text-lg font-semibold sm:text-xl">
-            Over {convertNumbThousand(category.count)} places
-            {category.handle !== 'all' ? ` in ${category.name}` : null}
-          </h2>
-          <Button color="white" className="ms-auto" href={'/stay-categories-map/' + category.handle}>
-            <span className="me-1">Show map</span>
-            <HugeiconsIcon icon={MapsLocation01Icon} size={20} color="currentColor" strokeWidth={1.5} />
-          </Button>
-        </div>
-        <Divider className="my-8 md:mb-12" />
-        {/* end heading */}
+      {/* Main Content */}
+      <div className="container">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Left Sidebar - Filters */}
+          <div className="w-full lg:w-80 lg:flex-shrink-0">
+            <div className="lg:sticky lg:top-8">
+              <DentalFilterSidebar filterOptions={filterOptions} />
+            </div>
+          </div>
 
-        <ListingFilterTabs filterOptions={filterOptions} />
-        <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 md:gap-x-8 md:gap-y-12 lg:mt-10 lg:grid-cols-3 xl:grid-cols-4">
-          {listings.map((listing) => (
-            <StayCard2 key={listing.id} data={listing} />
-          ))}
-        </div>
-        <div className="mt-16 flex items-center justify-center">
-          <Pagination />
+          {/* Right Content - Listings */}
+          <div className="flex-1">
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
+                {dentalClinics.length} Dental Clinics Found
+              </h2>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+                Showing the best dental clinics in {category.name}
+              </p>
+            </div>
+            
+            <div className="space-y-6">
+              {dentalClinics.length > 0 ? dentalClinics.map((clinic) => (
+                <DentalClinicCard key={clinic.id} data={clinic} />
+              )) : (
+                <div className="text-center py-12">
+                  <p className="text-neutral-500 dark:text-neutral-400">No dental clinics found matching your criteria.</p>
+                </div>
+              )}
+            </div>
+
+            {dentalClinics.length > 0 && (
+              <div className="mt-12 flex items-center justify-center">
+                <Pagination />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
   )
+  } catch (error) {
+    console.error('Page error:', error)
+    return (
+      <div className="container py-16">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+            Something went wrong
+          </h1>
+          <p className="text-neutral-600 dark:text-neutral-400">
+            We're having trouble loading the dental listings. Please try again later.
+          </p>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Page
