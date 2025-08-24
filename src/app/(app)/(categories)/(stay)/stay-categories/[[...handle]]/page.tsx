@@ -1,15 +1,9 @@
-import HeroSectionWithSearchForm1 from '@/components/hero-sections/HeroSectionWithSearchForm1'
-import DentalSearchForm from '@/components/DentalSearchForm'
 import DentalFilterSidebar from '@/components/DentalFilterSidebar'
 import DentalClinicCard from '@/components/DentalClinicCard'
 import { getDentalCategoryByHandle } from '@/data/dental'
 import { getDentalFilterOptions, getDentalClinicListings } from '@/data/dental'
-import { Button } from '@/shared/Button'
-import { Divider } from '@/shared/divider'
 import Pagination from '@/shared/Pagination'
-import convertNumbThousand from '@/utils/convertNumbThousand'
-import { MedicalMaskIcon, MapPinpoint02Icon, MapsLocation01Icon, UserMd02Icon } from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
+
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
