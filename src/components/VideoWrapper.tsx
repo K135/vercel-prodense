@@ -19,11 +19,16 @@ const VideoWrapper: FC<VideoWrapperProps> = ({ videoSrc, className = '', onVideo
       video.muted = true
       video.loop = true
       
-      // Use Intersection Observer to only play videos when they're visible
+      // Use Intersection Observer to preload and play videos when they're about to be visible
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
+              // Start loading the video immediately when it enters viewport
+              if (video.readyState === 0) {
+                video.load()
+              }
+              
               // Auto play when video becomes visible
               const playVideo = async () => {
                 try {
@@ -39,7 +44,10 @@ const VideoWrapper: FC<VideoWrapperProps> = ({ videoSrc, className = '', onVideo
             }
           })
         },
-        { threshold: 0.5 } // Play when 50% of video is visible
+        { 
+          threshold: 0.1, // Start loading when just 10% is visible
+          rootMargin: '100px' // Start loading 100px before the element enters viewport
+        }
       )
       
       observer.observe(video)
@@ -74,7 +82,7 @@ const VideoWrapper: FC<VideoWrapperProps> = ({ videoSrc, className = '', onVideo
           muted={isMuted}
           loop
           playsInline
-          preload="none"
+          preload="metadata"
         />
         
         {/* Unmute Button */}
