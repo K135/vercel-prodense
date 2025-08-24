@@ -156,6 +156,9 @@ const DentalClinicCard: FC<DentalClinicCardProps> = ({ className = '', data }) =
             
             <div className="flex items-center gap-3 mb-3">
               <StartRating point={rating} reviewCount={reviewCount} size="lg" />
+              <div className="bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400 px-3 py-1 rounded-full text-xs font-medium">
+                {yearsExperience}+ Years
+              </div>
               {emergencyAvailable && (
                 <div className="bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 px-2 py-1 rounded-full text-xs font-medium">
                   Emergency Available
@@ -217,14 +220,14 @@ const DentalClinicCard: FC<DentalClinicCardProps> = ({ className = '', data }) =
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 mb-6">
-            <Link href={clinicHref} className="flex-1">
-              <Button className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 text-base">
+            <Link href={clinicHref} className="flex-[2]">
+              <div className="w-full bg-[#0480ea] hover:bg-[#0369d1] text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 text-base border border-[#0480ea] text-center cursor-pointer">
                 View / Book
-              </Button>
+              </div>
             </Link>
-            <Button className="flex-1 border-2 border-primary-600 text-primary-700 hover:bg-primary-600 hover:text-white dark:border-primary-500 dark:text-primary-400 dark:hover:bg-primary-600 dark:hover:text-white font-bold py-4 rounded-2xl shadow-md hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 text-base">
+            <div className="flex-1 border-2 border-[#0480ea] text-[#0480ea] hover:bg-[#0480ea] hover:text-white dark:border-[#0480ea] dark:text-[#0480ea] dark:hover:bg-[#0480ea] dark:hover:text-white font-bold py-4 rounded-2xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 text-base bg-transparent text-center cursor-pointer">
               Contact Clinic
-            </Button>
+            </div>
           </div>
 
           {/* Quick Info */}

@@ -4,6 +4,7 @@ import Logo from '@/shared/Logo'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { PhoneIcon, EnvelopeIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 
 // Country codes data
@@ -49,6 +50,7 @@ const countryCodes = [
 ]
 
 const Page = () => {
+  const router = useRouter()
   const [inputType, setInputType] = useState<'phone' | 'email'>('phone')
   const [inputValue, setInputValue] = useState('')
   const [selectedCountry, setSelectedCountry] = useState(countryCodes[0])
@@ -140,8 +142,8 @@ const Page = () => {
         
         // Reset after animation completes
         setTimeout(() => {
-          // Here you would typically redirect to dashboard or next step
-          console.log('Verification complete - redirect to dashboard')
+          // Redirect to stay categories page
+          router.push('/stay-categories/')
         }, 3000)
       }, 2000)
     }
@@ -301,7 +303,7 @@ const Page = () => {
                       type="tel"
                       value={inputValue}
                       onChange={(e) => handleInputChange(e.target.value)}
-                      placeholder="(555) 000-0000"
+                      placeholder="XXXXXXXXXX"
                       className={`flex-1 px-4 py-3 border rounded-r-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
                         validationError && inputType === 'phone' 
                           ? 'border-red-500 dark:border-red-400' 
