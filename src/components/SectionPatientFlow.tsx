@@ -190,15 +190,36 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
         <div className="absolute bottom-32 left-1/4 w-56 h-56 bg-[#0480ea]/7 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         
         {/* Small floating glassmorphism dots */}
-        {[...Array(20)].map((_, i) => (
+        {[
+          { left: 12, top: 15, delay: 0.5, duration: 4.2 },
+          { left: 78, top: 8, delay: 2.1, duration: 5.8 },
+          { left: 35, top: 25, delay: 1.3, duration: 3.7 },
+          { left: 89, top: 42, delay: 3.2, duration: 6.1 },
+          { left: 6, top: 58, delay: 0.8, duration: 4.9 },
+          { left: 52, top: 72, delay: 2.7, duration: 3.4 },
+          { left: 91, top: 88, delay: 1.9, duration: 5.3 },
+          { left: 23, top: 91, delay: 4.1, duration: 4.6 },
+          { left: 67, top: 78, delay: 0.3, duration: 6.7 },
+          { left: 41, top: 5, delay: 3.8, duration: 3.9 },
+          { left: 15, top: 45, delay: 1.6, duration: 5.2 },
+          { left: 83, top: 62, delay: 2.4, duration: 4.1 },
+          { left: 58, top: 18, delay: 4.7, duration: 6.3 },
+          { left: 29, top: 83, delay: 0.9, duration: 3.8 },
+          { left: 74, top: 29, delay: 3.5, duration: 5.7 },
+          { left: 8, top: 76, delay: 1.2, duration: 4.4 },
+          { left: 96, top: 15, delay: 2.8, duration: 6.9 },
+          { left: 45, top: 52, delay: 4.3, duration: 3.6 },
+          { left: 62, top: 95, delay: 0.6, duration: 5.1 },
+          { left: 31, top: 38, delay: 3.9, duration: 4.8 }
+        ].map((dot, i) => (
           <div
             key={i}
             className="absolute w-4 h-4 bg-[#0480ea]/20 rounded-full blur-sm animate-pulse"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`
+              left: `${dot.left}%`,
+              top: `${dot.top}%`,
+              animationDelay: `${dot.delay}s`,
+              animationDuration: `${dot.duration}s`
             }}
           />
         ))}

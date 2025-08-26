@@ -1,107 +1,98 @@
 import BackgroundSection from '@/components/BackgroundSection'
 import BgGlassmorphism from '@/components/BgGlassmorphism'
-import CardCategory6 from '@/components/CardCategory6'
+import DentalHeroSectionCentered from '@/components/hero-sections/DentalHeroSectionCentered'
+import DentalHeroSearchFormCentered from '@/components/HeroSearchForm/DentalHeroSearchFormCentered'
+import PopularProceduresGrid from '@/components/PopularProceduresGrid'
+import SectionBecomeAnAuthor from '@/components/SectionBecomeAnAuthor'
+import SectionClientSay from '@/components/SectionClientSay'
 import SectionGridAuthorBox from '@/components/SectionGridAuthorBox'
 import SectionGridCategoryBox from '@/components/SectionGridCategoryBox'
 import SectionGridFeaturePlaces from '@/components/SectionGridFeaturePlaces'
+import SectionHowItWork from '@/components/SectionHowItWork'
+import SectionOurFeatures from '@/components/SectionOurFeatures'
+
+import SectionSliderNewCategories from '@/components/SectionSliderNewCategories'
 import SectionSubscribe2 from '@/components/SectionSubscribe2'
+import SectionTrustedStats from '@/components/SectionTrustedStats'
+import SectionVideos from '@/components/SectionVideos'
+import SectionYouTubeGrid from '@/components/SectionYouTubeGrid'
+import SectionPatientFlow from '@/components/SectionPatientFlow'
+import SectionGetToKnowAboutUs from '@/components/SectionGetToKnowAboutUs'
+import SectionInfoCards from '@/components/SectionInfoCards'
+import SectionFAQ from '@/components/SectionFAQ'
+import SectionSearchTerms from '@/components/SectionSearchTerms'
 import { getAuthors } from '@/data/authors'
 import { getStayCategories } from '@/data/categories'
 import { getStayListings } from '@/data/listings'
 import ButtonPrimary from '@/shared/ButtonPrimary'
+import { Divider } from '@/shared/divider'
 import HeadingWithSub from '@/shared/Heading'
 import { Metadata } from 'next'
-import Image from 'next/image'
 
 export const metadata: Metadata = {
-  title: 'Home 2',
-  description: 'Top Dental Booking ',
+  title: 'Prodense - Royal Dental Care in India\'s Paradise',
+  description: 'Experience world-class dental treatments in India\'s most beautiful tourist destinations. Affordable, accredited, hassle-free dental tourism.',
 }
 
-const SectionHero = () => {
-  return (
-    <div className={`relative`}>
-      <div className="aspect-w-3 relative aspect-h-4 sm:aspect-w-4 sm:aspect-h-3 lg:aspect-w-16 lg:aspect-h-9 xl:aspect-h-8">
-        <Image
-          className="rounded-xl object-cover object-center"
-          src={'https://images.pexels.com/photos/2303781/pexels-photo-2303781.jpeg'}
-          alt="hero"
-          priority
-          fill
-          sizes="100vw"
-        />
-      </div>
-      <div className="absolute inset-x-0 top-[10%] mx-auto flex max-w-2xl flex-col items-center text-center sm:top-[15%]">
-        <div className="flex flex-col gap-y-5 xl:gap-y-8">
-          <span className="font-semibold text-neutral-900 sm:text-lg md:text-xl">
-            Booking tax-free from Prodense platform
-          </span>
-          <h2 className="text-4xl leading-[1.15]! font-bold text-black md:text-5xl lg:text-6xl xl:text-7xl">
-            New generation <br /> of booking
-          </h2>
-        </div>
-        <ButtonPrimary className="mt-10 sm:mt-20 sm:text-lg!">Keep calm & travel on</ButtonPrimary>
-      </div>
-    </div>
-  )
-}
-
-async function Home() {
-  const authors = await getAuthors()
+async function Page() {
   const categories = await getStayCategories()
-  const categories_1 = categories.slice(0, 8)
-  const categories_2 = categories.slice(7, 14)
   const stayListings = await getStayListings()
+  const authors = await getAuthors()
 
   return (
-    <>
-      <main className="relative overflow-hidden">
-        {/* GLASSMOPHIN */}
-        <BgGlassmorphism />
-
-        {/* SECTION HERO */}
-        <div className="container mb-24 md:px-0 2xl:px-10">
-          <SectionHero />
+    <main className="relative overflow-hidden">
+      <BgGlassmorphism />
+      
+      {/* Hero Section - Perfectly Centered Content */}
+      <div className="relative mb-24 lg:mb-28">
+        <div className="container relative z-10">
+          <div className="flex flex-col items-center justify-center min-h-[80vh] text-center px-4">
+            <div className="max-w-5xl mx-auto w-full">
+              {/* Main Heading */}
+              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-medium tracking-tight text-pretty mb-8 lg:mb-12">
+                Top Dental Procedures in India
+              </h1>
+              
+              {/* Search Form */}
+              <div className="w-full max-w-4xl mx-auto">
+                <DentalHeroSearchFormCentered initTab="Procedures" />
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      
+      {/* Popular Dental Procedures - moved right after hero */}
+      <div className="container mx-auto px-4 mb-8 lg:mb-12">
+        <HeadingWithSub subheading="Explore our most sought-after dental treatments and procedures.">
+          Popular Dental Procedures
+        </HeadingWithSub>
+        <PopularProceduresGrid />
+      </div>
 
-        <div className="relative container flex flex-col gap-y-24 lg:mb-28 lg:gap-y-32">
-          {/* SECTION 1 */}
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-12 flex sm:col-span-6 lg:col-span-4">
-              <CardCategory6 category={categories_2[0]} />
-            </div>
-            <div className="col-span-12 grid grid-rows-2 gap-6 sm:col-span-6 lg:col-span-4">
-              <CardCategory6 category={categories_2[3]} />
-              <CardCategory6 category={categories_2[1]} />
-            </div>
-            <div className="col-span-12 flex sm:col-span-6 lg:col-span-4">
-              <CardCategory6 category={categories_2[4]} />
-            </div>
-          </div>
+      {/* Trusted Stats Section - We Create Smiles Without Borders & Prodense Is Peoples 1st Choice */}
+      <SectionTrustedStats className="mb-4 lg:mb-6" />
 
-          {/* SECTION */}
-          <div>
-            <HeadingWithSub subheading={'Keep calm & travel on'}>Explore nearby</HeadingWithSub>
-            <SectionGridCategoryBox categories={categories_1} />
-          </div>
+      {/* YouTube Video Grid Section */}
+      <SectionYouTubeGrid className="" />
 
-          {/* SECTION */}
-          <div className="relative py-20">
-            <BackgroundSection />
-            <HeadingWithSub isCenter subheading={'Keep calm & travel on'}>
-              Become a host
-            </HeadingWithSub>
-            <SectionGridAuthorBox authors={authors} boxCard="box2" />
-          </div>
+      {/* Patient Flow Section - Moved very close to YouTube section */}
+      <SectionPatientFlow className="mt-12 lg:mt-16 mb-8 lg:mb-12" />
 
-          <SectionGridFeaturePlaces stayListings={stayListings} />
+      {/* Get To Know About Us Section */}
+      <SectionGetToKnowAboutUs className="mb-2 lg:mb-4" />
 
-          {/* SECTION */}
-          <SectionSubscribe2 />
-        </div>
-      </main>
-    </>
+      {/* Info Cards Section */}
+      <SectionInfoCards />
+
+      {/* FAQ Section */}
+      <SectionFAQ />
+
+      {/* Search Terms Section */}
+      <SectionSearchTerms />
+
+    </main>
   )
 }
 
-export default Home
+export default Page

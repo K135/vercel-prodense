@@ -33,16 +33,16 @@ export const dentalSpecialties = [
 ]
 
 export const insuranceProviders = [
-  'Delta Dental',
-  'Cigna',
-  'Aetna',
-  'MetLife',
-  'Blue Cross Blue Shield',
-  'Humana',
-  'United Healthcare',
-  'Guardian',
-  'Principal',
-  'Anthem',
+  'Star Health Insurance',
+  'HDFC ERGO Health Insurance',
+  'ICICI Lombard Health Insurance',
+  'Bajaj Allianz Health Insurance',
+  'New India Assurance',
+  'Oriental Insurance',
+  'United India Insurance',
+  'National Insurance',
+  'Reliance General Insurance',
+  'Care Health Insurance',
 ]
 
 // Dental categories (locations)
@@ -56,58 +56,58 @@ export async function getDentalCategories() {
   return [
     {
       id: 'dental-cat://1',
-      name: 'New York, NY',
-      region: 'New York',
-      handle: 'new-york-ny',
-      href: '/stay-categories/new-york-ny',
+      name: 'New Delhi, DL',
+      region: 'Delhi',
+      handle: 'new-delhi-dl',
+      href: '/stay-categories/new-delhi-dl',
       count: 1250,
-      thumbnail: 'https://images.pexels.com/photos/64271/queen-of-liberty-statue-of-liberty-new-york-liberty-statue-64271.jpeg',
+      thumbnail: 'https://images.pexels.com/photos/789750/pexels-photo-789750.jpeg',
       coverImage: defaultCoverImage,
-      description: 'Find top-rated dental clinics in New York City',
+      description: 'Find top-rated dental clinics in New Delhi',
     },
     {
       id: 'dental-cat://2',
-      name: 'Los Angeles, CA',
-      region: 'California',
-      handle: 'los-angeles-ca',
-      href: '/stay-categories/los-angeles-ca',
+      name: 'Mumbai, MH',
+      region: 'Maharashtra',
+      handle: 'mumbai-mh',
+      href: '/stay-categories/mumbai-mh',
       count: 980,
-      thumbnail: 'https://images.pexels.com/photos/161963/hollywood-sign-los-angeles-california-161963.jpeg',
+      thumbnail: 'https://images.pexels.com/photos/1007426/pexels-photo-1007426.jpeg',
       coverImage: defaultCoverImage,
-      description: 'Quality dental clinics in Los Angeles',
+      description: 'Quality dental clinics in Mumbai',
     },
     {
       id: 'dental-cat://3',
-      name: 'Chicago, IL',
-      region: 'Illinois',
-      handle: 'chicago-il',
-      href: '/stay-categories/chicago-il',
+      name: 'Bangalore, KA',
+      region: 'Karnataka',
+      handle: 'bangalore-ka',
+      href: '/stay-categories/bangalore-ka',
       count: 750,
-      thumbnail: 'https://images.pexels.com/photos/1823680/pexels-photo-1823680.jpeg',
+      thumbnail: 'https://images.pexels.com/photos/2850290/pexels-photo-2850290.jpeg',
       coverImage: defaultCoverImage,
-      description: 'Professional dental clinics in Chicago',
+      description: 'Professional dental clinics in Bangalore',
     },
     {
       id: 'dental-cat://4',
-      name: 'Houston, TX',
-      region: 'Texas',
-      handle: 'houston-tx',
-      href: '/stay-categories/houston-tx',
+      name: 'Chennai, TN',
+      region: 'Tamil Nadu',
+      handle: 'chennai-tn',
+      href: '/stay-categories/chennai-tn',
       count: 650,
-      thumbnail: 'https://images.pexels.com/photos/2363/skyline-buildings-new-york-skyscrapers.jpg',
+      thumbnail: 'https://images.pexels.com/photos/3573382/pexels-photo-3573382.jpeg',
       coverImage: defaultCoverImage,
-      description: 'Dental clinic professionals in Houston',
+      description: 'Dental clinic professionals in Chennai',
     },
     {
       id: 'dental-cat://5',
-      name: 'Miami, FL',
-      region: 'Florida',
-      handle: 'miami-fl',
-      href: '/stay-categories/miami-fl',
+      name: 'Kolkata, WB',
+      region: 'West Bengal',
+      handle: 'kolkata-wb',
+      href: '/stay-categories/kolkata-wb',
       count: 580,
-      thumbnail: 'https://images.pexels.com/photos/210012/pexels-photo-210012.jpeg',
+      thumbnail: 'https://images.pexels.com/photos/2850290/pexels-photo-2850290.jpeg',
       coverImage: defaultCoverImage,
-      description: 'Top dental clinics in Miami',
+      description: 'Top dental clinics in Kolkata',
     },
   ]
 }
@@ -179,6 +179,61 @@ export async function getDentalClinicListings(): Promise<TDentalClinicListing[]>
   return [
     {
       id: 'dental-clinic://1',
+      name: 'Delhi Dental Care',
+      handle: 'handle-123',
+      title: 'Premier Dental Tourism Destination',
+      specialty: 'Comprehensive Dental Care',
+      description: 'Established in 1985 by Dr. Rajesh Kumar Sharma, Delhi Dental Care has been providing quality dental services to numerous patients who come for Dental Tourism in New Delhi, India. With over 30 years of experience and dedicated staff, Delhi Dental Care has become one of the best dental facilities in the entire city.',
+      profileImage: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=600&fit=crop',
+      galleryImgs: [
+        'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=300&fit=crop',
+        'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&h=300&fit=crop',
+        'https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&h=300&fit=crop',
+        'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=300&fit=crop',
+        'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop'
+      ],
+      address: 'Shop No. 287, Connaught Place, New Delhi, Delhi 110001',
+      phone: '+91 11 2334 5678',
+      email: 'info@delhidentalcare.com',
+      website: 'https://delhidentalcare.com',
+      rating: 5.0,
+      reviewCount: 936,
+      yearsExperience: 35,
+      procedures: [
+        'Dental Implants',
+        'All on 4/6/8',
+        'Crowns & Bridges',
+        'Dentures',
+        'Veneers',
+        'Teeth Whitening',
+        'Root Canal',
+        'Extractions'
+      ],
+      insuranceAccepted: ['BBB', 'ADA', 'Indian Medical Tourism Council'],
+      languages: ['English', 'Hindi'],
+      education: ['All India Institute of Medical Sciences (AIIMS)'],
+      certifications: [
+        'Better Business Bureau (BBB)',
+        'American Dental Association (ADA)',
+        'The Indian Council of the Medical Tourism Industry'
+      ],
+      officeHours: {
+        monday: '8:30 AM - 5:00 PM',
+        tuesday: '8:30 AM - 5:00 PM',
+        wednesday: '8:30 AM - 5:00 PM',
+        thursday: '8:30 AM - 5:00 PM',
+        friday: '8:30 AM - 5:00 PM',
+        saturday: '9:00 AM - 3:00 PM',
+        sunday: 'Closed'
+      },
+      emergencyAvailable: true,
+      newPatientsAccepted: true,
+      consultationFee: '$80',
+      isVerified: true,
+      map: { lat: 28.6139, lng: 77.2090 }
+    },
+    {
+      id: 'dental-clinic://2',
       name: 'DentSpa',
       handle: 'dentspa',
       title: 'Premium Dental Care & Smile Transformations',
@@ -377,6 +432,12 @@ export async function getDentalClinicListings(): Promise<TDentalClinicListing[]>
       map: { lat: 40.7260, lng: -73.9897 },
     },
   ]
+}
+
+// Get dental clinic by handle
+export async function getDentalClinicByHandle(handle: string): Promise<TDentalClinicListing | null> {
+  const clinics = await getDentalClinicListings()
+  return clinics.find(clinic => clinic.handle === handle) || null
 }
 
 // Filter options for dental listings

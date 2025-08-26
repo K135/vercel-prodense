@@ -61,6 +61,24 @@ const Page = () => {
   const [validationError, setValidationError] = useState('')
   const [isVerifying, setIsVerifying] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
+  const [showSignupForm, setShowSignupForm] = useState(false)
+  const [signupData, setSignupData] = useState({
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    gender: '',
+    country: '',
+    profession: '',
+    email: ''
+  })
+  const [signupError, setSignupError] = useState('')
+  const [showEmailOtp, setShowEmailOtp] = useState(false)
+  const [emailOtpValue, setEmailOtpValue] = useState('')
+  const [isVerifyingEmail, setIsVerifyingEmail] = useState(false)
+  const [isEmailVerified, setIsEmailVerified] = useState(false)
+  const [signupCountries, setSignupCountries] = useState(countryCodes)
+  const [selectedSignupCountry, setSelectedSignupCountry] = useState(countryCodes[0])
+  const [isSignupDropdownOpen, setIsSignupDropdownOpen] = useState(false)
 
   // Auto-detect country based on IP
   useEffect(() => {
@@ -73,6 +91,8 @@ const Page = () => {
         const foundCountry = countryCodes.find(country => country.country === countryCode)
         if (foundCountry) {
           setSelectedCountry(foundCountry)
+          setSelectedSignupCountry(foundCountry)
+          setSignupData(prev => ({ ...prev, country: foundCountry.name }))
         }
       } catch (error) {
         console.log('Could not detect location, using default')
@@ -140,10 +160,18 @@ const Page = () => {
           otp: otpValue
         })
         
+        // Check if this is the special signup phone number
+        const isSignupNumber = inputType === 'phone' && inputValue === '9999999999'
+        
         // Reset after animation completes
         setTimeout(() => {
-          // Redirect to stay categories page
-          router.push('/stay-categories/')
+          if (isSignupNumber) {
+            // Show signup form instead of redirecting
+            setShowSignupForm(true)
+          } else {
+            // Redirect to stay categories page for regular login
+            router.push('/stay-categories/')
+          }
         }, 3000)
       }, 2000)
     }
@@ -174,6 +202,92 @@ const Page = () => {
     setValidationError('') // Clear error when user starts typing
   }
 
+  const handleSignupSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!showEmailOtp) {
+      // Validate signup data before requesting email OTP
+      if (!signupData.firstName.trim()) {
+        setSignupError('Please enter your first name')
+        return
+      }
+      
+      if (!signupData.lastName.trim()) {
+        setSignupError('Please enter your last name')
+        return
+      }
+      
+      if (!signupData.dateOfBirth.trim()) {
+        setSignupError('Please enter your date of birth')
+        return
+      }
+      
+      if (!signupData.gender) {
+        setSignupError('Please select your gender')
+        return
+      }
+      
+      if (!signupData.country.trim()) {
+        setSignupError('Please select your country')
+        return
+      }
+      
+      if (!signupData.profession.trim()) {
+        setSignupError('Please enter your profession')
+        return
+      }
+      
+      if (!signupData.email.trim()) {
+        setSignupError('Please enter your email address')
+        return
+      }
+      
+      if (!validateEmail(signupData.email)) {
+        setSignupError('Please enter a valid email address')
+        return
+      }
+      
+      // Show email OTP input
+      setSignupError('')
+      setShowEmailOtp(true)
+      console.log('Email OTP requested for:', signupData.email)
+    } else {
+      // Validate email OTP
+      if (emailOtpValue.length !== 6) {
+        setSignupError('Please enter a valid 6-digit OTP')
+        return
+      }
+      
+      // Verify email OTP
+      setSignupError('')
+      setIsVerifyingEmail(true)
+      
+      setTimeout(() => {
+        setIsVerifyingEmail(false)
+        setIsEmailVerified(true)
+        
+        console.log('Complete signup data:', {
+          phone: `${selectedCountry.code} ${inputValue}`,
+          ...signupData,
+          emailOtp: emailOtpValue
+        })
+        
+        // Redirect after successful signup
+        setTimeout(() => {
+          router.push('/stay-categories/')
+        }, 2000)
+      }, 2000)
+    }
+  }
+
+  const handleSignupInputChange = (field: keyof typeof signupData, value: string) => {
+    setSignupData(prev => ({
+      ...prev,
+      [field]: value
+    }))
+    setSignupError('') // Clear error when user starts typing
+  }
+
   return (
     <div className="min-h-screen flex">
       {/* Left Section - 70% with Background Image */}
@@ -189,17 +303,20 @@ const Page = () => {
 
       {/* Right Section - 30% with Login Form */}
       <div className="w-full lg:w-[30%] flex flex-col justify-center px-8 lg:px-12 bg-white dark:bg-gray-900">
-        <div className="w-full max-w-sm mx-auto">
-          {/* Logo */}
-          <div className="mb-12 text-center">
-            <Logo className="!w-48 !h-auto mx-auto mb-4" />
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
-              Sign in to your account
-            </p>
-          </div>
-
+        <div className="w-full max-w-sm mx-auto relative">
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <div className={`transition-all duration-500 ease-in-out ${
+            showSignupForm ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}>
+            {/* Logo */}
+            <div className="mb-12 text-center">
+              <Logo className="!w-48 !h-auto mx-auto mb-4" />
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Signin / Signup your account
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
             {/* Input Type Toggle */}
             <div className="relative flex bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
               {/* Sliding Background */}
@@ -466,13 +583,291 @@ const Page = () => {
               Continue with Google
             </button>
           </form>
+          </div>
 
+          {/* Signup Form */}
+          <div className={`absolute inset-0 transition-all duration-500 ease-in-out ${
+            showSignupForm ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+          }`}>
+            <div className="w-full max-w-sm mx-auto">
+              {/* Logo */}
+              <div className="mb-12 text-center">
+                <Logo className="!w-48 !h-auto mx-auto mb-4" />
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  Welcome to Prodense, We need few essential informations to give you customised experience
+                </p>
+              </div>
+
+              {/* Signup Form */}
+              <form onSubmit={handleSignupSubmit} className="space-y-6">
+                {!showEmailOtp ? (
+                  <>
+                    {/* First Name and Last Name */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          value={signupData.firstName}
+                          onChange={(e) => handleSignupInputChange('firstName', e.target.value)}
+                          placeholder="First name"
+                          className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                            signupError && signupError.includes('first name') 
+                              ? 'border-red-500 dark:border-red-400' 
+                              : 'border-gray-300 dark:border-gray-600'
+                          }`}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                          Last Name
+                        </label>
+                        <input
+                          type="text"
+                          value={signupData.lastName}
+                          onChange={(e) => handleSignupInputChange('lastName', e.target.value)}
+                          placeholder="Last name"
+                          className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                            signupError && signupError.includes('last name') 
+                              ? 'border-red-500 dark:border-red-400' 
+                              : 'border-gray-300 dark:border-gray-600'
+                          }`}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* Date of Birth */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Date of Birth (DD/MM/YYYY)
+                      </label>
+                      <input
+                        type="date"
+                        value={signupData.dateOfBirth}
+                        onChange={(e) => handleSignupInputChange('dateOfBirth', e.target.value)}
+                        className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                          signupError && signupError.includes('date of birth') 
+                            ? 'border-red-500 dark:border-red-400' 
+                            : 'border-gray-300 dark:border-gray-600'
+                        }`}
+                        required
+                      />
+                    </div>
+
+                    {/* Gender */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Gender
+                      </label>
+                      <div className="grid grid-cols-3 gap-3">
+                        {['Male', 'Female', 'Other'].map((gender) => (
+                          <button
+                            key={gender}
+                            type="button"
+                            onClick={() => handleSignupInputChange('gender', gender)}
+                            className={`py-3 px-4 border rounded-xl text-sm font-medium transition-all duration-200 ${
+                              signupData.gender === gender
+                                ? 'bg-blue-600 text-white border-blue-600'
+                                : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 hover:border-blue-500'
+                            }`}
+                          >
+                            {gender}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Country */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Country
+                      </label>
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setIsSignupDropdownOpen(!isSignupDropdownOpen)}
+                          className={`w-full flex items-center justify-between px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                            signupError && signupError.includes('country') 
+                              ? 'border-red-500 dark:border-red-400' 
+                              : 'border-gray-300 dark:border-gray-600'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="text-lg">{selectedSignupCountry.flag}</span>
+                            <span className="text-sm">{signupData.country || selectedSignupCountry.name}</span>
+                          </div>
+                          <ChevronDownIcon className={`h-4 w-4 transition-transform duration-200 ${isSignupDropdownOpen ? 'rotate-180' : ''}`} />
+                        </button>
+                        
+                        {/* Country Dropdown */}
+                        {isSignupDropdownOpen && (
+                          <div className="absolute top-full left-0 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto">
+                            {signupCountries.map((country, index) => (
+                              <button
+                                key={`${country.country}-${index}`}
+                                type="button"
+                                onClick={() => {
+                                  setSelectedSignupCountry(country)
+                                  handleSignupInputChange('country', country.name)
+                                  setIsSignupDropdownOpen(false)
+                                }}
+                                className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150"
+                              >
+                                <span className="text-lg">{country.flag}</span>
+                                <div className="flex-1">
+                                  <div className="text-sm font-medium text-gray-900 dark:text-white">{country.name}</div>
+                                  <div className="text-xs text-gray-500 dark:text-gray-400">{country.code}</div>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Profession */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Profession
+                      </label>
+                      <input
+                        type="text"
+                        value={signupData.profession}
+                        onChange={(e) => handleSignupInputChange('profession', e.target.value)}
+                        placeholder="Enter your profession"
+                        className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                          signupError && signupError.includes('profession') 
+                            ? 'border-red-500 dark:border-red-400' 
+                            : 'border-gray-300 dark:border-gray-600'
+                        }`}
+                        required
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        value={signupData.email}
+                        onChange={(e) => handleSignupInputChange('email', e.target.value)}
+                        placeholder="Enter your email address"
+                        className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                          signupError && signupError.includes('email') 
+                            ? 'border-red-500 dark:border-red-400' 
+                            : 'border-gray-300 dark:border-gray-600'
+                        }`}
+                        required
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Email OTP Section */}
+                    <div className="text-center mb-6">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        Verify Your Email
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        We've sent a 6-digit code to <span className="font-medium">{signupData.email}</span>
+                      </p>
+                    </div>
+
+                    {/* Email OTP Input */}
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Enter OTP
+                      </label>
+                      <input
+                        type="text"
+                        value={emailOtpValue}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, '').slice(0, 6)
+                          setEmailOtpValue(value)
+                          setSignupError('')
+                        }}
+                        placeholder="Enter 6-digit OTP"
+                        maxLength={6}
+                        className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 text-center text-lg tracking-widest ${
+                          signupError && signupError.includes('OTP') 
+                            ? 'border-red-500 dark:border-red-400' 
+                            : 'border-gray-300 dark:border-gray-600'
+                        }`}
+                        required
+                      />
+                    </div>
+
+                    {/* Resend OTP */}
+                    <div className="text-center">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          console.log('Resending OTP to:', signupData.email)
+                        }}
+                        className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200"
+                      >
+                        Didn't receive the code? Resend OTP
+                      </button>
+                    </div>
+                  </>
+                )}
+
+                {/* Signup Error Message */}
+                {signupError && (
+                  <div className="text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
+                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    {signupError}
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isVerifyingEmail}
+                  className="w-full font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white hover:scale-[1.02] hover:shadow-xl focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  {isVerifyingEmail ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Verifying...
+                    </div>
+                  ) : showEmailOtp ? (
+                    'Complete Registration'
+                  ) : (
+                    'Continue'
+                  )}
+                </button>
+
+                {/* Success Animation */}
+                {isEmailVerified && (
+                  <div className="text-center">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full mb-2">
+                      <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="text-sm text-green-600 dark:text-green-400 font-medium">
+                      Registration completed successfully!
+                    </p>
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
 
         </div>
       </div>
 
       {/* Modern Subtle Verification Success Animation - Only on Right Side */}
-      {isVerified && (
+      {isVerified && !showSignupForm && (
         <div className="fixed top-0 right-0 w-full lg:w-[30%] h-full z-40 pointer-events-none">
           {/* Modern Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/80 via-green-50/60 to-teal-50/40 dark:from-emerald-950/30 dark:via-green-950/20 dark:to-teal-950/10 backdrop-blur-[2px] animate-fade-in"></div>

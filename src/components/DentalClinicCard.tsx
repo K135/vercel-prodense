@@ -6,12 +6,7 @@ import { Button } from '@/shared/Button'
 import StartRating from './StartRating'
 import { 
   MapPinpoint02Icon, 
-  DollarCircleIcon, 
-  Time04Icon, 
   Award01Icon,
-  PhoneIcon,
-  MailIcon,
-  GlobeIcon,
   WheelchairIcon,
   Wifi01Icon,
   Car01Icon,
