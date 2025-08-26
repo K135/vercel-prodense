@@ -1025,7 +1025,7 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
                     </div>
                     
                     <p className="text-neutral-700 dark:text-neutral-300 mb-4 italic text-sm leading-relaxed">
-                      "{testimonial.text}"
+                      &ldquo;{testimonial.text}&rdquo;
                     </p>
                     
                     <div className="flex items-center gap-3 mt-auto">

@@ -250,7 +250,7 @@ export const DentalLocationInputField: FC<Props> = ({
         setSuggests(demoInitSuggests)
       }
     }, 300),
-    []
+    [demoSearchingSuggests, demoInitSuggests]
   )
 
   useEffect(() => {

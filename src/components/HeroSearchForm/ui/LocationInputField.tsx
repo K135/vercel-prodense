@@ -149,7 +149,7 @@ export const LocationInputField: FC<Props> = ({
         })
       }
     }, 300),
-    []
+    [setSelected, setShowPopover]
   )
   useEffect(() => {
     return () => {

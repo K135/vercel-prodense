@@ -775,7 +775,7 @@ const Page = () => {
                         Verify Your Email
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        We've sent a 6-digit code to <span className="font-medium">{signupData.email}</span>
+                        We&apos;ve sent a 6-digit code to <span className="font-medium">{signupData.email}</span>
                       </p>
                     </div>
 
@@ -812,7 +812,7 @@ const Page = () => {
                         }}
                         className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200"
                       >
-                        Didn't receive the code? Resend OTP
+                        Didn&apos;t receive the code? Resend OTP
                       </button>
                     </div>
                   </>
