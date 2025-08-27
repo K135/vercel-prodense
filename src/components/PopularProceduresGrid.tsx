@@ -101,50 +101,70 @@ const procedures: Procedure[] = [
 
 const PopularProceduresGrid = () => {
   return (
-    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 lg:gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-5 lg:gap-6">
       {procedures.map((procedure, index) => (
         <motion.div
           key={procedure.id}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
+          transition={{ 
+            duration: 0.6, 
+            delay: index * 0.08,
+            ease: [0.25, 0.46, 0.45, 0.94]
+          }}
           className="group"
         >
           <Link href={procedure.href} className="block h-full">
-            <div className="relative bg-white rounded-2xl transition-all duration-300 overflow-hidden border border-gray-200 group-hover:border-blue-300 group-hover:-translate-y-1 h-full flex flex-col">
-              {/* Image Container - Takes up most of the space */}
-              <div className="relative flex-1 min-h-[100px] md:min-h-[120px] lg:min-h-[150px] overflow-hidden bg-white">
+            {/* Glassmorphism Card */}
+            <div className="relative bg-white/20 backdrop-blur-md rounded-3xl transition-all duration-500 overflow-hidden border-2 border-[#E5BA47]/20 group-hover:border-[#E5BA47]/60 group-hover:shadow-2xl group-hover:shadow-[#E5BA47]/10 group-hover:-translate-y-3 h-full flex flex-col">
+              {/* Glassmorphism background layers */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#E5BA47]/5 via-transparent to-[#E5BA47]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Animated golden glow effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#E5BA47]/20 via-[#E5BA47]/5 to-[#E5BA47]/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+              
+              {/* GIF Image Container - WHITE BACKGROUND ALWAYS */}
+              <div className="relative flex-1 min-h-[120px] md:min-h-[140px] lg:min-h-[160px] overflow-hidden z-10 bg-white rounded-t-3xl">
                 <Image
                   src={procedure.image}
                   alt={procedure.name}
                   fill
-                  className="object-contain p-2 md:p-3 lg:p-4 group-hover:scale-110 transition-transform duration-300"
-                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 16vw"
+                  className="object-contain p-3 md:p-4 lg:p-5 group-hover:scale-105 transition-all duration-500 ease-out"
+                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 25vw, 16vw"
+                  unoptimized={true} // This ensures GIFs play properly
                 />
-                
-
               </div>
               
-              {/* Content - Fixed height at bottom */}
-              <div className="p-2 md:p-3 lg:p-4 text-center">
-                <h3 className="text-xs md:text-sm lg:text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 leading-tight mb-2">
+              {/* Content with glassmorphism */}
+              <div className="relative p-3 md:p-4 lg:p-5 text-center z-10">
+                {/* Subtle glass separator */}
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-px bg-gradient-to-r from-transparent via-[#E5BA47]/30 to-transparent" />
+                
+                <h3 className="text-xs md:text-sm lg:text-base font-semibold text-gray-800 transition-colors duration-300 leading-tight mb-3 line-clamp-2 drop-shadow-sm">
                   {procedure.name}
                 </h3>
                 
-                {/* Arrow */}
-                <div className="flex justify-center">
-                  <svg 
-                    className="w-4 h-4 lg:w-5 lg:h-5 text-blue-600 group-hover:translate-x-1 transition-transform duration-300" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                {/* Enhanced CTA with glassmorphism - Icon only */}
+                <div className="flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-8 h-8 rounded-full bg-[#E5BA47]/10 backdrop-blur-sm border border-[#E5BA47]/20 flex items-center justify-center group-hover:bg-[#E5BA47]/20 group-hover:border-[#E5BA47]/30 transition-all duration-300">
+                    <svg 
+                      className="w-4 h-4 text-[#E5BA47] group-hover:translate-x-0.5 transition-transform duration-300" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
               </div>
               
-
+              {/* Golden bottom accent with glassmorphism */}
+              <div className="h-1 bg-gradient-to-r from-transparent via-[#E5BA47]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-sm" />
+              
+              {/* Additional glass reflection effect - only on content area */}
+              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white/20 to-transparent opacity-60 pointer-events-none rounded-b-3xl" />
             </div>
           </Link>
         </motion.div>

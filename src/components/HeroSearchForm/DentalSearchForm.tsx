@@ -70,7 +70,7 @@ export const DentalSearchForm = ({ className, formStyle = 'default' }: Props) =>
             <div className="text-xs text-neutral-500 dark:text-neutral-400">Quick Quote</div>
             <button
               type="button"
-              className="text-sm font-medium text-[#0480ea] hover:text-blue-600 transition-colors"
+              className="text-sm font-medium text-[#e6ba47] hover:text-[#e6ba47]/80 transition-colors"
               onClick={() => {
                 // Handle quick quote action
                 console.log('Quick quote requested')
@@ -85,7 +85,7 @@ export const DentalSearchForm = ({ className, formStyle = 'default' }: Props) =>
         <button 
           type="submit" 
           className={clsx(
-            'absolute z-10 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#0480ea] to-blue-600 hover:from-[#0480ea]/90 hover:to-blue-600/90 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center',
+            'absolute z-10 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#DB3116] to-[#DB3116]/80 hover:from-[#DB3116]/90 hover:to-[#DB3116]/70 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center',
             formStyle === 'default' ? 'h-14 px-6 end-2 xl:end-4' : 'h-12 px-4 end-2'
           )}
         >
@@ -103,7 +103,7 @@ export const DentalSearchForm = ({ className, formStyle = 'default' }: Props) =>
         </div>
         <div className="w-px h-4 bg-neutral-300 dark:bg-neutral-600 hidden sm:block"></div>
         <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
-          <div className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0"></div>
+          <div className="w-2 h-2 rounded-full bg-[#e6ba47] flex-shrink-0"></div>
           <span className="font-medium">Accredited</span>
         </div>
         <div className="w-px h-4 bg-neutral-300 dark:bg-neutral-600 hidden sm:block"></div>

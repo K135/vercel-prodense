@@ -6,16 +6,16 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary-50: rgb(240, 248, 255);
-  --color-primary-100: rgb(219, 234, 254);
-  --color-primary-200: rgb(191, 219, 254);
-  --color-primary-300: rgb(147, 197, 253);
-  --color-primary-400: rgb(96, 165, 250);
-  --color-primary-500: rgb(4, 128, 234);
-  --color-primary-600: rgb(3, 105, 192);
-  --color-primary-700: rgb(3, 82, 150);
-  --color-primary-800: rgb(2, 59, 108);
-  --color-primary-900: rgb(2, 36, 66);
+  --color-primary-50: rgb(254, 252, 235);
+  --color-primary-100: rgb(254, 249, 195);
+  --color-primary-200: rgb(254, 240, 138);
+  --color-primary-300: rgb(253, 224, 71);
+  --color-primary-400: rgb(250, 204, 21);
+  --color-primary-500: rgb(230, 186, 71);
+  --color-primary-600: rgb(202, 138, 4);
+  --color-primary-700: rgb(161, 98, 7);
+  --color-primary-800: rgb(133, 77, 14);
+  --color-primary-900: rgb(113, 63, 18);
 
   --color-secondary-50: rgb(240, 253, 250);
   --color-secondary-100: rgb(204, 251, 241);

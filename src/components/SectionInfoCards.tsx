@@ -39,7 +39,7 @@ const SectionInfoCards: React.FC<SectionInfoCardsProps> = ({ className = '' }) =
   return (
     <section className={`pt-4 pb-8 lg:pt-6 lg:pb-12 ${className}`}>
       {/* Soft light-blue background */}
-      <div className="bg-gradient-to-br from-blue-50 to-sky-50 py-8 lg:py-12">
+      <div className="bg-gradient-to-br from-[#e6ba47]/10 to-[#e6ba47]/5 py-8 lg:py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             
@@ -84,7 +84,7 @@ const SectionInfoCards: React.FC<SectionInfoCardsProps> = ({ className = '' }) =
                   <select
                     value={selectedCity}
                     onChange={(e) => setSelectedCity(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-700 bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e6ba47] focus:border-transparent outline-none text-gray-700 bg-white"
                   >
                     <option value="">Select City</option>
                     {cities.map((city) => (
@@ -96,7 +96,7 @@ const SectionInfoCards: React.FC<SectionInfoCardsProps> = ({ className = '' }) =
                 </div>
                 
                 {/* Find Clinic Button */}
-                <button className="w-full bg-black text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200">
+                <button className="w-full bg-[#DB3116] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#DB3116]/90 transition-colors duration-200">
                   Start Your Journey
                 </button>
               </div>
@@ -113,7 +113,7 @@ const SectionInfoCards: React.FC<SectionInfoCardsProps> = ({ className = '' }) =
                 </p>
                 
                 {/* Talk to Expert Button */}
-                <button className="w-full bg-black text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors duration-200">
+                <button className="w-full bg-[#DB3116] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#DB3116]/90 transition-colors duration-200">
                   Talk to an expert
                 </button>
               </div>

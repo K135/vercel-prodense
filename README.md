@@ -129,4 +129,4 @@ PLEASE SEE THE ATTACHED
 
 
 Band Colours 
-Blue (primary) #0480ea
+Red (primary) #DB3116

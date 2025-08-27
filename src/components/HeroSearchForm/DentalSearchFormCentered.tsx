@@ -85,7 +85,7 @@ export const DentalSearchFormCentered = ({ className, formStyle = 'default' }: P
         <button 
           type="submit" 
           className={clsx(
-            'absolute z-10 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#0480ea] to-blue-600 hover:from-[#0480ea]/90 hover:to-blue-600/90 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center',
+            'absolute z-10 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#DB3116] to-[#DB3116]/80 hover:from-[#DB3116]/90 hover:to-[#DB3116]/70 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center',
             formStyle === 'default' ? 'h-14 px-6 end-2 xl:end-4' : 'h-12 px-4 end-2'
           )}
         >

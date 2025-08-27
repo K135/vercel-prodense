@@ -28,9 +28,9 @@ const DentalHeroSearchForm = ({ className, initTab = 'Procedures' }: { className
                 key={tab.name}
                 as={Link}
                 href={tab.href}
-                className="group/tab flex shrink-0 cursor-pointer items-center text-sm font-medium text-neutral-500 hover:text-[#0480ea] focus-visible:outline-hidden data-selected:text-[#0480ea] lg:text-base dark:hover:text-[#0480ea] dark:data-selected:text-[#0480ea] transition-colors"
+                className="group/tab flex shrink-0 cursor-pointer items-center text-sm font-medium text-neutral-500 hover:text-[#e6ba47] focus-visible:outline-hidden data-selected:text-[#e6ba47] lg:text-base dark:hover:text-[#e6ba47] dark:data-selected:text-[#e6ba47] transition-colors"
               >
-                <div className="me-1.5 hidden size-2.5 rounded-full bg-gradient-to-r from-[#0480ea] to-blue-600 group-data-selected/tab:block xl:me-2" />
+                <div className="me-1.5 hidden size-2.5 rounded-full bg-gradient-to-r from-[#e6ba47] to-[#e6ba47]/80 group-data-selected/tab:block xl:me-2" />
                 <IconComponent className="w-4 h-4 mr-2" />
                 <span>{tab.name}</span>
               </Headless.Tab>

@@ -269,8 +269,8 @@ export default function Footer2() {
             <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <div className="w-12 h-12 bg-[#e6ba47]/20 rounded-lg flex items-center justify-center">
+                    <svg className="w-6 h-6 text-[#e6ba47]" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2L3.09 8.26L12 22L20.91 8.26L12 2ZM12 4.44L18.18 9.26L12 19.56L5.82 9.26L12 4.44Z"/>
                     </svg>
                   </div>

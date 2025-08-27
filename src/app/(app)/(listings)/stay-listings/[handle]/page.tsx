@@ -363,35 +363,35 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
             <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
               Our Comprehensive Services
             </h2>
-            <div className="w-24 h-1 bg-[#0480ea] mx-auto mt-6 rounded-full"></div>
+            <div className="w-24 h-1 bg-[#DB3116] mx-auto mt-6 rounded-full"></div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Implantology */}
             <div className="group relative bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0480ea] to-[#0366d6]"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#DB3116] to-[#0366d6]"></div>
               <div className="p-8">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 bg-[#0480ea]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#0480ea]/20 transition-colors duration-300">
-                    <HugeiconsIcon icon={HospitalIcon} size={28} className="text-[#0480ea]" />
+                  <div className="w-14 h-14 bg-[#DB3116]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#DB3116]/20 transition-colors duration-300">
+                    <HugeiconsIcon icon={HospitalIcon} size={28} className="text-[#DB3116]" />
                   </div>
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Implantology</h3>
                 </div>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Dental Implants</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Same Day Implants</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">All-on-4 Implants</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">All-on-6 Implants</span>
                   </li>
                 </ul>
@@ -400,29 +400,29 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
 
             {/* Cosmetic Dentistry */}
             <div className="group relative bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0480ea] to-[#0366d6]"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#DB3116] to-[#0366d6]"></div>
               <div className="p-8">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 bg-[#0480ea]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#0480ea]/20 transition-colors duration-300">
-                    <HugeiconsIcon icon={StarIcon} size={28} className="text-[#0480ea]" />
+                  <div className="w-14 h-14 bg-[#DB3116]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#DB3116]/20 transition-colors duration-300">
+                    <HugeiconsIcon icon={StarIcon} size={28} className="text-[#DB3116]" />
                   </div>
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Cosmetic Dentistry</h3>
                 </div>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Dental Veneers</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Teeth Whitening</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Dental Bonding</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Smile Makeover</span>
                   </li>
                 </ul>
@@ -431,29 +431,29 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
 
             {/* Prosthodontics */}
             <div className="group relative bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0480ea] to-[#0366d6]"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#DB3116] to-[#0366d6]"></div>
               <div className="p-8">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 bg-[#0480ea]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#0480ea]/20 transition-colors duration-300">
-                    <HugeiconsIcon icon={StethoscopeIcon} size={28} className="text-[#0480ea]" />
+                  <div className="w-14 h-14 bg-[#DB3116]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#DB3116]/20 transition-colors duration-300">
+                    <HugeiconsIcon icon={StethoscopeIcon} size={28} className="text-[#DB3116]" />
                   </div>
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Prosthodontics</h3>
                 </div>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Full Mouth Reconstruction</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Dental Crowns & Bridges</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Complete Dentures</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Partial Dentures</span>
                   </li>
                 </ul>
@@ -462,29 +462,29 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
 
             {/* Orthodontics */}
             <div className="group relative bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0480ea] to-[#0366d6]"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#DB3116] to-[#0366d6]"></div>
               <div className="p-8">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 bg-[#0480ea]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#0480ea]/20 transition-colors duration-300">
-                    <HugeiconsIcon icon={FavouriteIcon} size={28} className="text-[#0480ea]" />
+                  <div className="w-14 h-14 bg-[#DB3116]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#DB3116]/20 transition-colors duration-300">
+                    <HugeiconsIcon icon={FavouriteIcon} size={28} className="text-[#DB3116]" />
                   </div>
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Orthodontics</h3>
                 </div>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Traditional Braces</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Clear Aligners</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Corrective Jaw Surgery</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Retainers</span>
                   </li>
                 </ul>
@@ -493,29 +493,29 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
 
             {/* Endodontics */}
             <div className="group relative bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0480ea] to-[#0366d6]"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#DB3116] to-[#0366d6]"></div>
               <div className="p-8">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 bg-[#0480ea]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#0480ea]/20 transition-colors duration-300">
-                    <HugeiconsIcon icon={MedicalMaskIcon} size={28} className="text-[#0480ea]" />
+                  <div className="w-14 h-14 bg-[#DB3116]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#DB3116]/20 transition-colors duration-300">
+                    <HugeiconsIcon icon={MedicalMaskIcon} size={28} className="text-[#DB3116]" />
                   </div>
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-white">Endodontics</h3>
                 </div>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Root Canal Treatment</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Root Surgeries</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Pulp Therapy</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Apicoectomy</span>
                   </li>
                 </ul>
@@ -524,29 +524,29 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
 
             {/* General Dentistry */}
             <div className="group relative bg-white dark:bg-neutral-800 rounded-3xl border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0480ea] to-[#0366d6]"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#DB3116] to-[#0366d6]"></div>
               <div className="p-8">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 bg-[#0480ea]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#0480ea]/20 transition-colors duration-300">
-                    <HugeiconsIcon icon={ShieldIcon} size={28} className="text-[#0480ea]" />
+                  <div className="w-14 h-14 bg-[#DB3116]/10 rounded-2xl flex items-center justify-center group-hover:bg-[#DB3116]/20 transition-colors duration-300">
+                    <HugeiconsIcon icon={ShieldIcon} size={28} className="text-[#DB3116]" />
                   </div>
                   <h3 className="text-xl font-bold text-neutral-900 dark:text-white">General Dentistry</h3>
                 </div>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Professional Cleaning</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Dental Fillings</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Tooth Extractions</span>
                   </li>
                   <li className="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
-                    <div className="w-2 h-2 bg-[#0480ea] rounded-full flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[#DB3116] rounded-full flex-shrink-0"></div>
                     <span className="font-semibold">Preventive Care</span>
                   </li>
                 </ul>
@@ -556,7 +556,7 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
 
           {/* Call to Action */}
           <div className="mt-12 text-center">
-            <div className="bg-gradient-to-r from-[#0480ea]/5 to-[#0366d6]/5 rounded-3xl p-8 border border-[#0480ea]/20">
+            <div className="bg-gradient-to-r from-[#DB3116]/5 to-[#0366d6]/5 rounded-3xl p-8 border border-[#DB3116]/20">
               <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
                 Ready to Transform Your Smile?
               </h3>
@@ -564,7 +564,7 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
                 Schedule a consultation today and discover how our comprehensive dental services can help you achieve the healthy, beautiful smile you deserve.
               </p>
               <div className="flex justify-center">
-                <button className="bg-[#0480ea] hover:bg-[#0369d1] text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 text-base border border-[#0480ea]">
+                <button className="bg-[#DB3116] hover:bg-[#0369d1] text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 text-base border border-[#DB3116]">
                   Schedule Consultation
                 </button>
               </div>
@@ -697,7 +697,7 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
           <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
             Meet Our Top Dentists
           </h2>
-          <div className="w-24 h-1 bg-[#0480ea] mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-[#DB3116] mx-auto rounded-full"></div>
         </div>
         
         {/* 3x2 Grid */}
@@ -721,19 +721,19 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
                 <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
                   {dentist.name}
                 </h3>
-                <p className="text-[#0480ea] font-semibold mb-3">
+                <p className="text-[#DB3116] font-semibold mb-3">
                   {dentist.specialty}
                 </p>
                 
                 <div className="flex items-center gap-2 mb-4">
-                  <HugeiconsIcon icon={Award01Icon} size={18} className="text-[#0480ea]" />
+                  <HugeiconsIcon icon={Award01Icon} size={18} className="text-[#DB3116]" />
                   <span className="text-neutral-600 dark:text-neutral-400 text-sm">
                     {dentist.experience} Experience
                   </span>
                 </div>
                 
                 <div className="flex items-center gap-2">
-                  <HugeiconsIcon icon={CertificateIcon} size={18} className="text-[#0480ea]" />
+                  <HugeiconsIcon icon={CertificateIcon} size={18} className="text-[#DB3116]" />
                   <span className="text-neutral-600 dark:text-neutral-400 text-sm">
                     DDS Certified
                   </span>

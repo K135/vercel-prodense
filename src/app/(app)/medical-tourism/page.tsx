@@ -6,24 +6,24 @@ export default function MedicalTourismPage() {
     <ApplicationLayout>
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-[#0480ea]/10 to-[#f07499]/10 py-20">
+        <section className="bg-gradient-to-br from-[#e6ba47]/10 to-[#e6ba47]/20 py-20">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-5xl font-bold text-gray-900 mb-6">
               World-Class Dental Care
-              <span className="block text-[#0480ea]">In India&apos;s Tourist Destinations</span>
+              <span className="block text-[#e6ba47]">In India&apos;s Tourist Destinations</span>
             </h1>
             <p className="text-xl text-gray-600 mb-4 max-w-3xl mx-auto">
               Experience premium dental treatments in beautiful tourist cities across India. 
               Skip the metro cities and get your dental care where your vacation begins.
             </p>
-            <p className="text-2xl font-bold text-[#f07499] mb-8">
+            <p className="text-2xl font-bold text-[#e6ba47] mb-8">
               &quot;Smile. And Show-Up&quot;
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-[#0480ea] to-[#f07499] hover:from-[#0480ea]/90 hover:to-[#f07499]/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105">
+              <button className="bg-gradient-to-r from-[#e6ba47] to-[#e6ba47]/80 hover:from-[#e6ba47]/90 hover:to-[#e6ba47]/70 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105">
                 Get Free Consultation
               </button>
-              <button className="border-2 border-[#0480ea] text-[#0480ea] hover:bg-[#0480ea] hover:text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+              <button className="border-2 border-[#e6ba47] text-[#e6ba47] hover:bg-[#e6ba47] hover:text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all">
                 Browse Procedures
               </button>
             </div>
@@ -41,8 +41,8 @@ export default function MedicalTourismPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="text-center p-6 rounded-xl bg-[#0480ea]/10 hover:bg-[#0480ea]/20 transition-colors">
-                <div className="w-16 h-16 bg-[#0480ea] rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="text-center p-6 rounded-xl bg-[#DB3116]/10 hover:bg-[#DB3116]/20 transition-colors">
+                <div className="w-16 h-16 bg-[#DB3116] rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -107,11 +107,11 @@ export default function MedicalTourismPage() {
                 { name: 'Oral Surgery', description: 'Surgical dental procedures', image: '🏥' },
                 { name: 'Cosmetic Dentistry', description: 'Smile makeover treatments', image: '💎' },
               ].map((procedure, index) => (
-                <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow p-6 border-l-4 border-[#0480ea]">
+                <div key={index} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow p-6 border-l-4 border-[#DB3116]">
                   <div className="text-4xl mb-4">{procedure.image}</div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{procedure.name}</h3>
                   <p className="text-gray-600 mb-4">{procedure.description}</p>
-                  <button className="text-[#0480ea] hover:text-[#f07499] font-medium transition-colors">
+                  <button className="text-[#DB3116] hover:text-[#f07499] font-medium transition-colors">
                     Learn More →
                   </button>
                 </div>
@@ -121,7 +121,7 @@ export default function MedicalTourismPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-[#0480ea] to-[#f07499] text-white">
+        <section className="py-20 bg-gradient-to-r from-[#DB3116] to-[#f07499] text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold mb-6">Ready to Start Your Dental Journey?</h2>
             <p className="text-xl mb-4 max-w-2xl mx-auto">
@@ -131,10 +131,10 @@ export default function MedicalTourismPage() {
               &quot;It is not the strength of the fight, it is the size of the bite.&quot;
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-[#0480ea] hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+              <button className="bg-white text-[#DB3116] hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all">
                 Schedule Consultation
               </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-[#0480ea] px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+              <button className="border-2 border-white text-white hover:bg-white hover:text-[#DB3116] px-8 py-4 rounded-lg font-semibold text-lg transition-all">
                 Download Brochure
               </button>
             </div>

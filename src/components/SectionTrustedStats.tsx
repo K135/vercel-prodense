@@ -126,7 +126,7 @@ const SectionTrustedStats: FC<Props> = ({
       title: 'Prodense Is Peoples 1st Choice',
       description: 'Experience world-class dental care with our comprehensive approach to your oral health journey',
       hasGetStartedButton: true,
-      bgClass: 'bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20',
+      bgClass: 'bg-gradient-to-br from-[#E85D04]/10 to-[#F77F00]/20 dark:from-[#E85D04]/20 dark:to-[#F77F00]/30',
       isFeatureGrid: true,
     },
   ],
@@ -316,7 +316,7 @@ const SectionTrustedStats: FC<Props> = ({
                     <div className="mb-6">
                       <Link 
                         href="#" 
-                        className="inline-flex items-center px-6 py-3 bg-primary-800 hover:bg-primary-900 text-white font-medium rounded-lg transition-colors duration-200"
+                        className="inline-flex items-center px-6 py-3 bg-[#DB3116] hover:bg-[#DB3116]/90 text-white font-medium rounded-lg transition-colors duration-200"
                       >
                         Get Started Now
                         <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

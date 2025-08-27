@@ -45,8 +45,8 @@ const ModernLoginButton: React.FC<ModernLoginButtonProps> = ({
       'dark:text-gray-400 dark:hover:bg-gray-800/30 dark:hover:text-white'
     ),
     outline: clsx(
-      'bg-transparent text-[#0480ea] border border-[#0480ea]/30',
-      'hover:bg-[#0480ea]/5 hover:border-[#0480ea]/50 hover:text-[#0480ea]',
+      'bg-transparent text-[#DB3116] border border-[#DB3116]/30',
+      'hover:bg-[#DB3116]/5 hover:border-[#DB3116]/50 hover:text-[#DB3116]',
       'dark:text-blue-400 dark:border-blue-400/30',
       'dark:hover:bg-blue-400/5 dark:hover:border-blue-400/50'
     )
