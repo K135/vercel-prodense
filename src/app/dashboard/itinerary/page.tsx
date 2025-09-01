@@ -7,7 +7,7 @@ import {
   CalendarDaysIcon, 
   ClockIcon, 
   BuildingOffice2Icon,
-  AirplaneIcon,
+  PaperAirplaneIcon as AirplaneIcon,
   UserGroupIcon,
   CameraIcon,
   DocumentTextIcon,

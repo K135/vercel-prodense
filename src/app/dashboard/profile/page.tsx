@@ -16,7 +16,8 @@ import {
   HeartIcon,
   ShieldCheckIcon,
   GlobeAltIcon,
-  IdentificationIcon
+  IdentificationIcon,
+  ClockIcon
 } from '@heroicons/react/24/outline'
 import { 
   UserIcon as UserSolid,

@@ -97,7 +97,7 @@ export default function DashboardPage() {
                 Welcome back, {user.firstName}! 👋
               </h1>
               <p className="text-blue-100 text-lg">
-                Here's what's happening with your account today.
+                Here&apos;s what&apos;s happening with your account today.
               </p>
             </div>
             <div className="hidden md:block">

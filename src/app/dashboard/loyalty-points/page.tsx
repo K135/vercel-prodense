@@ -13,8 +13,8 @@ import {
   HeartIcon,
   FireIcon,
   BoltIcon,
-  CrownIcon,
-  DiamondIcon
+  TrophyIcon as CrownIcon,
+  SparklesIcon as DiamondIcon
 } from '@heroicons/react/24/outline'
 import { 
   GiftIcon as GiftSolid,
