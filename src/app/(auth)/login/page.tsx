@@ -157,7 +157,7 @@ const Page = () => {
               }
             }
           } catch (serviceError) {
-            console.log(`Service ${serviceUrl} failed:`, serviceError.message)
+            console.log(`Service ${serviceUrl} failed:`, serviceError instanceof Error ? serviceError.message : String(serviceError))
             continue
           }
         }
