@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { SparklesIcon, ChatBubbleLeftRightIcon, XMarkIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
@@ -80,7 +80,7 @@ export default function AskTheDoctorChat() {
     }, 1800);
   };
 
-  const toothMorphVariants = {
+  const toothMorphVariants: Variants = {
     initial: { 
       scale: 0, 
       borderRadius: "50%"
@@ -91,8 +91,7 @@ export default function AskTheDoctorChat() {
       transition: { 
         type: "spring", 
         stiffness: 200, 
-        damping: 15,
-        duration: 1.2
+        damping: 15
       }
     },
     bar: { 
@@ -100,7 +99,7 @@ export default function AskTheDoctorChat() {
       borderRadius: "30px",
       transition: { 
         duration: 0.8, 
-        ease: "easeInOut",
+        ease: [0.42, 0, 0.58, 1],
         delay: 0.5
       }
     },
@@ -110,8 +109,7 @@ export default function AskTheDoctorChat() {
       transition: {
         type: "spring",
         stiffness: 200,
-        damping: 15,
-        duration: 0.6
+        damping: 15
       }
     },
     exitToBar: {
@@ -119,25 +117,25 @@ export default function AskTheDoctorChat() {
       borderRadius: "30px",
       transition: {
         duration: 0.8,
-        ease: "easeInOut",
+        ease: [0.42, 0, 0.58, 1],
         delay: 0.5
       }
     }
   };
 
-  const sparkleVariants = {
+  const sparkleVariants: Variants = {
     animate: {
       scale: [1, 1.05, 1],
       opacity: [0.8, 1, 0.8],
       transition: {
         duration: 2,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: [0.42, 0, 0.58, 1]
       }
     }
   };
 
-  const glowVariants = {
+  const glowVariants: Variants = {
     hover: {
       boxShadow: [
         "0 0 20px rgba(219, 49, 22, 0.3)",
@@ -147,34 +145,27 @@ export default function AskTheDoctorChat() {
       transition: {
         duration: 1.5,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: [0.42, 0, 0.58, 1]
       }
     }
   };
 
-  const waveRevealVariants = {
+  const waveRevealVariants: Variants = {
     hidden: { 
       height: 60, 
       borderRadius: 30,
-      background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+      background: "#ffffff",
       y: 0
     },
     visible: { 
       height: 450, 
       borderRadius: 20,
       y: -390, // Move up by the difference in height (450 - 60 = 390)
-      background: [
-        "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
-        "linear-gradient(135deg, #fff5f5 0%, #ffffff 100%)",
-        "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)"
-      ],
+      background: ["#ffffff", "#fff5f5", "#ffffff"],
       transition: { 
         duration: 0.8, 
-        ease: "easeInOut",
-        background: {
-          duration: 0.3,
-          times: [0, 0.5, 1]
-        }
+        ease: [0.42, 0, 0.58, 1],
+        times: [0, 0.5, 1]
       }
     },
     exit: {
@@ -184,7 +175,7 @@ export default function AskTheDoctorChat() {
       opacity: 0,
       transition: {
         duration: 0.4,
-        ease: "easeInOut"
+        ease: [0.42, 0, 0.58, 1]
       }
     }
   };
