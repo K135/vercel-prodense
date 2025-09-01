@@ -983,7 +983,7 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
-            Read What Our Happy Patients Say from Europe & Russia
+            Read What Our Happy Patients Say 
           </h2>
           
           <div className="flex gap-2 flex-shrink-0">
@@ -1058,7 +1058,7 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
         image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=250&fit=crop&crop=center'
       },
       {
-        name: 'The Grand Mumbai',
+        name: 'The Grand Luxury Mumbai',
         rating: 4.2,
         reviews: 116,
         address: 'Linking Road, Bandra West, Mumbai, 400050, India',

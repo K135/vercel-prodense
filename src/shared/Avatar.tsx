@@ -10,6 +10,8 @@ type AvatarProps = {
   initials?: string
   alt?: string
   className?: string
+  hasChecked?: boolean
+  hasCheckedClass?: string
 }
 
 export default function Avatar({
@@ -18,6 +20,8 @@ export default function Avatar({
   initials,
   alt = '',
   className,
+  hasChecked = false,
+  hasCheckedClass = '',
   ...props
 }: AvatarProps & React.ComponentPropsWithoutRef<'span'>) {
   return (
@@ -30,7 +34,9 @@ export default function Avatar({
         'inline-grid shrink-0 align-middle [--avatar-radius:20%] *:col-start-1 *:row-start-1',
         'outline -outline-offset-1 outline-black/10 dark:outline-white/10',
         // Border radius
-        square ? 'rounded-(--avatar-radius) *:rounded-(--avatar-radius)' : 'rounded-full *:rounded-full'
+        square ? 'rounded-(--avatar-radius) *:rounded-(--avatar-radius)' : 'rounded-full *:rounded-full',
+        // Checked state styling
+        hasChecked && hasCheckedClass
       )}
     >
       {initials && (
@@ -57,6 +63,8 @@ export const AvatarButton = forwardRef(function AvatarButton(
     initials,
     alt,
     className,
+    hasChecked = false,
+    hasCheckedClass = '',
     ...props
   }: AvatarProps &
     (Omit<Headless.ButtonProps, 'as' | 'className'> | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>),
@@ -71,13 +79,13 @@ export const AvatarButton = forwardRef(function AvatarButton(
   return 'href' in props ? (
     <Link {...props} className={classes} ref={ref as React.ForwardedRef<HTMLAnchorElement>}>
       <TouchTarget>
-        <Avatar src={src} square={square} initials={initials} alt={alt} />
+        <Avatar src={src} square={square} initials={initials} alt={alt} hasChecked={hasChecked} hasCheckedClass={hasCheckedClass} />
       </TouchTarget>
     </Link>
   ) : (
     <Headless.Button {...props} className={classes} ref={ref}>
       <TouchTarget>
-        <Avatar src={src} square={square} initials={initials} alt={alt} />
+        <Avatar src={src} square={square} initials={initials} alt={alt} hasChecked={hasChecked} hasCheckedClass={hasCheckedClass} />
       </TouchTarget>
     </Headless.Button>
   )

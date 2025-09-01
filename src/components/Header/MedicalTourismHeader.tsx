@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/shared/Button'
 import ModernLoginButton from '@/components/ui/ModernLoginButton'
+import AuthHeaderSection from '@/components/Header/AuthHeaderSection'
 import { 
   PhoneIcon, 
   EnvelopeIcon, 
@@ -62,7 +63,7 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
   return (
     <div className={clsx('', className)}>
       {/* Top Header Bar */}
-      <div className="bg-gradient-to-r from-[#e6ba47] to-[#e6ba47]/80 text-white">
+      <div className="bg-white text-black">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-2 text-sm">
             {/* Contact Info */}
@@ -81,7 +82,7 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
             <div className="hidden md:flex items-center">
               <Link 
                 href="/find-clinic" 
-                className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg font-bold text-white transition-colors"
+                className="flex items-center space-x-2 bg-black/10 hover:bg-black/20 px-4 py-2 rounded-lg font-bold text-black transition-colors"
               >
                 <MapPinIcon className="h-4 w-4" />
                 <span>Find Nemotec Center</span>
@@ -96,31 +97,20 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
       {isScrolled && <div className="h-[72px]" />}
       
       <div className={clsx(
-        'z-50 bg-white shadow-sm transition-all duration-300',
+        'z-50 bg-[#e6ba47] shadow-sm transition-all duration-300',
         isScrolled 
           ? 'fixed top-0 left-0 right-0'
           : 'relative'
       )}>
         <div className="container mx-auto px-2">
           <div className="flex items-center py-4">
-            {/* Logo & Branding */}
-            <div className="flex items-center flex-shrink-0 mr-4">
-              <Link href="/" className="flex items-center">
-                <Image 
-                  src="/images/logos/Prodense health logo.png?v=2" 
-                  alt="Prodense Health" 
-                  width={160} 
-                  height={160} 
-                  className="rounded-lg"
-                />
-              </Link>
-            </div>
+
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8 flex-1 justify-center">
             {/* Procedures Dropdown */}
             <Popover className="relative">
-              <PopoverButton className="flex items-center space-x-1 text-gray-700 hover:text-[#e6ba47] font-bold transition-colors">
+              <PopoverButton className="flex items-center space-x-1 text-black hover:text-gray-700 font-bold transition-colors">
                 <span>Procedures</span>
                 <ChevronDownIcon className="h-4 w-4" />
               </PopoverButton>
@@ -129,7 +119,7 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block px-4 py-2 text-gray-700 hover:bg-[#e6ba47]/10 hover:text-[#e6ba47] transition-colors"
+                    className="block px-4 py-2 text-gray-700 hover:bg-[#DB3116]/10 hover:text-[#DB3116] transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -139,7 +129,7 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
 
             {/* Destinations Dropdown */}
             <Popover className="relative">
-              <PopoverButton className="flex items-center space-x-1 text-gray-700 hover:text-[#e6ba47] font-bold transition-colors">
+              <PopoverButton className="flex items-center space-x-1 text-black hover:text-gray-700 font-bold transition-colors">
                 <span>Destinations</span>
                 <ChevronDownIcon className="h-4 w-4" />
               </PopoverButton>
@@ -148,7 +138,7 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block px-4 py-2 text-gray-700 hover:bg-[#e6ba47]/10 hover:text-[#e6ba47] transition-colors"
+                    className="block px-4 py-2 text-gray-700 hover:bg-[#DB3116]/10 hover:text-[#DB3116] transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -156,15 +146,9 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
               </PopoverPanel>
             </Popover>
 
-            {/* Other Menu Items */}
-            <Link href="/ask-doctor" className="flex items-center space-x-1 text-gray-700 hover:text-[#e6ba47] font-bold transition-colors">
-              <ChatBubbleLeftRightIcon className="h-4 w-4" />
-              <span>Ask a Doctor</span>
-            </Link>
-
             {/* About Prodense Dropdown */}
             <Popover className="relative">
-              <PopoverButton className="flex items-center space-x-1 text-gray-700 hover:text-[#e6ba47] font-bold transition-colors">
+              <PopoverButton className="flex items-center space-x-1 text-black hover:text-gray-700 font-bold transition-colors">
                 <InformationCircleIcon className="h-4 w-4" />
                 <span>About Prodense</span>
                 <ChevronDownIcon className="h-4 w-4" />
@@ -172,32 +156,32 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
               <PopoverPanel className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
                 <Link
                   href="/about"
-                  className="block px-4 py-2 text-gray-700 hover:bg-[#e6ba47]/10 hover:text-[#e6ba47] transition-colors"
+                  className="block px-4 py-2 text-gray-700 hover:bg-[#DB3116]/10 hover:text-[#DB3116] transition-colors"
                 >
                   About Us
                 </Link>
                 <Link
                   href="/brand-story"
-                  className="block px-4 py-2 text-gray-700 hover:bg-[#e6ba47]/10 hover:text-[#e6ba47] transition-colors"
+                  className="block px-4 py-2 text-gray-700 hover:bg-[#DB3116]/10 hover:text-[#DB3116] transition-colors"
                 >
                   Brand Story
                 </Link>
                 <Link
                   href="/prodense-promise"
-                  className="block px-4 py-2 text-gray-700 hover:bg-[#e6ba47]/10 hover:text-[#e6ba47] transition-colors"
+                  className="block px-4 py-2 text-gray-700 hover:bg-[#DB3116]/10 hover:text-[#DB3116] transition-colors"
                 >
                   Prodense Promise
                 </Link>
                 <Link
                   href="/csr"
-                  className="block px-4 py-2 text-gray-700 hover:bg-[#e6ba47]/10 hover:text-[#e6ba47] transition-colors"
+                  className="block px-4 py-2 text-gray-700 hover:bg-[#DB3116]/10 hover:text-[#DB3116] transition-colors"
                 >
                   CSR
                 </Link>
               </PopoverPanel>
             </Popover>
 
-            <Link href="/travel-assistance" className="flex items-center space-x-1 text-gray-700 hover:text-[#e6ba47] font-bold transition-colors">
+            <Link href="/travel-assistance" className="flex items-center space-x-1 text-black hover:text-gray-700 font-bold transition-colors">
               <DocumentTextIcon className="h-4 w-4" />
               <span>Travel Assistance</span>
             </Link>
@@ -208,25 +192,21 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
               {/* Emergency Hotline - Always Visible */}
               <Link 
                 href="tel:+918001234567" 
-                className="hidden sm:flex items-center space-x-1 bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg font-bold transition-colors text-sm"
+                className="hidden sm:flex items-center space-x-1 bg-[#DB3116] hover:bg-[#c22d14] text-white px-3 py-2 rounded-lg transition-colors text-sm"
               >
                 <PhoneArrowUpRightIcon className="h-4 w-4" />
                 <span>Emergency</span>
               </Link>
 
-              {/* Login */}
+              {/* Auth Section */}
               <div className="hidden md:flex items-center">
-                <ModernLoginButton 
-                  href="/login" 
-                  size="sm"
-                  variant="subtle"
-                />
+                <AuthHeaderSection />
               </div>
 
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-gray-700 hover:text-[#e6ba47] transition-colors"
+                className="lg:hidden p-2 text-black hover:text-gray-700 transition-colors"
               >
                 {mobileMenuOpen ? (
                   <XMarkIcon className="h-6 w-6" />
@@ -279,10 +259,6 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
 
             {/* Mobile Other Links */}
             <div className="space-y-2">
-              <Link href="/ask-doctor" className="block text-gray-600 hover:text-[#e6ba47] transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                Ask a Doctor
-              </Link>
-              
               {/* Mobile About Prodense Section */}
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2">About Prodense</h3>
@@ -317,13 +293,9 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
                 <PhoneArrowUpRightIcon className="h-5 w-5" />
                 <span>Emergency Hotline</span>
               </Link>
-              <ModernLoginButton 
-                href="/login" 
-                size="md"
-                variant="outline"
-                className="w-full"
-                onClick={() => setMobileMenuOpen(false)}
-              />
+              <div className="w-full">
+                <AuthHeaderSection />
+              </div>
             </div>
           </div>
         </div>

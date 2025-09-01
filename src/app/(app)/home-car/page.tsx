@@ -1,6 +1,7 @@
 import BgGlassmorphism from '@/components/BgGlassmorphism'
 import HeroSectionWithSearchForm1 from '@/components/hero-sections/HeroSectionWithSearchForm1'
 import CarDentalHeroSearchForm from '@/components/HeroSearchForm/CarDentalHeroSearchForm'
+import AskTheDoctorChat from '@/components/AskTheDoctorChat'
 import PopularProceduresGrid from '@/components/PopularProceduresGrid'
 import SectionTrustedStats from '@/components/SectionTrustedStats'
 import SectionYouTubeGrid from '@/components/SectionYouTubeGrid'
@@ -14,7 +15,12 @@ import { getStayCategories } from '@/data/categories'
 import { getStayListings } from '@/data/listings'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import HeadingWithSub from '@/shared/Heading'
-import heroImage from '@/images/hero-right-car.png'
+// Using public image path for smiling-collage.png
+const heroImage = {
+  src: '/images/homepage7/smiling-collage.png',
+  width: 800,
+  height: 600
+}
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -34,9 +40,9 @@ async function Page() {
       <BgGlassmorphism />
 
       {/* Hero Section replaced with dental hero */}
-      <div className="relative container mb-24 lg:mb-28">
+      <div className="relative container mb-8 lg:mb-1">
         <HeroSectionWithSearchForm1
-          heading="Your Smile, <span style='color: #e6ba47;'>Perfectly Personalised!</span>"
+          heading="Your Smile, <span style='color: #DB3116;'>Perfectly Personalised!</span>"
           image={heroImage}
           imageAlt="hero"
           searchForm={<CarDentalHeroSearchForm />}
@@ -48,6 +54,11 @@ async function Page() {
             </>
           }
         />
+      </div>
+
+      {/* Ask The Doctor Chat - Positioned closer to hero section */}
+      <div className="relative container mb-8 lg:mb-12 -mt-4 lg:-mt-6">
+        <AskTheDoctorChat />
       </div>
 
       {/* Popular Dental Procedures - Ultra Modern Background Design */}

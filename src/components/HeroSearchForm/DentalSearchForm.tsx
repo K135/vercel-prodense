@@ -90,50 +90,10 @@ export const DentalSearchForm = ({ className, formStyle = 'default' }: Props) =>
           )}
         >
           <span className={clsx('whitespace-nowrap', formStyle === 'default' ? 'text-sm' : 'text-xs')}>
-            Find a Dentist
+            Find Treatment
           </span>
         </button>
       </Form>
-
-      {/* Features Section */}
-      <div className="flex flex-wrap items-center justify-start gap-6 py-4 px-4">
-        <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
-          <div className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0"></div>
-          <span className="font-medium">Affordable</span>
-        </div>
-        <div className="w-px h-4 bg-neutral-300 dark:bg-neutral-600 hidden sm:block"></div>
-        <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
-          <div className="w-2 h-2 rounded-full bg-[#e6ba47] flex-shrink-0"></div>
-          <span className="font-medium">Accredited</span>
-        </div>
-        <div className="w-px h-4 bg-neutral-300 dark:bg-neutral-600 hidden sm:block"></div>
-        <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
-          <div className="w-2 h-2 rounded-full bg-purple-500 flex-shrink-0"></div>
-          <span className="font-medium">Hassle-free</span>
-        </div>
-        <div className="w-px h-4 bg-neutral-300 dark:bg-neutral-600 hidden sm:block"></div>
-        <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
-          <div className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0"></div>
-          <span className="font-medium">World wide support</span>
-        </div>
-      </div>
-
-      {/* Good Faith Estimation Button */}
-      <div className="flex justify-start">
-        <button
-          type="button"
-          className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white bg-black border border-black rounded-full hover:bg-gray-800 hover:border-gray-800 transition-all duration-200 shadow-sm"
-          onClick={() => {
-            // Handle good faith estimation
-            console.log('Good faith estimation requested')
-          }}
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-          </svg>
-          Good Faith Estimation
-        </button>
-      </div>
     </div>
   )
 }

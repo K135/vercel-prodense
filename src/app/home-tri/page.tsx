@@ -21,7 +21,7 @@ import SectionGetToKnowAboutUs from '@/components/SectionGetToKnowAboutUs'
 import SectionInfoCards from '@/components/SectionInfoCards'
 import SectionFAQ from '@/components/SectionFAQ'
 import SectionSearchTerms from '@/components/SectionSearchTerms'
-import ThrillophiliaHero from '@/components/ThrillophiliaHero'
+import TriHero from '@/components/trihero'
 import { getAuthors } from '@/data/authors'
 import { getStayCategories } from '@/data/categories'
 import { getStayListings } from '@/data/listings'
@@ -43,7 +43,7 @@ async function Page() {
   return (
     <main className="relative overflow-hidden">
       {/* Thrillophilia Hero Section - Exact Replica */}
-      <ThrillophiliaHero />
+      <TriHero />
       
       {/* Popular Dental Procedures - moved right after hero */}
       <div className="container mx-auto px-4 mb-8 lg:mb-12">

@@ -24,6 +24,15 @@ const HeroSectionWithSearchForm1 = ({
     <div className={clsx('relative flex flex-col-reverse pt-10 lg:flex-col lg:pt-12', className)}>
       <div className="flex flex-col lg:flex-row">
         <div className="relative flex w-full flex-col items-start gap-y-8 pb-16 lg:pe-10 lg:pt-12 lg:pb-60 xl:gap-y-10 xl:pe-14">
+          {/* Prodense Orange Logo */}
+          <div className="mb-4 -ml-10">
+            <img 
+              src="/images/prodense orange.png" 
+              alt="Prodense Logo" 
+              className="h-auto w-140 sm:w-148 lg:w-156 xl:w-164"
+            />
+          </div>
+          
           <h2
             className="text-5xl/[1.15] font-medium tracking-tight text-pretty xl:text-7xl/[1.1]"
             dangerouslySetInnerHTML={{ __html: heading || '' }}

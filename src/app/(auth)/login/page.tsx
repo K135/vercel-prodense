@@ -6,6 +6,8 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { PhoneIcon, EnvelopeIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
+import { useAuth } from '@/contexts/AuthContext'
+import { apiClient } from '@/lib/api'
 
 // Country codes data
 const countryCodes = [
@@ -47,10 +49,29 @@ const countryCodes = [
   { code: '+971', country: 'AE', flag: '🇦🇪', name: 'UAE' },
   { code: '+966', country: 'SA', flag: '🇸🇦', name: 'Saudi Arabia' },
   { code: '+90', country: 'TR', flag: '🇹🇷', name: 'Turkey' },
+  { code: '+65', country: 'SG', flag: '🇸🇬', name: 'Singapore' },
+  { code: '+60', country: 'MY', flag: '🇲🇾', name: 'Malaysia' },
+  { code: '+66', country: 'TH', flag: '🇹🇭', name: 'Thailand' },
+  { code: '+84', country: 'VN', flag: '🇻🇳', name: 'Vietnam' },
+  { code: '+63', country: 'PH', flag: '🇵🇭', name: 'Philippines' },
+  { code: '+62', country: 'ID', flag: '🇮🇩', name: 'Indonesia' },
+  { code: '+92', country: 'PK', flag: '🇵🇰', name: 'Pakistan' },
+  { code: '+880', country: 'BD', flag: '🇧🇩', name: 'Bangladesh' },
+  { code: '+94', country: 'LK', flag: '🇱🇰', name: 'Sri Lanka' },
+  { code: '+977', country: 'NP', flag: '🇳🇵', name: 'Nepal' },
+  { code: '+98', country: 'IR', flag: '🇮🇷', name: 'Iran' },
+  { code: '+964', country: 'IQ', flag: '🇮🇶', name: 'Iraq' },
+  { code: '+972', country: 'IL', flag: '🇮🇱', name: 'Israel' },
+  { code: '+212', country: 'MA', flag: '🇲🇦', name: 'Morocco' },
+  { code: '+213', country: 'DZ', flag: '🇩🇿', name: 'Algeria' },
+  { code: '+216', country: 'TN', flag: '🇹🇳', name: 'Tunisia' },
+  { code: '+234', country: 'NG', flag: '🇳🇬', name: 'Nigeria' },
+  { code: '+254', country: 'KE', flag: '🇰🇪', name: 'Kenya' },
 ]
 
 const Page = () => {
   const router = useRouter()
+  const { login, isAuthenticated, isLoading } = useAuth()
   const [inputType, setInputType] = useState<'phone' | 'email'>('phone')
   const [inputValue, setInputValue] = useState('')
   const [selectedCountry, setSelectedCountry] = useState(countryCodes[0])
@@ -72,30 +93,86 @@ const Page = () => {
     email: ''
   })
   const [signupError, setSignupError] = useState('')
-  const [showEmailOtp, setShowEmailOtp] = useState(false)
-  const [emailOtpValue, setEmailOtpValue] = useState('')
   const [isVerifyingEmail, setIsVerifyingEmail] = useState(false)
   const [isEmailVerified, setIsEmailVerified] = useState(false)
   const [signupCountries, setSignupCountries] = useState(countryCodes)
   const [selectedSignupCountry, setSelectedSignupCountry] = useState(countryCodes[0])
   const [isSignupDropdownOpen, setIsSignupDropdownOpen] = useState(false)
 
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      router.push('/dashboard')
+    }
+  }, [isAuthenticated, isLoading, router])
+
   // Auto-detect country based on IP
   useEffect(() => {
     const detectCountry = async () => {
       try {
-        const response = await fetch('https://ipapi.co/json/')
-        const data = await response.json()
-        const countryCode = data.country_code
+        console.log('Detecting country from IP...')
         
-        const foundCountry = countryCodes.find(country => country.country === countryCode)
-        if (foundCountry) {
-          setSelectedCountry(foundCountry)
-          setSelectedSignupCountry(foundCountry)
-          setSignupData(prev => ({ ...prev, country: foundCountry.name }))
+        // Try multiple IP detection services
+        const services = [
+          'https://ipapi.co/json/',
+          'https://api.country.is/',
+          'https://ipinfo.io/json'
+        ]
+        
+        let detectedCountry = null
+        
+        for (const serviceUrl of services) {
+          try {
+            console.log(`Trying service: ${serviceUrl}`)
+            const response = await fetch(serviceUrl, {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json',
+              },
+            })
+            
+            if (response.ok) {
+              const data = await response.json()
+              console.log(`Response from ${serviceUrl}:`, data)
+              
+              // Handle different response formats
+              let countryCode = null
+              if (data.country_code) {
+                countryCode = data.country_code // ipapi.co format
+              } else if (data.country) {
+                countryCode = data.country // country.is format
+              } else if (data.countryCode) {
+                countryCode = data.countryCode // ipinfo.io format
+              }
+              
+              if (countryCode) {
+                const foundCountry = countryCodes.find(country => 
+                  country.country.toLowerCase() === countryCode.toLowerCase()
+                )
+                if (foundCountry) {
+                  detectedCountry = foundCountry
+                  console.log(`Country detected: ${foundCountry.name} (${foundCountry.code})`)
+                  break
+                }
+              }
+            }
+          } catch (serviceError) {
+            console.log(`Service ${serviceUrl} failed:`, serviceError.message)
+            continue
+          }
         }
+        
+        if (detectedCountry) {
+          setSelectedCountry(detectedCountry)
+          setSelectedSignupCountry(detectedCountry)
+          setSignupData(prev => ({ ...prev, country: detectedCountry.name }))
+        } else {
+          console.log('All IP detection services failed, using default country (US)')
+        }
+        
       } catch (error) {
-        console.log('Could not detect location, using default')
+        console.error('Country detection error:', error)
+        console.log('Using default country (US)')
       } finally {
         setIsLoadingLocation(false)
       }
@@ -109,7 +186,7 @@ const Page = () => {
     console.log('Google login clicked')
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
     if (!showOtpInput) {
@@ -129,14 +206,36 @@ const Page = () => {
         return
       }
 
-      // First submission - show OTP input
+      // First submission - request OTP from backend
       setValidationError('') // Clear any existing errors
-      setShowOtpInput(true)
-      console.log('OTP requested for:', { 
-        type: inputType, 
-        value: inputValue,
-        countryCode: inputType === 'phone' ? selectedCountry.code : null
-      })
+      setIsVerifying(true)
+      
+      try {
+        const requestData = {
+          inputType,
+          inputValue,
+          countryCode: inputType === 'phone' ? selectedCountry.code : undefined
+        }
+        
+        console.log('OTP Request Data:', requestData) // Debug log
+        
+        const data = await apiClient.auth.requestOTP(requestData)
+        
+        console.log('OTP Request Response:', data) // Debug log
+
+        if (data.success) {
+          setShowOtpInput(true)
+          setIsVerifying(false)
+          console.log('OTP requested successfully:', data.message)
+        } else {
+          setValidationError(data.message || 'Failed to send OTP')
+          setIsVerifying(false)
+        }
+      } catch (error: any) {
+        console.error('OTP request error:', error)
+        setValidationError(error.message || 'Failed to send OTP. Please try again.')
+        setIsVerifying(false)
+      }
     } else {
       // Validate OTP
       if (otpValue.length !== 6) {
@@ -144,36 +243,66 @@ const Page = () => {
         return
       }
 
-      // Second submission - verify OTP
+      // Second submission - verify OTP with backend
       setValidationError('') // Clear any existing errors
       setIsVerifying(true)
       
-      // Simulate OTP verification
-      setTimeout(() => {
-        setIsVerifying(false)
-        setIsVerified(true)
+      try {
+        const identifier = inputType === 'phone' ? `${selectedCountry.code}${inputValue}` : inputValue
         
-        console.log('OTP verification:', { 
-          type: inputType, 
-          value: inputValue,
-          countryCode: inputType === 'phone' ? selectedCountry.code : null,
-          otp: otpValue
-        })
+        const verifyData = {
+          otp: otpValue,
+          identifier,
+          type: inputType
+        }
         
-        // Check if this is the special signup phone number
-        const isSignupNumber = inputType === 'phone' && inputValue === '9999999999'
+        console.log('OTP Verify Data:', verifyData) // Debug log
         
-        // Reset after animation completes
-        setTimeout(() => {
-          if (isSignupNumber) {
-            // Show signup form instead of redirecting
+        const data = await apiClient.auth.verifyOTP(verifyData)
+
+        if (data.success) {
+          setIsVerifying(false)
+          setIsVerified(true)
+          
+          console.log('OTP Verification Response:', data.data) // Debug log
+          console.log('Response analysis:')
+          console.log('- Has token:', !!(data.data.token || data.data.accessToken))
+          console.log('- Has user:', !!data.data.user)
+          console.log('- isNewUser:', data.data.isNewUser)
+          console.log('- needsSignup:', data.data.needsSignup)
+          
+          // Priority 1: If we have token and user data, treat as existing user
+          const token = data.data.token || data.data.accessToken
+          if (token && data.data.user) {
+            console.log('✅ Has token and user data - treating as existing user')
+            login(token, data.data.refreshToken, data.data.user)
+            
+            setTimeout(() => {
+              console.log('Redirecting to dashboard...')
+              router.push('/dashboard')
+            }, 1000)
+          } 
+          // Priority 2: Only show signup if explicitly marked as new user AND no token/user
+          else if ((data.data.isNewUser === true || data.data.needsSignup === true) && !token && !data.data.user) {
+            console.log('❌ New user detected (no token/user), showing signup form')
+            console.log('Reason: isNewUser =', data.data.isNewUser, ', needsSignup =', data.data.needsSignup)
             setShowSignupForm(true)
-          } else {
-            // Redirect to stay categories page for regular login
-            router.push('/stay-categories/')
+          } 
+          // Priority 3: Fallback - something went wrong
+          else {
+            console.log('⚠️ Unexpected response format')
+            console.log('Available data:', Object.keys(data.data))
+            setValidationError('Unexpected response from server. Please try again.')
           }
-        }, 3000)
-      }, 2000)
+        } else {
+          setValidationError(data.message || 'Invalid OTP')
+          setIsVerifying(false)
+        }
+      } catch (error: any) {
+        console.error('OTP verification error:', error)
+        setValidationError(error.message || 'Failed to verify OTP. Please try again.')
+        setIsVerifying(false)
+      }
     }
   }
 
@@ -202,81 +331,119 @@ const Page = () => {
     setValidationError('') // Clear error when user starts typing
   }
 
-  const handleSignupSubmit = (e: React.FormEvent) => {
+  const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!showEmailOtp) {
-      // Validate signup data before requesting email OTP
-      if (!signupData.firstName.trim()) {
-        setSignupError('Please enter your first name')
-        return
+    // Validate signup data
+    if (!signupData.firstName.trim()) {
+      setSignupError('Please enter your first name')
+      return
+    }
+    
+    if (!signupData.lastName.trim()) {
+      setSignupError('Please enter your last name')
+      return
+    }
+    
+    if (!signupData.dateOfBirth.trim()) {
+      setSignupError('Please enter your date of birth')
+      return
+    }
+    
+    if (!signupData.gender) {
+      setSignupError('Please select your gender')
+      return
+    }
+    
+    if (!signupData.country.trim()) {
+      setSignupError('Please select your country')
+      return
+    }
+    
+    if (!signupData.profession.trim()) {
+      setSignupError('Please enter your profession')
+      return
+    }
+    
+    if (!signupData.email.trim()) {
+      setSignupError('Please enter your email address')
+      return
+    }
+    
+    if (!validateEmail(signupData.email)) {
+      setSignupError('Please enter a valid email address')
+      return
+    }
+    
+    // Submit signup data to backend
+    setSignupError('')
+    setIsVerifyingEmail(true)
+    
+    try {
+      // Convert DD/MM/YYYY to ISO8601 format
+      const convertDateToISO = (dateStr: string) => {
+        if (!dateStr || !dateStr.includes('/')) {
+          return dateStr // Return as-is if not in expected format
+        }
+        const parts = dateStr.split('/')
+        if (parts.length !== 3) {
+          return dateStr // Return as-is if not properly formatted
+        }
+        const [day, month, year] = parts
+        if (!day || !month || !year) {
+          return dateStr // Return as-is if any part is missing
+        }
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       }
-      
-      if (!signupData.lastName.trim()) {
-        setSignupError('Please enter your last name')
-        return
+
+      const signupPayload = {
+        firstName: signupData.firstName.trim(),
+        lastName: signupData.lastName.trim(),
+        dateOfBirth: signupData.dateOfBirth ? convertDateToISO(signupData.dateOfBirth) : undefined,
+        gender: signupData.gender.toLowerCase(), // Convert to lowercase as expected by backend
+        country: signupData.country.trim(),
+        profession: signupData.profession.trim(),
+        email: signupData.email.trim().toLowerCase(),
+        // Add phone data from the initial login
+        ...(inputType === 'phone' ? {
+          phone: inputValue,
+          countryCode: selectedCountry.code
+        } : {})
       }
-      
-      if (!signupData.dateOfBirth.trim()) {
-        setSignupError('Please enter your date of birth')
-        return
-      }
-      
-      if (!signupData.gender) {
-        setSignupError('Please select your gender')
-        return
-      }
-      
-      if (!signupData.country.trim()) {
-        setSignupError('Please select your country')
-        return
-      }
-      
-      if (!signupData.profession.trim()) {
-        setSignupError('Please enter your profession')
-        return
-      }
-      
-      if (!signupData.email.trim()) {
-        setSignupError('Please enter your email address')
-        return
-      }
-      
-      if (!validateEmail(signupData.email)) {
-        setSignupError('Please enter a valid email address')
-        return
-      }
-      
-      // Show email OTP input
-      setSignupError('')
-      setShowEmailOtp(true)
-      console.log('Email OTP requested for:', signupData.email)
-    } else {
-      // Validate email OTP
-      if (emailOtpValue.length !== 6) {
-        setSignupError('Please enter a valid 6-digit OTP')
-        return
-      }
-      
-      // Verify email OTP
-      setSignupError('')
-      setIsVerifyingEmail(true)
-      
-      setTimeout(() => {
+
+      console.log('Signup payload:', signupPayload)
+
+      const data = await apiClient.auth.signup(signupPayload)
+      console.log('Signup response:', data)
+
+      if (data.success) {
         setIsVerifyingEmail(false)
         setIsEmailVerified(true)
         
-        console.log('Complete signup data:', {
-          phone: `${selectedCountry.code} ${inputValue}`,
-          ...signupData,
-          emailOtp: emailOtpValue
-        })
+        // Store authentication data using Auth Context
+        login(data.data.token, data.data.refreshToken, data.data.user)
+        
+        console.log('Signup successful:', data.data.user.fullName)
         
         // Redirect after successful signup
         setTimeout(() => {
-          router.push('/stay-categories/')
+          router.push('/dashboard')
         }, 2000)
-      }, 2000)
+      } else {
+        // Handle validation errors
+        if (data.errors) {
+          const errorMessages = Object.values(data.errors).flat().join(', ')
+          setSignupError(errorMessages)
+        } else {
+          setSignupError(data.message || 'Failed to create account')
+        }
+        setIsVerifyingEmail(false)
+        console.error('Signup failed:', data)
+      }
+    } catch (error: any) {
+      console.error('Signup error:', error)
+      setSignupError(error.message || 'Failed to create account. Please try again.')
+      setIsVerifyingEmail(false)
     }
   }
 
@@ -286,6 +453,18 @@ const Page = () => {
       [field]: value
     }))
     setSignupError('') // Clear error when user starts typing
+  }
+
+  // Show loading while checking authentication
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -385,11 +564,20 @@ const Page = () => {
                           validationError && inputType === 'phone' 
                             ? 'border-red-500 dark:border-red-400' 
                             : 'border-gray-300 dark:border-gray-600'
-                        }`}
+                        } ${isLoadingLocation ? 'opacity-75 cursor-not-allowed' : ''}`}
                         disabled={isLoadingLocation}
                       >
-                        <span className="text-lg">{selectedCountry.flag}</span>
-                        <span className="text-sm font-medium">{selectedCountry.code}</span>
+                        {isLoadingLocation ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                            <span className="text-sm font-medium">...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-lg">{selectedCountry.flag}</span>
+                            <span className="text-sm font-medium">{selectedCountry.code}</span>
+                          </>
+                        )}
                         <ChevronDownIcon className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
                       
@@ -600,223 +788,173 @@ const Page = () => {
 
               {/* Signup Form */}
               <form onSubmit={handleSignupSubmit} className="space-y-6">
-                {!showEmailOtp ? (
-                  <>
-                    {/* First Name and Last Name */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                          First Name
-                        </label>
-                        <input
-                          type="text"
-                          value={signupData.firstName}
-                          onChange={(e) => handleSignupInputChange('firstName', e.target.value)}
-                          placeholder="First name"
-                          className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
-                            signupError && signupError.includes('first name') 
-                              ? 'border-red-500 dark:border-red-400' 
-                              : 'border-gray-300 dark:border-gray-600'
-                          }`}
-                          required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                          Last Name
-                        </label>
-                        <input
-                          type="text"
-                          value={signupData.lastName}
-                          onChange={(e) => handleSignupInputChange('lastName', e.target.value)}
-                          placeholder="Last name"
-                          className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
-                            signupError && signupError.includes('last name') 
-                              ? 'border-red-500 dark:border-red-400' 
-                              : 'border-gray-300 dark:border-gray-600'
-                          }`}
-                          required
-                        />
-                      </div>
-                    </div>
+                {/* First Name and Last Name */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      First Name
+                    </label>
+                    <input
+                      type="text"
+                      value={signupData.firstName}
+                      onChange={(e) => handleSignupInputChange('firstName', e.target.value)}
+                      placeholder="First name"
+                      className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                        signupError && signupError.includes('first name') 
+                          ? 'border-red-500 dark:border-red-400' 
+                          : 'border-gray-300 dark:border-gray-600'
+                      }`}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Last Name
+                    </label>
+                    <input
+                      type="text"
+                      value={signupData.lastName}
+                      onChange={(e) => handleSignupInputChange('lastName', e.target.value)}
+                      placeholder="Last name"
+                      className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                        signupError && signupError.includes('last name') 
+                          ? 'border-red-500 dark:border-red-400' 
+                          : 'border-gray-300 dark:border-gray-600'
+                      }`}
+                      required
+                    />
+                  </div>
+                </div>
 
-                    {/* Date of Birth */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Date of Birth (DD/MM/YYYY)
-                      </label>
-                      <input
-                        type="date"
-                        value={signupData.dateOfBirth}
-                        onChange={(e) => handleSignupInputChange('dateOfBirth', e.target.value)}
-                        className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
-                          signupError && signupError.includes('date of birth') 
-                            ? 'border-red-500 dark:border-red-400' 
-                            : 'border-gray-300 dark:border-gray-600'
-                        }`}
-                        required
-                      />
-                    </div>
+                {/* Date of Birth */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Date of Birth (DD/MM/YYYY)
+                  </label>
+                  <input
+                    type="date"
+                    value={signupData.dateOfBirth}
+                    onChange={(e) => handleSignupInputChange('dateOfBirth', e.target.value)}
+                    className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                      signupError && signupError.includes('date of birth') 
+                        ? 'border-red-500 dark:border-red-400' 
+                        : 'border-gray-300 dark:border-gray-600'
+                    }`}
+                    required
+                  />
+                </div>
 
-                    {/* Gender */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Gender
-                      </label>
-                      <div className="grid grid-cols-3 gap-3">
-                        {['Male', 'Female', 'Other'].map((gender) => (
-                          <button
-                            key={gender}
-                            type="button"
-                            onClick={() => handleSignupInputChange('gender', gender)}
-                            className={`py-3 px-4 border rounded-xl text-sm font-medium transition-all duration-200 ${
-                              signupData.gender === gender
-                                ? 'bg-blue-600 text-white border-blue-600'
-                                : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 hover:border-blue-500'
-                            }`}
-                          >
-                            {gender}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Country */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Country
-                      </label>
-                      <div className="relative">
-                        <button
-                          type="button"
-                          onClick={() => setIsSignupDropdownOpen(!isSignupDropdownOpen)}
-                          className={`w-full flex items-center justify-between px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
-                            signupError && signupError.includes('country') 
-                              ? 'border-red-500 dark:border-red-400' 
-                              : 'border-gray-300 dark:border-gray-600'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">{selectedSignupCountry.flag}</span>
-                            <span className="text-sm">{signupData.country || selectedSignupCountry.name}</span>
-                          </div>
-                          <ChevronDownIcon className={`h-4 w-4 transition-transform duration-200 ${isSignupDropdownOpen ? 'rotate-180' : ''}`} />
-                        </button>
-                        
-                        {/* Country Dropdown */}
-                        {isSignupDropdownOpen && (
-                          <div className="absolute top-full left-0 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto">
-                            {signupCountries.map((country, index) => (
-                              <button
-                                key={`${country.country}-${index}`}
-                                type="button"
-                                onClick={() => {
-                                  setSelectedSignupCountry(country)
-                                  handleSignupInputChange('country', country.name)
-                                  setIsSignupDropdownOpen(false)
-                                }}
-                                className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150"
-                              >
-                                <span className="text-lg">{country.flag}</span>
-                                <div className="flex-1">
-                                  <div className="text-sm font-medium text-gray-900 dark:text-white">{country.name}</div>
-                                  <div className="text-xs text-gray-500 dark:text-gray-400">{country.code}</div>
-                                </div>
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Profession */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Profession
-                      </label>
-                      <input
-                        type="text"
-                        value={signupData.profession}
-                        onChange={(e) => handleSignupInputChange('profession', e.target.value)}
-                        placeholder="Enter your profession"
-                        className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
-                          signupError && signupError.includes('profession') 
-                            ? 'border-red-500 dark:border-red-400' 
-                            : 'border-gray-300 dark:border-gray-600'
-                        }`}
-                        required
-                      />
-                    </div>
-
-                    {/* Email */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        value={signupData.email}
-                        onChange={(e) => handleSignupInputChange('email', e.target.value)}
-                        placeholder="Enter your email address"
-                        className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
-                          signupError && signupError.includes('email') 
-                            ? 'border-red-500 dark:border-red-400' 
-                            : 'border-gray-300 dark:border-gray-600'
-                        }`}
-                        required
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {/* Email OTP Section */}
-                    <div className="text-center mb-6">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        Verify Your Email
-                      </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        We&apos;ve sent a 6-digit code to <span className="font-medium">{signupData.email}</span>
-                      </p>
-                    </div>
-
-                    {/* Email OTP Input */}
-                    <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Enter OTP
-                      </label>
-                      <input
-                        type="text"
-                        value={emailOtpValue}
-                        onChange={(e) => {
-                          const value = e.target.value.replace(/\D/g, '').slice(0, 6)
-                          setEmailOtpValue(value)
-                          setSignupError('')
-                        }}
-                        placeholder="Enter 6-digit OTP"
-                        maxLength={6}
-                        className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 text-center text-lg tracking-widest ${
-                          signupError && signupError.includes('OTP') 
-                            ? 'border-red-500 dark:border-red-400' 
-                            : 'border-gray-300 dark:border-gray-600'
-                        }`}
-                        required
-                      />
-                    </div>
-
-                    {/* Resend OTP */}
-                    <div className="text-center">
+                {/* Gender */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Gender
+                  </label>
+                  <div className="grid grid-cols-3 gap-3">
+                    {['Male', 'Female', 'Other'].map((gender) => (
                       <button
+                        key={gender}
                         type="button"
-                        onClick={() => {
-                          console.log('Resending OTP to:', signupData.email)
-                        }}
-                        className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200"
+                        onClick={() => handleSignupInputChange('gender', gender)}
+                        className={`py-3 px-4 border rounded-xl text-sm font-medium transition-all duration-200 ${
+                          signupData.gender === gender
+                            ? 'bg-blue-600 text-white border-blue-600'
+                            : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 hover:border-blue-500'
+                        }`}
                       >
-                        Didn&apos;t receive the code? Resend OTP
+                        {gender}
                       </button>
-                    </div>
-                  </>
-                )}
+                    ))}
+                  </div>
+                </div>
+
+                {/* Country */}
+<div className="space-y-2">
+  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+    Country
+  </label>
+  <div className="relative">
+    <button
+      type="button"
+      onClick={() => setIsSignupDropdownOpen(!isSignupDropdownOpen)}
+      className={`w-full flex items-center justify-between px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+        signupError && signupError.includes('country') 
+          ? 'border-red-500 dark:border-red-400' 
+          : 'border-gray-300 dark:border-gray-600'
+      }`}
+    >
+      <div className="flex items-center gap-2">
+        <span className="text-lg">{selectedSignupCountry.flag}</span>
+        <span className="text-sm">{signupData.country || selectedSignupCountry.name}</span>
+      </div>
+      <ChevronDownIcon
+        className={`h-4 w-4 transition-transform duration-200 ${isSignupDropdownOpen ? 'rotate-180' : ''}`}
+      />
+    </button>
+    
+    {/* Country Dropdown */}
+    {isSignupDropdownOpen && (
+      <div className="absolute top-full left-0 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl shadow-lg z-50 max-h-60 overflow-y-auto">
+        {signupCountries.map((country, index) => (
+          <button
+            key={`${country.country}-${index}`}
+            type="button"
+            onClick={() => {
+              setSelectedSignupCountry(country);
+              handleSignupInputChange('country', country.name);
+              setIsSignupDropdownOpen(false);
+            }}
+            className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150"
+          >
+            <span className="text-lg">{country.flag}</span>
+            <div className="flex-1">
+              <div className="text-sm font-medium text-gray-900 dark:text-white">{country.name}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">{country.code}</div>
+            </div>
+          </button>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
+
+                {/* Profession */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Profession
+                  </label>
+                  <input
+                    type="text"
+                    value={signupData.profession}
+                    onChange={(e) => handleSignupInputChange('profession', e.target.value)}
+                    placeholder="Enter your profession"
+                    className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                      signupError && signupError.includes('profession') 
+                        ? 'border-red-500 dark:border-red-400' 
+                        : 'border-gray-300 dark:border-gray-600'
+                    }`}
+                    required
+                  />
+                </div>
+
+                {/* Email */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    value={signupData.email}
+                    onChange={(e) => handleSignupInputChange('email', e.target.value)}
+                    placeholder="Enter your email address"
+                    className={`w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:border-transparent transition-all duration-200 ${
+                      signupError && signupError.includes('email') 
+                        ? 'border-red-500 dark:border-red-400' 
+                        : 'border-gray-300 dark:border-gray-600'
+                    }`}
+                    required
+                  />
+                </div>
 
                 {/* Signup Error Message */}
                 {signupError && (
@@ -837,12 +975,10 @@ const Page = () => {
                   {isVerifyingEmail ? (
                     <div className="flex items-center justify-center gap-2">
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Verifying...
+                      Creating Account...
                     </div>
-                  ) : showEmailOtp ? (
-                    'Complete Registration'
                   ) : (
-                    'Continue'
+                    'Create Account'
                   )}
                 </button>
 
@@ -914,7 +1050,7 @@ const Page = () => {
                     Verified
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400 animate-fade-in-up animation-delay-200">
-                    Authentication successful
+                    Redirecting to dashboard...
                   </p>
                 </div>
                 

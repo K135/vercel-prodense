@@ -4,12 +4,13 @@ import { Button } from '@/shared/Button'
 import Logo from '@/shared/Logo'
 import clsx from 'clsx'
 import { FC } from 'react'
-import AvatarDropdown from './AvatarDropdown'
+import AuthHeaderSection from './AuthHeaderSection'
 import CategoriesDropdown from './CategoriesDropdown'
 import CurrLangDropdown from './CurrLangDropdown'
 import HamburgerBtnMenu from './HamburgerBtnMenu'
 import MegaMenuPopover from './MegaMenuPopover'
 import NotifyDropdown from './NotifyDropdown'
+
 interface HeaderProps {
   hasBorderBottom?: boolean
   className?: string
@@ -49,7 +50,7 @@ const Header: FC<HeaderProps> = async ({ hasBorderBottom = true, className }) =>
               List your property
             </Button>
             <NotifyDropdown />
-            <AvatarDropdown />
+            <AuthHeaderSection />
           </div>
         </div>
       </div>

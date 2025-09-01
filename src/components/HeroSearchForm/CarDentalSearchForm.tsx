@@ -67,10 +67,10 @@ export const CarDentalSearchForm = ({ className, formStyle = 'default' }: Props)
         <VerticalDividerLine />
         <div className="hero-search-form__field-before flex-3/12 flex items-center justify-center px-4">
           <div className="text-center">
-            <div className="text-xs text-neutral-500 dark:text-neutral-400">Instant</div>
+            <div className="text-xs text-neutral-500 dark:text-neutral-400"></div>
             <button
               type="button"
-              className="text-sm font-medium text-[#0480ea] hover:text-blue-600 transition-colors"
+              className="text-sm font-medium text-[#DB3116] hover:text-[#DB3116]/80 transition-colors"
               onClick={() => {
                 // Handle consultation action
                 console.log('Consultation requested')
@@ -85,12 +85,12 @@ export const CarDentalSearchForm = ({ className, formStyle = 'default' }: Props)
         <button 
           type="submit" 
           className={clsx(
-            'absolute z-10 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#0480ea] to-blue-600 hover:from-[#0480ea]/90 hover:to-blue-600/90 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center',
+            'absolute z-10 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#DB3116] via-[#FF4A2B] to-[#DB3116] hover:from-[#B8280F] hover:via-[#DB3116] hover:to-[#B8280F] text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center',
             formStyle === 'default' ? 'h-14 px-6 end-2 xl:end-4' : 'h-12 px-4 end-2'
           )}
         >
           <span className={clsx('whitespace-nowrap', formStyle === 'default' ? 'text-sm' : 'text-xs')}>
-            Find Treatment
+            Find Dentists
           </span>
         </button>
       </Form>
@@ -126,7 +126,7 @@ export const CarDentalSearchForm = ({ className, formStyle = 'default' }: Props)
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          Free Treatment Planning
+          Get Your Good Faith Estimation
         </button>
       </div>
     </div>

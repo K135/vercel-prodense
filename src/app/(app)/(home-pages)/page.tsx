@@ -21,6 +21,8 @@ import SectionGetToKnowAboutUs from '@/components/SectionGetToKnowAboutUs'
 import SectionInfoCards from '@/components/SectionInfoCards'
 import SectionFAQ from '@/components/SectionFAQ'
 import SectionSearchTerms from '@/components/SectionSearchTerms'
+import AuthTest from '@/components/AuthTest'
+import AuthDebug from '@/components/AuthDebug'
 import { getAuthors } from '@/data/authors'
 import { getStayCategories } from '@/data/categories'
 import { getStayListings } from '@/data/listings'
@@ -79,6 +81,11 @@ async function Page() {
         </div>
       </div>
       
+      {/* Auth Test Component - for testing */}
+      <div className="container mx-auto px-4 mb-8">
+        <AuthTest />
+      </div>
+      
       {/* Popular Dental Procedures - moved right after hero */}
       <div className="container mx-auto px-4 mb-8 lg:mb-12">
         <HeadingWithSub subheading="Explore our most sought-after dental treatments and procedures.">
@@ -107,6 +114,9 @@ async function Page() {
 
       {/* Search Terms Section */}
       <SectionSearchTerms />
+
+      {/* Auth Debug - for testing */}
+      <AuthDebug />
 
     </main>
   )
