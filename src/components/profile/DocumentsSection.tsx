@@ -200,6 +200,11 @@ export default function DocumentsSection({ isEditing, onEditToggle }: DocumentsS
       let aValue = a[sortBy as keyof Document]
       let bValue = b[sortBy as keyof Document]
       
+      // Handle undefined values
+      if (aValue === undefined && bValue === undefined) return 0
+      if (aValue === undefined) return sortOrder === 'asc' ? 1 : -1
+      if (bValue === undefined) return sortOrder === 'asc' ? -1 : 1
+      
       if (sortBy === 'createdAt' || sortBy === 'updatedAt') {
         aValue = new Date(aValue as string).getTime()
         bValue = new Date(bValue as string).getTime()
