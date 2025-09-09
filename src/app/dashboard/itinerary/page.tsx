@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { apiClient } from '@/lib/api'
 import { 
@@ -134,13 +134,7 @@ export default function ItineraryPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (token) {
-      fetchBookings()
-    }
-  }, [token])
-
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -173,7 +167,13 @@ export default function ItineraryPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      fetchBookings()
+    }
+  }, [token, fetchBookings])
 
   const generateDefaultTimeline = (booking: Booking): TimelineItem[] => {
     const appointmentDate = new Date(booking.appointmentDate)
@@ -328,7 +328,7 @@ export default function ItineraryPage() {
         <CalendarDaysIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
         <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No Confirmed Bookings</h3>
         <p className="text-gray-500 dark:text-gray-400 mb-4">
-          You don't have any confirmed bookings to create itineraries from.
+          You don&apos;t have any confirmed bookings to create itineraries from.
         </p>
       </div>
     )

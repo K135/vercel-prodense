@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { apiClient } from '@/lib/api'
 import { 
@@ -154,14 +154,7 @@ export default function BillingPage() {
   const [statusFilter, setStatusFilter] = useState('all')
   const [paymentStatusFilter, setPaymentStatusFilter] = useState('all')
 
-  useEffect(() => {
-    if (token) {
-      fetchBills()
-      fetchSummary()
-    }
-  }, [statusFilter, paymentStatusFilter, token])
-
-  const fetchBills = async () => {
+  const fetchBills = useCallback(async () => {
     try {
       setLoading(true)
 
@@ -187,9 +180,9 @@ export default function BillingPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [token, statusFilter, paymentStatusFilter])
 
-  const fetchSummary = async () => {
+  const fetchSummary = useCallback(async () => {
     try {
       if (!token) return
 
@@ -201,7 +194,14 @@ export default function BillingPage() {
     } catch (err: any) {
       console.error('Failed to fetch billing summary:', err)
     }
-  }
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      fetchBills()
+      fetchSummary()
+    }
+  }, [token, fetchBills, fetchSummary])
 
   const fetchBillDetails = async (billId: string) => {
     try {

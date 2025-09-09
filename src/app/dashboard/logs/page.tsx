@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import ButtonSecondary from '@/shared/ButtonSecondary'
@@ -34,7 +34,7 @@ const LogsPage = () => {
     logsEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const fetchLogs = async () => {
+  const fetchLogs = useCallback(async () => {
     if (!token) return
 
     try {
@@ -62,7 +62,7 @@ const LogsPage = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [token, selectedLevel])
 
   const clearLogs = async () => {
     if (!token) return
@@ -143,7 +143,7 @@ const LogsPage = () => {
     if (token) {
       fetchLogs()
     }
-  }, [token, selectedLevel])
+  }, [token, fetchLogs])
 
   useEffect(() => {
     return () => {
