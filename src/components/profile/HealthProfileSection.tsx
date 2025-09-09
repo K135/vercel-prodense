@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { apiClient } from '@/lib/api'
 import { 
@@ -24,6 +24,7 @@ import clsx from 'clsx'
 
 interface HealthProfileData {
   medicalHistory: {
+    bloodType?: string
     allergies: string[]
     medications: Array<{
       name: string
@@ -106,9 +107,9 @@ export default function HealthProfileSection({ isEditing, onEditToggle }: Health
   useEffect(() => {
     fetchHealthProfile()
     fetchCompleteness()
-  }, [token])
+  }, [token, fetchHealthProfile, fetchCompleteness])
 
-  const fetchHealthProfile = async () => {
+  const fetchHealthProfile = useCallback(async () => {
     if (!token) return
 
     try {
@@ -126,9 +127,9 @@ export default function HealthProfileSection({ isEditing, onEditToggle }: Health
     } finally {
       setLoading(false)
     }
-  }
+  }, [token])
 
-  const fetchCompleteness = async () => {
+  const fetchCompleteness = useCallback(async () => {
     if (!token) return
 
     try {
@@ -139,7 +140,7 @@ export default function HealthProfileSection({ isEditing, onEditToggle }: Health
     } catch (err) {
       console.error('Failed to fetch completeness:', err)
     }
-  }
+  }, [token])
 
   const handleSave = async () => {
     if (!token || !editedProfile) return

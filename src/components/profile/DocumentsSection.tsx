@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { apiClient } from '@/lib/api'
 import DocumentUploadModal from './DocumentUploadModal'
@@ -88,11 +88,7 @@ export default function DocumentsSection({ isEditing, onEditToggle }: DocumentsS
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
 
-  useEffect(() => {
-    fetchDocuments()
-  }, [token])
-
-  const fetchDocuments = async () => {
+  const fetchDocuments = useCallback(async () => {
     if (!token) return
 
     try {
@@ -109,7 +105,11 @@ export default function DocumentsSection({ isEditing, onEditToggle }: DocumentsS
     } finally {
       setLoading(false)
     }
-  }
+  }, [token])
+
+  useEffect(() => {
+    fetchDocuments()
+  }, [fetchDocuments])
 
   const handleUploadSuccess = () => {
     fetchDocuments()

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '@/contexts/AuthContext'
 import { apiClient } from '@/lib/api'
@@ -164,13 +164,7 @@ export default function NotificationsPage() {
   const filters = ['all', 'unread', 'read']
   const categories = ['all', 'appointment', 'payment', 'document', 'loyalty', 'treatment', 'promotion', 'system', 'security']
 
-  useEffect(() => {
-    if (token) {
-      fetchNotifications()
-    }
-  }, [token, selectedFilter, selectedCategory])
-
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -223,7 +217,13 @@ export default function NotificationsPage() {
       setLoading(false)
       console.log('🏁 fetchNotifications completed')
     }
-  }
+  }, [token, selectedFilter, selectedCategory, user])
+
+  useEffect(() => {
+    if (token) {
+      fetchNotifications()
+    }
+  }, [token, fetchNotifications])
 
   const markAsRead = async (notificationId: string) => {
     try {

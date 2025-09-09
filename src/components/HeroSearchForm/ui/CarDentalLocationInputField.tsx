@@ -209,7 +209,7 @@ export const CarDentalLocationInputField: FC<Props> = ({
         setSuggests(carDentalDestinations)
       }
     }, 300),
-    [carDentalSearchingSuggests, carDentalDestinations]
+    []
   )
 
   useEffect(() => {
