@@ -104,11 +104,6 @@ export default function HealthProfileSection({ isEditing, onEditToggle }: Health
   const [newCondition, setNewCondition] = useState({ condition: '', diagnosedDate: '', severity: 'mild' as const })
   const [newTreatment, setNewTreatment] = useState({ treatment: '', date: '', dentist: '', location: '' })
 
-  useEffect(() => {
-    fetchHealthProfile()
-    fetchCompleteness()
-  }, [token, fetchHealthProfile, fetchCompleteness])
-
   const fetchHealthProfile = useCallback(async () => {
     if (!token) return
 
@@ -141,6 +136,11 @@ export default function HealthProfileSection({ isEditing, onEditToggle }: Health
       console.error('Failed to fetch completeness:', err)
     }
   }, [token])
+
+  useEffect(() => {
+    fetchHealthProfile()
+    fetchCompleteness()
+  }, [fetchHealthProfile, fetchCompleteness])
 
   const handleSave = async () => {
     if (!token || !editedProfile) return
