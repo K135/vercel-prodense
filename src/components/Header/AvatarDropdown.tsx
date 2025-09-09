@@ -1,10 +1,10 @@
 'use client'
 
-import avatarImage from '@/images/avatars/Image-1.png'
-import Avatar from '@/shared/Avatar'
 import { Divider } from '@/shared/divider'
 import { Link } from '@/shared/link'
 import SwitchDarkMode2 from '@/shared/SwitchDarkMode2'
+import UserAvatar from '@/components/UserAvatar'
+import { useUserAvatar } from '@/hooks/useUserAvatar'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import {
   BulbChargingIcon,
@@ -21,11 +21,15 @@ interface Props {
 }
 
 export default function AvatarDropdown({ className }: Props) {
+  const { user, userInitials, avatarSrc, hasVerification } = useUserAvatar()
+
+  if (!user) return null
+
   return (
     <div className={className}>
       <Popover>
         <PopoverButton className="-m-1.5 flex cursor-pointer items-center justify-center rounded-full p-1.5 hover:bg-neutral-100 focus-visible:outline-hidden dark:hover:bg-neutral-800">
-          <Avatar src={avatarImage.src} className="size-8" />
+          <UserAvatar size="sm" />
         </PopoverButton>
 
         <PopoverPanel
@@ -38,11 +42,14 @@ export default function AvatarDropdown({ className }: Props) {
         >
           <div className="relative grid grid-cols-1 gap-6 bg-white px-6 py-7 dark:bg-neutral-800">
             <div className="flex items-center space-x-3">
-              <Avatar src={avatarImage.src} className="size-12" />
+              <UserAvatar size="md" />
 
               <div className="grow">
-                <h4 className="font-semibold">Eden Smith</h4>
-                <p className="mt-0.5 text-xs">Los Angeles, CA</p>
+                <h4 className="font-semibold">{user.fullName}</h4>
+                <p className="mt-0.5 text-xs">{user.email || user.phone}</p>
+                {user.country && (
+                  <p className="text-xs text-neutral-400">{user.country}</p>
+                )}
               </div>
             </div>
 

@@ -6,15 +6,42 @@ const rateLimit = require('express-rate-limit')
 require('dotenv').config()
 
 const connectDB = require('./config/database')
+const { initializeUploadDirectories } = require('./config/uploads')
 const authRoutes = require('./routes/auth')
+const logsRoutes = require('./routes/logs')
 const userRoutes = require('./routes/user')
+const documentsRoutes = require('./routes/documents')
+const healthProfileRoutes = require('./routes/healthProfile')
+const dentistRoutes = require('./routes/dentists')
+const bookingRoutes = require('./routes/bookings')
+const billingRoutes = require('./routes/billing')
+const itineraryRoutes = require('./routes/itinerary')
+const reportRoutes = require('./routes/reports')
+const costEstimatorRoutes = require('./routes/costEstimator')
+const loyaltyRoutes = require('./routes/loyalty')
+const notificationRoutes = require('./routes/notifications')
+const aiRoutes = require('./routes/ai')
+const continuityRoutes = require('./routes/continuity')
+const errorRoutes = require('./routes/error')
 const { errorHandler, notFound } = require('./middleware/errorMiddleware')
+const { addLog } = require('./utils/logger')
 
 const app = express()
 const PORT = process.env.PORT || 5000
 
 // Connect to MongoDB
 connectDB()
+
+// Initialize secure upload directories
+initializeUploadDirectories()
+
+// Add initial logs
+addLog('info', 'Backend server starting up')
+addLog('info', 'Environment configuration loaded', {
+  nodeEnv: process.env.NODE_ENV,
+  port: PORT,
+  frontendUrl: process.env.FRONTEND_URL
+})
 
 // Security middleware
 app.use(helmet())
@@ -36,17 +63,23 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
-// Rate limiting
+// Rate limiting - more lenient in development
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100, // limit each IP to 100 requests per windowMs
+  max: process.env.NODE_ENV === 'development' 
+    ? parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 50000 // Very high limit for development
+    : parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 5000, // Normal limit for production
   message: {
     success: false,
     message: 'Too many requests from this IP, please try again later.',
     error: 'Rate limit exceeded'
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
+  skip: (req) => {
+    // Skip rate limiting for health checks in development
+    return process.env.NODE_ENV === 'development' && req.path === '/api/health'
+  }
 })
 
 app.use('/api/', limiter)
@@ -78,7 +111,23 @@ app.get('/api/health', (req, res) => {
 
 // API routes
 app.use('/api/auth', authRoutes)
+app.use('/api/logs', logsRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/user/documents', documentsRoutes)
+
+app.use('/api/user', healthProfileRoutes)
+
+app.use('/api/dentists', dentistRoutes)
+app.use('/api/bookings', bookingRoutes)
+app.use('/api/billing', billingRoutes)
+app.use('/api/itinerary', itineraryRoutes)
+app.use('/api/reports', reportRoutes)
+app.use('/api/cost-estimator', costEstimatorRoutes)
+app.use('/api/loyalty', loyaltyRoutes)
+app.use('/api/notifications', notificationRoutes)
+app.use('/api/ai', aiRoutes)
+app.use('/api/continuity', continuityRoutes)
+app.use('/api/error', errorRoutes)
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -90,7 +139,19 @@ app.get('/', (req, res) => {
       endpoints: {
         health: '/api/health',
         auth: '/api/auth',
-        user: '/api/user'
+        logs: '/api/logs',
+        user: '/api/user',
+        dentists: '/api/dentists',
+        bookings: '/api/bookings',
+        billing: '/api/billing',
+        itinerary: '/api/itinerary',
+        reports: '/api/reports',
+        costEstimator: '/api/cost-estimator',
+        loyalty: '/api/loyalty',
+        notifications: '/api/notifications',
+        ai: '/api/ai',
+        continuity: '/api/continuity',
+        error: '/api/error'
       }
     }
   })
@@ -106,4 +167,10 @@ app.listen(PORT, () => {
   console.log(`📊 Environment: ${process.env.NODE_ENV}`)
   console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL}`)
   console.log(`📱 API Base URL: http://localhost:${PORT}/api`)
+  
+  addLog('success', 'Backend server started successfully', {
+    port: PORT,
+    environment: process.env.NODE_ENV,
+    apiBaseUrl: `http://localhost:${PORT}/api`
+  })
 })

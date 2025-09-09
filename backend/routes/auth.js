@@ -12,6 +12,7 @@ const {
 } = require('../lib/validation')
 const { authenticate, validateRefreshToken } = require('../middleware/auth')
 const { asyncHandler, successResponse, errorResponse } = require('../middleware/errorMiddleware')
+const { addLog } = require('../utils/logger')
 
 /**
  * @route   POST /api/auth/request-otp
@@ -31,11 +32,25 @@ router.post('/request-otp',
     const existingUser = await User.findByIdentifier(identifier, inputType)
     const purpose = existingUser ? 'login' : 'signup'
 
+    addLog('info', 'OTP request received', {
+      inputType,
+      identifier: identifier.replace(/\d{4}$/, '****'), // Mask last 4 digits for privacy
+      purpose,
+      userAgent: req.get('User-Agent'),
+      ip: req.ip
+    })
+
     // Create OTP record
     const otpRecord = await OTP.createOTP(identifier, inputType, purpose, req)
 
     // In a real application, you would send the OTP via SMS or email here
     console.log(`📱 OTP for ${identifier}: ${otpRecord.otp}`)
+    
+    addLog('success', 'OTP generated successfully', {
+      identifier: identifier.replace(/\d{4}$/, '****'),
+      purpose,
+      expiresAt: otpRecord.expiresAt
+    })
 
     // TODO: Implement actual SMS/Email sending
     // if (inputType === 'phone') {
@@ -77,8 +92,9 @@ router.post('/verify-otp',
       return errorResponse(res, 'Invalid or expired OTP', 400)
     }
 
-    // Check if too many attempts
-    if (otpRecord.attempts >= 5) {
+    // Check if too many attempts (skip in development mode)
+    const maxAttempts = process.env.NODE_ENV === 'development' ? 50 : 5
+    if (otpRecord.attempts >= maxAttempts) {
       await OTP.deleteOne({ _id: otpRecord._id })
       return errorResponse(res, 'Too many attempts. Please request a new OTP.', 429)
     }
@@ -86,7 +102,8 @@ router.post('/verify-otp',
     // Verify OTP
     if (otpRecord.otp !== otp) {
       await otpRecord.incrementAttempts()
-      return errorResponse(res, `Invalid OTP. ${5 - otpRecord.attempts - 1} attempts remaining.`, 400)
+      const maxAttempts = process.env.NODE_ENV === 'development' ? 50 : 5
+      return errorResponse(res, `Invalid OTP. ${maxAttempts - otpRecord.attempts - 1} attempts remaining.`, 400)
     }
 
     // Mark OTP as used

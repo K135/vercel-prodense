@@ -606,7 +606,7 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
 
           <div className="space-y-3">
             <ButtonPrimary className="w-full text-lg py-4">
-              Get Good Faith Estimator
+              Get Good Faith Estimate
             </ButtonPrimary>
             <ButtonSecondary className="w-full">
               Book Appointment
@@ -798,66 +798,7 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
     )
   }
 
-  const renderPricingSection = () => {
-    const samplePricing = [
-      { procedure: 'Titanium Dental Implant', details: 'MIS Only implant', price: '$850', days: '2' },
-      { procedure: 'All on 4 Implants', details: 'Nobel Biocare + Fixed bridge per arch', price: '$8,500', days: '6' },
-      { procedure: 'Dental Veneers', details: 'Porcelain veneers per tooth', price: '$450', days: '3' },
-      { procedure: 'Teeth Whitening', details: 'Professional whitening session', price: '$200', days: '1' },
-    ]
 
-    return (
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
-          Know the Prices for Your Procedures
-        </h2>
-        
-        {/* Mobile-friendly pricing cards */}
-        <div className="block md:hidden space-y-4">
-          {samplePricing.map((item, index) => (
-            <div key={index} className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-700 p-4">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="font-semibold text-neutral-900 dark:text-white text-sm">{item.procedure}</h3>
-                <span className="text-primary-600 dark:text-primary-400 font-bold text-sm">{item.price}</span>
-              </div>
-              <p className="text-neutral-600 dark:text-neutral-400 text-xs mb-2">{item.details}</p>
-              <div className="text-neutral-500 dark:text-neutral-400 text-xs">{item.days} days</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Desktop table */}
-        <div className="hidden md:block bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-neutral-50 dark:bg-neutral-800">
-              <tr>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-neutral-900 dark:text-white">Procedure</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-neutral-900 dark:text-white">Details</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-neutral-900 dark:text-white">Price</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-neutral-900 dark:text-white">Days</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
-              {samplePricing.map((item, index) => (
-                <tr key={index} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50">
-                  <td className="px-4 py-3 text-sm font-medium text-neutral-900 dark:text-white">{item.procedure}</td>
-                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">{item.details}</td>
-                  <td className="px-4 py-3 text-sm font-semibold text-primary-600 dark:text-primary-400">{item.price}</td>
-                  <td className="px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400">{item.days}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        
-        <div className="text-center">
-          <ButtonPrimary className="px-8 py-3">
-            Get Good Faith Estimated Quote
-          </ButtonPrimary>
-        </div>
-      </div>
-    )
-  }
 
   const renderPaymentSection = () => {
     const paymentMethods = [
@@ -870,7 +811,7 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
     return (
       <div className="space-y-6">
         <h2 className="text-2xl font-bold text-neutral-900 dark:text-white">
-          Pick Your Payment Method
+          Payment Modes Available
         </h2>
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1194,7 +1135,6 @@ const Page = ({ params }: { params: Promise<{ handle: string }> }) => {
             {renderSectionServices()}
             {renderDentistsSection()}
             {renderTravelSection()}
-            {renderPricingSection()}
             {renderPaymentSection()}
             {renderHotelsSection()}
             {renderTestimonialsSection()}

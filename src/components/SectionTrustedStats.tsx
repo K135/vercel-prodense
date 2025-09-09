@@ -171,7 +171,7 @@ const SectionTrustedStats: FC<Props> = ({
                     className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-1 border border-neutral-100 dark:border-neutral-700"
                   >
                     <div className="text-center">
-                      <h3 className="text-4xl lg:text-5xl font-bold text-primary-500 dark:text-primary-400 mb-3">
+                      <h3 className="text-4xl lg:text-5xl font-bold text-[#DB3116] dark:text-[#DB3116] mb-3">
                         <AnimatedCounter value={stat.number} duration={2500} />
                       </h3>
                       <p className="text-lg font-semibold text-neutral-700 dark:text-neutral-300">
@@ -227,15 +227,15 @@ const SectionTrustedStats: FC<Props> = ({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                       {/* Accredited Dentists */}
                       <div className="group hover:transform hover:scale-105 transition-all duration-300">
-                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-primary-100 dark:border-primary-800/30 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300">
+                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#DB3116]/20 dark:border-[#DB3116]/30 hover:border-[#DB3116]/50 dark:hover:border-[#DB3116]/60 hover:shadow-lg transition-all duration-300">
                           <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-12 h-12 bg-primary-500/20 backdrop-blur-sm border border-primary-200/30 dark:border-primary-400/30 rounded-xl flex items-center justify-center shadow-lg">
-                              <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="flex-shrink-0 w-12 h-12 bg-[#DB3116]/20 backdrop-blur-sm border border-[#DB3116]/30 dark:border-[#DB3116]/40 rounded-xl flex items-center justify-center shadow-lg">
+                              <svg className="w-6 h-6 text-[#DB3116] dark:text-[#DB3116]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                             </div>
                             <div className="flex-1">
-                              <h4 className="text-lg font-bold text-primary-800 dark:text-primary-300 mb-2">
+                              <h4 className="text-lg font-bold text-[#DB3116] dark:text-[#DB3116] mb-2">
                                 Accredited Dentists
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -248,15 +248,15 @@ const SectionTrustedStats: FC<Props> = ({
 
                       {/* Post-Treatment Support */}
                       <div className="group hover:transform hover:scale-105 transition-all duration-300">
-                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-primary-100 dark:border-primary-800/30 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300">
+                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#DB3116]/20 dark:border-[#DB3116]/30 hover:border-[#DB3116]/50 dark:hover:border-[#DB3116]/60 hover:shadow-lg transition-all duration-300">
                           <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-12 h-12 bg-primary-500/20 backdrop-blur-sm border border-primary-200/30 dark:border-primary-400/30 rounded-xl flex items-center justify-center shadow-lg">
-                              <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="flex-shrink-0 w-12 h-12 bg-[#DB3116]/20 backdrop-blur-sm border border-[#DB3116]/30 dark:border-[#DB3116]/40 rounded-xl flex items-center justify-center shadow-lg">
+                              <svg className="w-6 h-6 text-[#DB3116] dark:text-[#DB3116]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                               </svg>
                             </div>
                             <div className="flex-1">
-                              <h4 className="text-lg font-bold text-primary-800 dark:text-primary-300 mb-2">
+                              <h4 className="text-lg font-bold text-[#DB3116] dark:text-[#DB3116] mb-2">
                                 Post-Treatment Support
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -269,15 +269,15 @@ const SectionTrustedStats: FC<Props> = ({
 
                       {/* Worldwide Continuity */}
                       <div className="group hover:transform hover:scale-105 transition-all duration-300">
-                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-primary-100 dark:border-primary-800/30 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300">
+                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#DB3116]/20 dark:border-[#DB3116]/30 hover:border-[#DB3116]/50 dark:hover:border-[#DB3116]/60 hover:shadow-lg transition-all duration-300">
                           <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-12 h-12 bg-primary-500/20 backdrop-blur-sm border border-primary-200/30 dark:border-primary-400/30 rounded-xl flex items-center justify-center shadow-lg">
-                              <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="flex-shrink-0 w-12 h-12 bg-[#DB3116]/20 backdrop-blur-sm border border-[#DB3116]/30 dark:border-[#DB3116]/40 rounded-xl flex items-center justify-center shadow-lg">
+                              <svg className="w-6 h-6 text-[#DB3116] dark:text-[#DB3116]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                             </div>
                             <div className="flex-1">
-                              <h4 className="text-lg font-bold text-primary-800 dark:text-primary-300 mb-2">
+                              <h4 className="text-lg font-bold text-[#DB3116] dark:text-[#DB3116] mb-2">
                                 Worldwide Continuity
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -290,15 +290,15 @@ const SectionTrustedStats: FC<Props> = ({
 
                       {/* Transparent Pricing */}
                       <div className="group hover:transform hover:scale-105 transition-all duration-300">
-                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-primary-100 dark:border-primary-800/30 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-lg transition-all duration-300">
+                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#DB3116]/20 dark:border-[#DB3116]/30 hover:border-[#DB3116]/50 dark:hover:border-[#DB3116]/60 hover:shadow-lg transition-all duration-300">
                           <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-12 h-12 bg-primary-500/20 backdrop-blur-sm border border-primary-200/30 dark:border-primary-400/30 rounded-xl flex items-center justify-center shadow-lg">
-                              <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="flex-shrink-0 w-12 h-12 bg-[#DB3116]/20 backdrop-blur-sm border border-[#DB3116]/30 dark:border-[#DB3116]/40 rounded-xl flex items-center justify-center shadow-lg">
+                              <svg className="w-6 h-6 text-[#DB3116] dark:text-[#DB3116]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                             </div>
                             <div className="flex-1">
-                              <h4 className="text-lg font-bold text-primary-800 dark:text-primary-300 mb-2">
+                              <h4 className="text-lg font-bold text-[#DB3116] dark:text-[#DB3116] mb-2">
                                 Transparent Pricing
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">

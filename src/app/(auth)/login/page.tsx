@@ -428,7 +428,7 @@ const Page = () => {
         // Redirect after successful signup
         setTimeout(() => {
           router.push('/dashboard')
-        }, 2000)
+        }, 1000)
       } else {
         // Handle validation errors
         if (data.errors) {

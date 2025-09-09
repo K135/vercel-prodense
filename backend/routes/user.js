@@ -6,6 +6,9 @@ const { authenticate } = require('../middleware/auth')
 const { asyncHandler, successResponse, errorResponse } = require('../middleware/errorMiddleware')
 const { body, validationResult } = require('express-validator')
 
+// Import logging function
+const { addLog } = require('../utils/logger')
+
 /**
  * @route   GET /api/user/profile
  * @desc    Get user profile
@@ -28,6 +31,7 @@ router.get('/profile',
       dateOfBirth: user.dateOfBirth,
       gender: user.gender,
       profession: user.profession,
+      address: user.address,
       isPhoneVerified: user.isPhoneVerified,
       isEmailVerified: user.isEmailVerified,
       lastLogin: user.lastLogin,
@@ -46,15 +50,15 @@ router.put('/profile',
   authenticate,
   [
     body('firstName')
-      .optional()
-      .isLength({ min: 1, max: 50 })
-      .withMessage('First name must be between 1 and 50 characters')
+      .optional({ checkFalsy: false })
+      .isLength({ min: 0, max: 50 })
+      .withMessage('First name cannot exceed 50 characters')
       .trim(),
     
     body('lastName')
-      .optional()
-      .isLength({ min: 1, max: 50 })
-      .withMessage('Last name must be between 1 and 50 characters')
+      .optional({ checkFalsy: false })
+      .isLength({ min: 0, max: 50 })
+      .withMessage('Last name cannot exceed 50 characters')
       .trim(),
     
     body('dateOfBirth')
@@ -78,19 +82,36 @@ router.put('/profile',
       .withMessage('Gender must be male, female, or other'),
     
     body('country')
-      .optional()
+      .optional({ checkFalsy: false })
       .isLength({ max: 100 })
       .withMessage('Country name cannot exceed 100 characters')
       .trim(),
     
     body('profession')
-      .optional()
+      .optional({ checkFalsy: false })
       .isLength({ max: 100 })
       .withMessage('Profession cannot exceed 100 characters')
+      .trim(),
+    
+    body('address')
+      .optional({ checkFalsy: false })
+      .isLength({ max: 200 })
+      .withMessage('Address cannot exceed 200 characters')
       .trim()
   ],
   asyncHandler(async (req, res) => {
+    addLog('info', '=== PROFILE UPDATE REQUEST ===')
+    addLog('info', 'Request details', {
+      body: req.body,
+      contentType: req.get('Content-Type'),
+      method: req.method,
+      url: req.url,
+      userAgent: req.get('User-Agent')
+    })
+    
     const errors = validationResult(req)
+    
+    addLog('info', 'Validation check', { errors: errors.array() })
     
     if (!errors.isEmpty()) {
       const formattedErrors = {}
@@ -102,28 +123,46 @@ router.put('/profile',
         formattedErrors[field].push(error.msg)
       })
       
+      addLog('error', 'Validation failed', { formattedErrors })
       return errorResponse(res, 'Validation failed', 422, formattedErrors)
     }
 
     const user = req.user
-    const allowedUpdates = ['firstName', 'lastName', 'dateOfBirth', 'gender', 'country', 'profession']
+    const allowedUpdates = ['firstName', 'lastName', 'dateOfBirth', 'gender', 'country', 'profession', 'address']
     const updates = {}
+
+    addLog('info', 'Processing update request', {
+      requestBody: req.body,
+      allowedUpdates,
+      userId: user._id
+    })
 
     // Only include allowed fields that are present in request
     allowedUpdates.forEach(field => {
-      if (req.body[field] !== undefined) {
+      if (req.body.hasOwnProperty(field)) {
+        addLog('debug', `Including field ${field}`, { value: req.body[field] })
         updates[field] = req.body[field]
+      } else {
+        addLog('debug', `Skipping field ${field}: not in request`)
       }
     })
 
+    addLog('info', 'Final updates object', { updates })
+
     // If no valid updates provided
     if (Object.keys(updates).length === 0) {
+      addLog('error', 'No valid updates found')
       return errorResponse(res, 'No valid fields provided for update', 400)
     }
 
     // Update user
     Object.assign(user, updates)
     await user.save()
+
+    addLog('success', 'Profile updated successfully', {
+      userId: user._id,
+      updatedFields: Object.keys(updates)
+    })
 
     successResponse(res, {
       id: user._id,
@@ -137,6 +176,7 @@ router.put('/profile',
       dateOfBirth: user.dateOfBirth,
       gender: user.gender,
       profession: user.profession,
+      address: user.address,
       isPhoneVerified: user.isPhoneVerified,
       isEmailVerified: user.isEmailVerified,
       lastLogin: user.lastLogin,
@@ -239,7 +279,7 @@ router.get('/stats',
 function calculateProfileCompleteness(user) {
   const fields = [
     'firstName', 'lastName', 'email', 'phone', 
-    'dateOfBirth', 'gender', 'country', 'profession'
+    'dateOfBirth', 'gender', 'country', 'profession', 'address'
   ]
   
   const completedFields = fields.filter(field => {

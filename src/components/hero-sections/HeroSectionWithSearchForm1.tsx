@@ -25,7 +25,7 @@ const HeroSectionWithSearchForm1 = ({
       <div className="flex flex-col lg:flex-row">
         <div className="relative flex w-full flex-col items-start gap-y-8 pb-16 lg:pe-10 lg:pt-12 lg:pb-60 xl:gap-y-10 xl:pe-14">
           {/* Prodense Orange Logo */}
-          <div className="mb-4 -ml-10">
+          <div className="mb-1 -ml-10 -mt-10">
             <img 
               src="/images/prodense orange.png" 
               alt="Prodense Logo" 
@@ -38,7 +38,7 @@ const HeroSectionWithSearchForm1 = ({
             dangerouslySetInnerHTML={{ __html: heading || '' }}
           />
           {description}
-          <div className="absolute start-0 bottom-4 hidden w-screen max-w-4xl lg:block xl:max-w-6xl">{searchForm}</div>
+          <div className="absolute start-0 bottom-16 hidden w-screen max-w-4xl lg:block xl:max-w-6xl">{searchForm}</div>
         </div>
 
         <div className="w-full">

@@ -62,6 +62,11 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     maxlength: [100, 'Profession cannot exceed 100 characters']
   },
+  address: {
+    type: String,
+    trim: true,
+    maxlength: [200, 'Address cannot exceed 200 characters']
+  },
   
   // System fields
   lastLogin: {

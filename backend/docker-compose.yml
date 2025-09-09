@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: prodance-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: prodance_admin_2024
+      MONGO_INITDB_DATABASE: prodance
+    volumes:
+      - mongodb_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - prodance-network
+
+  # Backend API
+  backend:
+    build: .
+    container_name: prodance-backend
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://prodance_user:prodance_pass_2024@mongodb:27017/prodance
+      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production-make-it-very-long-and-random
+      JWT_EXPIRES_IN: 7d
+      JWT_REFRESH_EXPIRES_IN: 30d
+      PORT: 5001
+      FRONTEND_URL: http://localhost:3005
+    depends_on:
+      - mongodb
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - prodance-network
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  prodance-network:
+    driver: bridge

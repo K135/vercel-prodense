@@ -43,7 +43,7 @@ const OTPSchema = new mongoose.Schema({
   attempts: {
     type: Number,
     default: 0,
-    max: [5, 'Maximum 5 attempts allowed']
+    max: [process.env.NODE_ENV === 'development' ? 50 : 5, 'Maximum attempts exceeded']
   },
   ipAddress: {
     type: String
@@ -64,7 +64,8 @@ OTPSchema.index({ isUsed: 1, expiresAt: 1 })
 
 // Instance method to check if OTP is valid
 OTPSchema.methods.isValid = function() {
-  return !this.isUsed && this.expiresAt > new Date() && this.attempts < 5
+  const maxAttempts = process.env.NODE_ENV === 'development' ? 50 : 5
+  return !this.isUsed && this.expiresAt > new Date() && this.attempts < maxAttempts
 }
 
 // Instance method to increment attempts

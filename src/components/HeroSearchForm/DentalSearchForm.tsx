@@ -70,7 +70,7 @@ export const DentalSearchForm = ({ className, formStyle = 'default' }: Props) =>
             <div className="text-xs text-neutral-500 dark:text-neutral-400">Quick Quote</div>
             <button
               type="button"
-              className="text-sm font-medium text-[#e6ba47] hover:text-[#e6ba47]/80 transition-colors"
+              className="text-sm font-medium text-[#DB3116] hover:text-[#DB3116]/80 transition-colors"
               onClick={() => {
                 // Handle quick quote action
                 console.log('Quick quote requested')

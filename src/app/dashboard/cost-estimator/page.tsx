@@ -15,7 +15,7 @@ export default function CostEstimatorPage() {
           <CalculatorIcon className="h-12 w-12 text-white" />
         </div>
         <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
-          Cost Estimator
+          Good Faith Estimator
         </h1>
         <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
           Calculate treatment costs, compare prices across different locations, and get instant estimates for your dental procedures.

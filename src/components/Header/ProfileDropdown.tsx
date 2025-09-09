@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/contexts/AuthContext'
 import Avatar from '@/shared/Avatar'
+import UserAvatar from '@/components/UserAvatar'
 import { Divider } from '@/shared/divider'
 import { Link } from '@/shared/link'
 import SwitchDarkMode2 from '@/shared/SwitchDarkMode2'
@@ -48,17 +49,29 @@ export default function ProfileDropdown({ className }: Props) {
 
   const userInitials = getInitials(user.firstName, user.lastName)
 
+  // Get gender-based avatar image
+  const getAvatarSrc = (gender?: string) => {
+    if (!gender) return null
+    
+    const normalizedGender = gender.toLowerCase()
+    if (normalizedGender === 'male' || normalizedGender === 'm') {
+      return '/avatar/male-avatar.jpg'
+    } else if (normalizedGender === 'female' || normalizedGender === 'f') {
+      return '/avatar/female-avatar.jpg'
+    }
+    return null
+  }
+
+  const avatarSrc = getAvatarSrc(user.gender)
+
   return (
     <div className={className}>
       <Popover>
-        <PopoverButton className="-m-1.5 flex cursor-pointer items-center justify-center rounded-full p-1.5 hover:bg-neutral-100 focus-visible:outline-hidden dark:hover:bg-neutral-800">
-          <Avatar 
-            className="size-8 bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold text-sm flex items-center justify-center"
-            hasChecked={user.isPhoneVerified || user.isEmailVerified}
-            hasCheckedClass="ring-2 ring-green-500"
-          >
-            {userInitials}
-          </Avatar>
+        <PopoverButton className="group flex cursor-pointer items-center space-x-2 rounded-lg bg-white/80 backdrop-blur-sm px-3 py-2 shadow-sm ring-1 ring-black/5 hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 dark:bg-neutral-800/80 dark:ring-white/10 dark:hover:bg-neutral-800 transition-all duration-200">
+          <UserAvatar size="xs" />
+          <span className="hidden sm:block text-sm font-medium text-neutral-800 dark:text-neutral-200 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
+            Hey {user.firstName || 'Profile'}!
+          </span>
         </PopoverButton>
 
         <PopoverPanel
@@ -72,13 +85,7 @@ export default function ProfileDropdown({ className }: Props) {
           <div className="relative grid grid-cols-1 gap-6 bg-white px-6 py-7 dark:bg-neutral-800">
             {/* User Info Header */}
             <div className="flex items-center space-x-3">
-              <Avatar 
-                className="size-12 bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold text-lg flex items-center justify-center"
-                hasChecked={user.isPhoneVerified || user.isEmailVerified}
-                hasCheckedClass="ring-2 ring-green-500"
-              >
-                {userInitials}
-              </Avatar>
+              <UserAvatar size="md" />
 
               <div className="grow">
                 <h4 className="font-semibold text-neutral-900 dark:text-neutral-100">

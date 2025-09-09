@@ -1,7 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { useAuth } from '@/contexts/AuthContext'
+import { apiClient } from '@/lib/api'
+import { useUserAvatar } from '@/hooks/useUserAvatar'
+import UserAvatar from '@/components/UserAvatar'
+import HealthProfileSection from '@/components/profile/HealthProfileSection'
+import DocumentsSection from '@/components/profile/DocumentsSection'
 import { 
   UserIcon, 
   EnvelopeIcon, 
@@ -26,40 +32,39 @@ import {
 } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
 
-const profileData = {
+interface ProfileData {
   personalInfo: {
-    firstName: 'Michael',
-    lastName: 'Johnson',
-    email: 'michael.johnson@email.com',
-    phone: '+1 (555) 234-5678',
-    dateOfBirth: '1985-08-22',
-    gender: 'Male',
-    nationality: 'American',
-    address: '456 Oak Avenue, Los Angeles, CA 90210',
-    emergencyContact: {
-      name: 'Sarah Johnson',
-      relationship: 'Spouse',
-      phone: '+1 (555) 876-5432'
-    }
-  },
+    firstName: string
+    lastName: string
+    email: string
+    phone: string
+    dateOfBirth: string
+    gender: string
+    nationality?: string
+    country?: string
+    profession?: string
+    address?: string
+  }
   healthProfile: {
-    bloodType: 'O+',
-    allergies: ['Penicillin', 'Latex'],
-    medications: ['Lisinopril 10mg daily'],
-    medicalConditions: ['Hypertension'],
-    lastDentalVisit: '2023-12-15',
-    dentalHistory: [
-      'Root canal treatment (2022)',
-      'Teeth cleaning (2023)',
-      'Wisdom tooth extraction (2021)'
-    ]
-  },
-  documents: [
-    { id: 1, name: 'Passport', type: 'ID', status: 'verified', uploadDate: '2024-01-15' },
-    { id: 2, name: 'Medical Insurance', type: 'Insurance', status: 'pending', uploadDate: '2024-02-01' },
-    { id: 3, name: 'Dental X-Ray', type: 'Medical', status: 'verified', uploadDate: '2024-02-10' },
-    { id: 4, name: 'Blood Test Results', type: 'Medical', status: 'verified', uploadDate: '2024-02-05' }
-  ]
+    bloodType?: string
+    allergies: string[]
+    medications: string[]
+    medicalConditions: string[]
+    lastDentalVisit?: string
+    dentalHistory: string[]
+    emergencyContact?: {
+      name: string
+      relationship: string
+      phone: string
+    }
+  }
+  documents: Array<{
+    id: number
+    name: string
+    type: string
+    status: string
+    uploadDate: string
+  }>
 }
 
 const sections = [
@@ -69,19 +74,304 @@ const sections = [
 ]
 
 export default function ProfilePage() {
+  const { user, token, updateUser } = useAuth()
+  const { userInitials, avatarSrc, hasVerification } = useUserAvatar()
   const [activeSection, setActiveSection] = useState('personal')
   const [isEditing, setIsEditing] = useState(false)
-  const [editedData, setEditedData] = useState(profileData.personalInfo)
+  const [profileData, setProfileData] = useState<ProfileData | null>(null)
+  const [editedData, setEditedData] = useState<any>({})
+  const [healthProfile, setHealthProfile] = useState<any>(null)
+  const [editedEmergencyContact, setEditedEmergencyContact] = useState<any>({})
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
+  const [saveSuccess, setSaveSuccess] = useState(false)
+  const hasFetchedAdditionalData = useRef(false)
 
-  const handleSave = () => {
-    // Here you would typically save to your backend
-    setIsEditing(false)
-    // Show success message
+  // Initialize profile data from user context
+  useEffect(() => {
+    if (user) {
+      const initialProfileData: ProfileData = {
+        personalInfo: {
+          firstName: user.firstName || '',
+          lastName: user.lastName || '',
+          email: user.email || '',
+          phone: user.phone || '',
+          dateOfBirth: user.dateOfBirth || '',
+          gender: user.gender || '',
+          country: user.country || '',
+          profession: user.profession || '',
+          address: user.address || ''
+        },
+        healthProfile: {
+          bloodType: '',
+          allergies: [],
+          medications: [],
+          medicalConditions: [],
+          lastDentalVisit: '',
+          dentalHistory: [],
+          emergencyContact: {
+            name: '',
+            relationship: '',
+            phone: ''
+          }
+        },
+        documents: []
+      }
+      
+      setProfileData(initialProfileData)
+      // Initialize editedData with only the fields that can be edited via the backend
+      // Ensure all values are strings (not undefined) for proper form handling
+      const initialEditedData = {
+        firstName: initialProfileData.personalInfo.firstName || '',
+        lastName: initialProfileData.personalInfo.lastName || '',
+        dateOfBirth: initialProfileData.personalInfo.dateOfBirth || '',
+        gender: initialProfileData.personalInfo.gender || '',
+        country: initialProfileData.personalInfo.country || '',
+        profession: initialProfileData.personalInfo.profession || '',
+        address: initialProfileData.personalInfo.address || ''
+      }
+      console.log('Setting initial editedData:', initialEditedData)
+      setEditedData(initialEditedData)
+      setLoading(false)
+    }
+  }, [user])
+
+  // Fetch additional profile data from backend
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      if (!token || !user || !profileData || hasFetchedAdditionalData.current) return
+
+      try {
+        hasFetchedAdditionalData.current = true
+        
+        // Fetch health profile
+        const healthRes = await apiClient.user.getHealthProfile(token).catch(() => null)
+
+        // Fetch documents
+        const docsRes = await apiClient.user.getDocuments(token).catch(() => null)
+
+        const updatedProfile = { ...profileData }
+        
+        if (healthRes?.success && healthRes.data) {
+          updatedProfile.healthProfile = {
+            ...updatedProfile.healthProfile,
+            ...healthRes.data
+          }
+          setHealthProfile(healthRes.data)
+          
+          // Initialize emergency contact edited data
+          const initialEmergencyContact = {
+            name: healthRes.data.emergencyContact?.name || '',
+            relationship: healthRes.data.emergencyContact?.relationship || '',
+            phone: healthRes.data.emergencyContact?.phone || ''
+          }
+          setEditedEmergencyContact(initialEmergencyContact)
+        }
+
+        if (docsRes?.success && docsRes.data) {
+          updatedProfile.documents = docsRes.data.documents || []
+        }
+
+        setProfileData(updatedProfile)
+      } catch (error) {
+        console.error('Error fetching profile data:', error)
+        hasFetchedAdditionalData.current = false // Reset on error to allow retry
+      }
+    }
+
+    // Only fetch once when user and token are available and profileData is initially set
+    if (token && user && profileData) {
+      fetchProfileData()
+    }
+  }, [token, user, profileData])
+
+  const handleSave = async () => {
+    if (!token || !profileData) return
+
+    setSaving(true)
+    setSaveError(null)
+    setSaveSuccess(false)
+
+    try {
+      // Only send fields that have actually changed and are not empty
+      const dataToSend: Record<string, string | undefined> = {}
+      const allowedFields = ['firstName', 'lastName', 'dateOfBirth', 'gender', 'country', 'profession', 'address'] as const
+      
+      allowedFields.forEach(field => {
+        const newValue = editedData[field] || ''
+        const originalValue = (profileData.personalInfo[field as keyof typeof profileData.personalInfo] || '').toString()
+        
+        console.log(`Field ${field}:`, {
+          newValue,
+          originalValue,
+          isDifferent: newValue !== originalValue,
+          willInclude: newValue !== originalValue
+        })
+        
+        // Include field if it's different from original (including empty strings)
+        if (newValue !== originalValue) {
+          dataToSend[field] = newValue
+        }
+      })
+      
+      // Special handling for dateOfBirth - convert to ISO format
+      if (dataToSend.dateOfBirth && typeof dataToSend.dateOfBirth === 'string') {
+        dataToSend.dateOfBirth = new Date(dataToSend.dateOfBirth).toISOString()
+      }
+      
+      console.log('Original data:', {
+        firstName: profileData.personalInfo.firstName,
+        lastName: profileData.personalInfo.lastName,
+        dateOfBirth: profileData.personalInfo.dateOfBirth,
+        gender: profileData.personalInfo.gender,
+        country: profileData.personalInfo.country,
+        profession: profileData.personalInfo.profession
+      })
+      console.log('Edited data:', editedData)
+      console.log('editedData type:', typeof editedData)
+      console.log('editedData keys:', Object.keys(editedData))
+      console.log('Sending to API:', dataToSend)
+      
+      // Check if there are emergency contact changes
+      const hasEmergencyContactChanges = 
+        editedEmergencyContact.name !== (healthProfile?.emergencyContact?.name || '') ||
+        editedEmergencyContact.relationship !== (healthProfile?.emergencyContact?.relationship || '') ||
+        editedEmergencyContact.phone !== (healthProfile?.emergencyContact?.phone || '')
+      
+      // If no changes detected in both personal info and emergency contact, return early with a message
+      if (Object.keys(dataToSend).length === 0 && !hasEmergencyContactChanges) {
+        setSaveError('No changes detected. Please modify at least one field.')
+        setSaving(false)
+        return
+      }
+      
+      // Handle personal info changes
+      if (Object.keys(dataToSend).length > 0) {
+        // Update user profile via API
+        const response = await apiClient.user.updateProfile(token, dataToSend)
+        
+        console.log('API response:', response)
+
+        if (response.success) {
+          // Update local state
+          const updatedProfile = {
+            ...profileData,
+            personalInfo: { ...profileData.personalInfo, ...editedData }
+          }
+          setProfileData(updatedProfile)
+          
+          // Update auth context
+          updateUser(editedData)
+        } else {
+          setSaveError(response.message || 'Failed to save profile')
+          setSaving(false)
+          return
+        }
+      }
+      
+      // Handle emergency contact changes
+      if (hasEmergencyContactChanges) {
+        await handleSaveEmergencyContact()
+      }
+      
+      setIsEditing(false)
+      setSaveSuccess(true)
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => setSaveSuccess(false), 3000)
+    } catch (error: any) {
+      console.error('Error saving profile:', error)
+      setSaveError(error.message || 'An error occurred while saving your profile')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleSaveEmergencyContact = async () => {
+    if (!token) return
+
+    setSaving(true)
+    setSaveError(null)
+    setSaveSuccess(false)
+
+    try {
+      const dataToSend = {
+        emergencyContact: editedEmergencyContact
+      }
+
+      console.log('Sending emergency contact data:', dataToSend)
+
+      const response = await apiClient.user.updateHealthProfile(token, dataToSend)
+
+      if (!response.success) {
+        throw new Error(response.message || 'Failed to update emergency contact')
+      }
+
+      // Update local state - handle case where healthProfile might not exist
+      const updatedHealthProfile = {
+        ...(healthProfile || {}),
+        emergencyContact: editedEmergencyContact
+      }
+      setHealthProfile(updatedHealthProfile)
+
+      // Update profile data
+      if (profileData) {
+        const updatedProfile = {
+          ...profileData,
+          healthProfile: {
+            ...profileData.healthProfile,
+            emergencyContact: editedEmergencyContact
+          }
+        }
+        setProfileData(updatedProfile)
+      }
+
+      setSaveSuccess(true)
+      setTimeout(() => setSaveSuccess(false), 3000)
+
+    } catch (error: any) {
+      console.error('Error saving emergency contact:', error)
+      setSaveError(error.message || 'Failed to save emergency contact')
+    } finally {
+      setSaving(false)
+    }
   }
 
   const handleCancel = () => {
-    setEditedData(profileData.personalInfo)
+    if (profileData) {
+      // Reset editedData with only the fields that can be edited via the backend
+      // Ensure all values are strings (not undefined) for proper form handling
+      setEditedData({
+        firstName: profileData.personalInfo.firstName || '',
+        lastName: profileData.personalInfo.lastName || '',
+        dateOfBirth: profileData.personalInfo.dateOfBirth || '',
+        gender: profileData.personalInfo.gender || '',
+        country: profileData.personalInfo.country || '',
+        profession: profileData.personalInfo.profession || '',
+        address: profileData.personalInfo.address || ''
+      })
+      
+      // Reset emergency contact data
+      if (healthProfile) {
+        setEditedEmergencyContact({
+          name: healthProfile.emergencyContact?.name || '',
+          relationship: healthProfile.emergencyContact?.relationship || '',
+          phone: healthProfile.emergencyContact?.phone || ''
+        })
+      }
+    }
     setIsEditing(false)
+    setSaveError(null)
+    setSaveSuccess(false)
+  }
+
+  if (loading || !profileData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    )
   }
 
   return (
@@ -98,9 +388,7 @@ export default function ProfilePage() {
         
         <div className="relative z-10 flex items-center gap-6">
           <div className="relative">
-            <div className="h-24 w-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white font-bold text-2xl shadow-lg">
-              MJ
-            </div>
+            <UserAvatar size="2xl" className="bg-white/20 backdrop-blur-sm text-white shadow-lg ring-2 ring-white/30" />
             <button className="absolute -bottom-2 -right-2 h-8 w-8 rounded-full bg-white text-slate-600 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
               <CameraIcon className="h-4 w-4" />
             </button>
@@ -190,13 +478,28 @@ export default function ProfilePage() {
                 {isEditing ? (
                   <>
                     <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: saving ? 1 : 1.05 }}
+                      whileTap={{ scale: saving ? 1 : 0.95 }}
                       onClick={handleSave}
-                      className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+                      disabled={saving}
+                      className={clsx(
+                        "flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors",
+                        saving
+                          ? "bg-green-400 text-white cursor-not-allowed"
+                          : "bg-green-600 text-white hover:bg-green-700"
+                      )}
                     >
-                      <CheckIcon className="h-4 w-4" />
-                      Save
+                      {saving ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                          Saving...
+                        </>
+                      ) : (
+                        <>
+                          <CheckIcon className="h-4 w-4" />
+                          Save
+                        </>
+                      )}
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
@@ -222,6 +525,36 @@ export default function ProfilePage() {
               </div>
             </div>
 
+            {/* Success Message */}
+            {saveSuccess && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg"
+              >
+                <div className="flex items-center gap-2 text-green-800 dark:text-green-200">
+                  <CheckIcon className="h-5 w-5" />
+                  <span className="font-medium">Profile updated successfully!</span>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Error Message */}
+            {saveError && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+              >
+                <div className="flex items-center gap-2 text-red-800 dark:text-red-200">
+                  <XMarkIcon className="h-5 w-5" />
+                  <span className="font-medium">Error: {saveError}</span>
+                </div>
+              </motion.div>
+            )}
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Basic Information */}
               <div className="space-y-6">
@@ -235,7 +568,7 @@ export default function ProfilePage() {
                     {isEditing ? (
                       <input
                         type="text"
-                        value={editedData.firstName}
+                        value={editedData.firstName || ''}
                         onChange={(e) => setEditedData({...editedData, firstName: e.target.value})}
                         className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       />
@@ -253,7 +586,7 @@ export default function ProfilePage() {
                     {isEditing ? (
                       <input
                         type="text"
-                        value={editedData.lastName}
+                        value={editedData.lastName || ''}
                         onChange={(e) => setEditedData({...editedData, lastName: e.target.value})}
                         className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       />
@@ -282,19 +615,11 @@ export default function ProfilePage() {
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Phone Number
                   </label>
-                  {isEditing ? (
-                    <input
-                      type="tel"
-                      value={editedData.phone}
-                      onChange={(e) => setEditedData({...editedData, phone: e.target.value})}
-                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                    />
-                  ) : (
-                    <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white flex items-center gap-3">
-                      <PhoneIcon className="h-5 w-5 text-slate-400" />
-                      {profileData.personalInfo.phone}
-                    </div>
-                  )}
+                  <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white flex items-center gap-3">
+                    <PhoneIcon className="h-5 w-5 text-slate-400" />
+                    {profileData.personalInfo.phone}
+                    <span className="ml-auto text-xs text-slate-500 dark:text-slate-400">Cannot be changed</span>
+                  </div>
                 </div>
               </div>
 
@@ -307,29 +632,83 @@ export default function ProfilePage() {
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                       Date of Birth
                     </label>
-                    <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white flex items-center gap-3">
-                      <CalendarDaysIcon className="h-5 w-5 text-slate-400" />
-                      {new Date(profileData.personalInfo.dateOfBirth).toLocaleDateString()}
-                    </div>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        value={editedData.dateOfBirth ? new Date(editedData.dateOfBirth).toISOString().split('T')[0] : ''}
+                        onChange={(e) => setEditedData({...editedData, dateOfBirth: e.target.value})}
+                        className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      />
+                    ) : (
+                      <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white flex items-center gap-3">
+                        <CalendarDaysIcon className="h-5 w-5 text-slate-400" />
+                        {profileData.personalInfo.dateOfBirth ? new Date(profileData.personalInfo.dateOfBirth).toLocaleDateString() : 'Not set'}
+                      </div>
+                    )}
                   </div>
                   
                   <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                       Gender
                     </label>
-                    <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white">
-                      {profileData.personalInfo.gender}
-                    </div>
+                    {isEditing ? (
+                      <select
+                        value={editedData.gender || ''}
+                        onChange={(e) => setEditedData({...editedData, gender: e.target.value})}
+                        className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      >
+                        <option value="">Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                      </select>
+                    ) : (
+                      <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white">
+                        {profileData.personalInfo.gender || 'Not set'}
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Nationality
-                  </label>
-                  <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white flex items-center gap-3">
-                    <GlobeAltIcon className="h-5 w-5 text-slate-400" />
-                    {profileData.personalInfo.nationality}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      Country
+                    </label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={editedData.country || ''}
+                        onChange={(e) => setEditedData({...editedData, country: e.target.value})}
+                        placeholder="Enter your country"
+                        className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      />
+                    ) : (
+                      <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white flex items-center gap-3">
+                        <GlobeAltIcon className="h-5 w-5 text-slate-400" />
+                        {profileData.personalInfo.country || 'Not set'}
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      Profession
+                    </label>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        value={editedData.profession || ''}
+                        onChange={(e) => setEditedData({...editedData, profession: e.target.value})}
+                        placeholder="Enter your profession"
+                        className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      />
+                    ) : (
+                      <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white flex items-center gap-3">
+                        <IdentificationIcon className="h-5 w-5 text-slate-400" />
+                        {profileData.personalInfo.profession || 'Not set'}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -339,15 +718,18 @@ export default function ProfilePage() {
                   </label>
                   {isEditing ? (
                     <textarea
-                      value={editedData.address}
+                      value={editedData.address || ''}
                       onChange={(e) => setEditedData({...editedData, address: e.target.value})}
+                      placeholder="Enter your address"
                       rows={3}
-                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
                     />
                   ) : (
                     <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white flex items-start gap-3">
                       <MapPinIcon className="h-5 w-5 text-slate-400 mt-0.5" />
-                      {profileData.personalInfo.address}
+                      <span className={profileData.personalInfo.address ? '' : 'text-slate-500 dark:text-slate-400'}>
+                        {profileData.personalInfo.address || 'Not set'}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -362,25 +744,61 @@ export default function ProfilePage() {
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Name
                   </label>
-                  <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white">
-                    {profileData.personalInfo.emergencyContact.name}
-                  </div>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={editedEmergencyContact.name || ''}
+                      onChange={(e) => setEditedEmergencyContact({...editedEmergencyContact, name: e.target.value})}
+                      placeholder="Enter contact name"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    />
+                  ) : (
+                    <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white">
+                      <span className={profileData.healthProfile.emergencyContact?.name ? '' : 'text-slate-500 dark:text-slate-400'}>
+                        {profileData.healthProfile.emergencyContact?.name || 'Not set'}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Relationship
                   </label>
-                  <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white">
-                    {profileData.personalInfo.emergencyContact.relationship}
-                  </div>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={editedEmergencyContact.relationship || ''}
+                      onChange={(e) => setEditedEmergencyContact({...editedEmergencyContact, relationship: e.target.value})}
+                      placeholder="Enter relationship"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    />
+                  ) : (
+                    <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white">
+                      <span className={profileData.healthProfile.emergencyContact?.relationship ? '' : 'text-slate-500 dark:text-slate-400'}>
+                        {profileData.healthProfile.emergencyContact?.relationship || 'Not set'}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Phone
                   </label>
-                  <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white">
-                    {profileData.personalInfo.emergencyContact.phone}
-                  </div>
+                  {isEditing ? (
+                    <input
+                      type="tel"
+                      value={editedEmergencyContact.phone || ''}
+                      onChange={(e) => setEditedEmergencyContact({...editedEmergencyContact, phone: e.target.value})}
+                      placeholder="Enter phone number"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    />
+                  ) : (
+                    <div className="px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-slate-900 dark:text-white">
+                      <span className={profileData.healthProfile.emergencyContact?.phone ? '' : 'text-slate-500 dark:text-slate-400'}>
+                        {profileData.healthProfile.emergencyContact?.phone || 'Not set'}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -388,163 +806,17 @@ export default function ProfilePage() {
         )}
 
         {activeSection === 'health' && (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Health Profile</h2>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Medical Information */}
-              <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Medical Information</h3>
-                
-                <div className="space-y-4">
-                  <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
-                    <h4 className="font-medium text-red-900 dark:text-red-300 mb-2">Blood Type</h4>
-                    <p className="text-red-700 dark:text-red-400 font-semibold text-lg">
-                      {profileData.healthProfile.bloodType}
-                    </p>
-                  </div>
-                  
-                  <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
-                    <h4 className="font-medium text-yellow-900 dark:text-yellow-300 mb-2">Allergies</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {profileData.healthProfile.allergies.map((allergy, index) => (
-                        <span key={index} className="bg-yellow-200 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full text-sm font-medium">
-                          {allergy}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                    <h4 className="font-medium text-blue-900 dark:text-blue-300 mb-2">Current Medications</h4>
-                    <ul className="space-y-1">
-                      {profileData.healthProfile.medications.map((medication, index) => (
-                        <li key={index} className="text-blue-700 dark:text-blue-400">
-                          • {medication}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
-                    <h4 className="font-medium text-purple-900 dark:text-purple-300 mb-2">Medical Conditions</h4>
-                    <ul className="space-y-1">
-                      {profileData.healthProfile.medicalConditions.map((condition, index) => (
-                        <li key={index} className="text-purple-700 dark:text-purple-400">
-                          • {condition}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              {/* Dental History */}
-              <div className="space-y-6">
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Dental History</h3>
-                
-                <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-                  <h4 className="font-medium text-green-900 dark:text-green-300 mb-2">Last Dental Visit</h4>
-                  <p className="text-green-700 dark:text-green-400 font-semibold">
-                    {new Date(profileData.healthProfile.lastDentalVisit).toLocaleDateString()}
-                  </p>
-                </div>
-                
-                <div className="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-200 dark:border-slate-600">
-                  <h4 className="font-medium text-slate-900 dark:text-slate-300 mb-3">Previous Treatments</h4>
-                  <div className="space-y-2">
-                    {profileData.healthProfile.dentalHistory.map((treatment, index) => (
-                      <div key={index} className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg">
-                        <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
-                        <span className="text-slate-700 dark:text-slate-300">{treatment}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <HealthProfileSection 
+            isEditing={isEditing && activeSection === 'health'} 
+            onEditToggle={() => setIsEditing(!isEditing)} 
+          />
         )}
 
         {activeSection === 'documents' && (
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-8">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Documents</h2>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
-              >
-                <DocumentTextIcon className="h-4 w-4" />
-                Upload Document
-              </motion.button>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {profileData.documents.map((document, index) => (
-                <motion.div
-                  key={document.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-6 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600 hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className={clsx(
-                        "h-12 w-12 rounded-lg flex items-center justify-center",
-                        document.type === 'ID' ? "bg-blue-100 dark:bg-blue-900/20" :
-                        document.type === 'Insurance' ? "bg-green-100 dark:bg-green-900/20" :
-                        "bg-purple-100 dark:bg-purple-900/20"
-                      )}>
-                        <IdentificationIcon className={clsx(
-                          "h-6 w-6",
-                          document.type === 'ID' ? "text-blue-600 dark:text-blue-400" :
-                          document.type === 'Insurance' ? "text-green-600 dark:text-green-400" :
-                          "text-purple-600 dark:text-purple-400"
-                        )} />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-slate-900 dark:text-white">
-                          {document.name}
-                        </h3>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">
-                          {document.type}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <span className={clsx(
-                      "inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium",
-                      document.status === 'verified' 
-                        ? "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
-                        : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400"
-                    )}>
-                      {document.status === 'verified' ? (
-                        <ShieldSolid className="h-4 w-4" />
-                      ) : (
-                        <ClockIcon className="h-4 w-4" />
-                      )}
-                      {document.status}
-                    </span>
-                  </div>
-                  
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-                    Uploaded on {new Date(document.uploadDate).toLocaleDateString()}
-                  </p>
-                  
-                  <div className="flex gap-2">
-                    <button className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
-                      View
-                    </button>
-                    <button className="px-3 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
-                      Replace
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+          <DocumentsSection 
+            isEditing={isEditing && activeSection === 'documents'} 
+            onEditToggle={() => setIsEditing(!isEditing)} 
+          />
         )}
       </motion.div>
     </div>

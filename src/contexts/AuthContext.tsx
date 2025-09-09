@@ -16,6 +16,7 @@ interface User {
   dateOfBirth?: string
   gender?: string
   profession?: string
+  address?: string
   isPhoneVerified: boolean
   isEmailVerified: boolean
   lastLogin?: string
@@ -52,22 +53,39 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const initializeAuth = () => {
       try {
+        console.log('🔐 Initializing Auth Context...')
         const storedToken = localStorage.getItem('authToken')
         const storedUser = localStorage.getItem('user')
 
+        console.log('📦 LocalStorage Data:')
+        console.log('- Token present:', !!storedToken)
+        console.log('- Token length:', storedToken?.length)
+        console.log('- User data present:', !!storedUser)
+        console.log('- Raw user data:', storedUser)
+
         if (storedToken && storedUser) {
           const parsedUser = JSON.parse(storedUser)
+          console.log('👤 Parsed User:', parsedUser)
+          console.log('- User ID:', parsedUser.id)
+          console.log('- User name:', parsedUser.firstName, parsedUser.lastName)
+          console.log('- User phone:', parsedUser.phone)
+          console.log('- User email:', parsedUser.email)
+          
           setToken(storedToken)
           setUser(parsedUser)
+          console.log('✅ Auth state initialized successfully')
+        } else {
+          console.log('❌ No valid auth data found in localStorage')
         }
       } catch (error) {
-        console.error('Error initializing auth:', error)
+        console.error('❌ Error initializing auth:', error)
         // Clear corrupted data
         localStorage.removeItem('authToken')
         localStorage.removeItem('refreshToken')
         localStorage.removeItem('user')
       } finally {
         setIsLoading(false)
+        console.log('🏁 Auth initialization completed')
       }
     }
 

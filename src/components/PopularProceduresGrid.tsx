@@ -116,13 +116,13 @@ const PopularProceduresGrid = () => {
         >
           <Link href={procedure.href} className="block h-full">
             {/* Glassmorphism Card */}
-            <div className="relative bg-white/20 backdrop-blur-md rounded-3xl transition-all duration-500 overflow-hidden border-2 border-[#E5BA47]/20 group-hover:border-[#E5BA47]/60 group-hover:shadow-2xl group-hover:shadow-[#E5BA47]/10 group-hover:-translate-y-3 h-full flex flex-col">
+            <div className="relative bg-white/20 backdrop-blur-md rounded-3xl transition-all duration-500 overflow-hidden border-2 border-[#DB3116]/20 group-hover:border-[#DB3116]/60 group-hover:shadow-2xl group-hover:shadow-[#DB3116]/10 group-hover:-translate-y-3 h-full flex flex-col">
               {/* Glassmorphism background layers */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#E5BA47]/5 via-transparent to-[#E5BA47]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#DB3116]/5 via-transparent to-[#DB3116]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              {/* Animated golden glow effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#E5BA47]/20 via-[#E5BA47]/5 to-[#E5BA47]/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+              {/* Animated red glow effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#DB3116]/20 via-[#DB3116]/5 to-[#DB3116]/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
               
               {/* GIF Image Container - WHITE BACKGROUND ALWAYS */}
               <div className="relative flex-1 min-h-[120px] md:min-h-[140px] lg:min-h-[160px] overflow-hidden z-10 bg-white rounded-t-3xl">
@@ -139,7 +139,7 @@ const PopularProceduresGrid = () => {
               {/* Content with glassmorphism */}
               <div className="relative p-3 md:p-4 lg:p-5 text-center z-10">
                 {/* Subtle glass separator */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-px bg-gradient-to-r from-transparent via-[#E5BA47]/30 to-transparent" />
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-12 h-px bg-gradient-to-r from-transparent via-[#DB3116]/30 to-transparent" />
                 
                 <h3 className="text-xs md:text-sm lg:text-base font-semibold text-gray-800 transition-colors duration-300 leading-tight mb-3 line-clamp-2 drop-shadow-sm">
                   {procedure.name}
@@ -147,9 +147,9 @@ const PopularProceduresGrid = () => {
                 
                 {/* Enhanced CTA with glassmorphism - Icon only */}
                 <div className="flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-8 h-8 rounded-full bg-[#E5BA47]/10 backdrop-blur-sm border border-[#E5BA47]/20 flex items-center justify-center group-hover:bg-[#E5BA47]/20 group-hover:border-[#E5BA47]/30 transition-all duration-300">
+                  <div className="w-8 h-8 rounded-full bg-[#DB3116]/10 backdrop-blur-sm border border-[#DB3116]/20 flex items-center justify-center group-hover:bg-[#DB3116]/20 group-hover:border-[#DB3116]/30 transition-all duration-300">
                     <svg 
-                      className="w-4 h-4 text-[#E5BA47] group-hover:translate-x-0.5 transition-transform duration-300" 
+                      className="w-4 h-4 text-[#DB3116] group-hover:translate-x-0.5 transition-transform duration-300" 
                       fill="none" 
                       stroke="currentColor" 
                       viewBox="0 0 24 24"
@@ -160,8 +160,8 @@ const PopularProceduresGrid = () => {
                 </div>
               </div>
               
-              {/* Golden bottom accent with glassmorphism */}
-              <div className="h-1 bg-gradient-to-r from-transparent via-[#E5BA47]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-sm" />
+              {/* Red bottom accent with glassmorphism */}
+              <div className="h-1 bg-gradient-to-r from-transparent via-[#DB3116]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-sm" />
               
               {/* Additional glass reflection effect - only on content area */}
               <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white/20 to-transparent opacity-60 pointer-events-none rounded-b-3xl" />

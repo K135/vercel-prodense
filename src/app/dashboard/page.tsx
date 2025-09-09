@@ -2,7 +2,10 @@
 
 import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { apiClient } from '@/lib/api'
+import { useUserAvatar } from '@/hooks/useUserAvatar'
+import UserAvatar from '@/components/UserAvatar'
 
 import { 
   UserIcon, 
@@ -10,18 +13,94 @@ import {
   HeartIcon, 
   DocumentTextIcon,
   ChartBarIcon,
-  CogIcon
+  CogIcon,
+  MapPinIcon,
+  CalculatorIcon,
+  UserGroupIcon,
+  GiftIcon,
+  BellIcon,
+  CreditCardIcon
 } from '@heroicons/react/24/outline'
 
+interface DashboardStats {
+  totalBookings: number
+  savedClinics: number
+  reviewsWritten: number
+  loyaltyPoints: number
+  upcomingAppointments: number
+  completedTreatments: number
+}
+
 export default function DashboardPage() {
-  const { user, isAuthenticated, isLoading } = useAuth()
+  const { user, isAuthenticated, isLoading, token } = useAuth()
+  const { userInitials, avatarSrc, hasVerification } = useUserAvatar()
   const router = useRouter()
+  const [dashboardStats, setDashboardStats] = useState<DashboardStats>({
+    totalBookings: 0,
+    savedClinics: 0,
+    reviewsWritten: 0,
+    loyaltyPoints: 0,
+    upcomingAppointments: 0,
+    completedTreatments: 0
+  })
+  const [statsLoading, setStatsLoading] = useState(true)
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push('/login')
     }
   }, [isAuthenticated, isLoading, router])
+
+  // Fetch dashboard statistics
+  useEffect(() => {
+    const fetchDashboardStats = async () => {
+      if (!token || !user) return
+
+      try {
+        setStatsLoading(true)
+        
+        // Fetch various stats from different endpoints
+        const [bookingsRes, loyaltyRes, notificationsRes] = await Promise.allSettled([
+          apiClient.bookings.getAll(token),
+          apiClient.loyalty.getPoints(token),
+          apiClient.notifications.getAll(token)
+        ])
+
+        // Process results
+        let stats: DashboardStats = {
+          totalBookings: 0,
+          savedClinics: 12, // Default for now
+          reviewsWritten: 8, // Default for now
+          loyaltyPoints: 0,
+          upcomingAppointments: 0,
+          completedTreatments: 0
+        }
+
+        if (bookingsRes.status === 'fulfilled' && bookingsRes.value.success) {
+          const bookings = bookingsRes.value.data.bookings || []
+          stats.totalBookings = bookings.length
+          stats.upcomingAppointments = bookings.filter((b: any) => 
+            new Date(b.appointmentDate) > new Date() && b.status === 'confirmed'
+          ).length
+          stats.completedTreatments = bookings.filter((b: any) => 
+            b.status === 'completed'
+          ).length
+        }
+
+        if (loyaltyRes.status === 'fulfilled' && loyaltyRes.value.success) {
+          stats.loyaltyPoints = loyaltyRes.value.data.totalPoints || 0
+        }
+
+        setDashboardStats(stats)
+      } catch (error) {
+        console.error('Error fetching dashboard stats:', error)
+      } finally {
+        setStatsLoading(false)
+      }
+    }
+
+    fetchDashboardStats()
+  }, [token, user])
 
   if (isLoading) {
     return (
@@ -38,50 +117,66 @@ export default function DashboardPage() {
   const dashboardCards = [
     {
       title: 'My Profile',
-      description: 'Manage your personal information',
+      description: 'Personal info & health profile',
       icon: UserIcon,
-      href: '/account',
-      color: 'from-blue-500 to-blue-600',
-      stats: 'Complete'
+      href: '/dashboard/profile',
+      color: 'from-emerald-500 to-teal-600',
+      stats: user.isEmailVerified ? 'Complete' : 'Incomplete'
     },
     {
-      title: 'My Appointments',
-      description: 'View and manage your bookings',
+      title: 'My Bookings',
+      description: 'Appointments & treatments',
       icon: CalendarIcon,
-      href: '/my-appointments',
-      color: 'from-green-500 to-green-600',
-      stats: '3 Upcoming'
+      href: '/dashboard/booking',
+      color: 'from-pink-500 to-rose-600',
+      stats: `${dashboardStats.upcomingAppointments} Upcoming`
     },
     {
-      title: 'Wishlist',
-      description: 'Your saved dental clinics',
-      icon: HeartIcon,
-      href: '/account-savelists',
-      color: 'from-red-500 to-red-600',
-      stats: '12 Saved'
+      title: 'My Itinerary',
+      description: 'Travel & treatment schedule',
+      icon: MapPinIcon,
+      href: '/dashboard/itinerary',
+      color: 'from-orange-500 to-red-600',
+      stats: 'Plan Trip'
     },
     {
-      title: 'My Listings',
-      description: 'Manage your property listings',
+      title: 'Medical Reports',
+      description: 'Records & documents',
       icon: DocumentTextIcon,
-      href: '/my-listings',
-      color: 'from-purple-500 to-purple-600',
-      stats: '2 Active'
+      href: '/dashboard/reports',
+      color: 'from-indigo-500 to-blue-600',
+      stats: 'View All'
     },
     {
-      title: 'Analytics',
-      description: 'View your booking statistics',
-      icon: ChartBarIcon,
-      href: '/analytics',
-      color: 'from-yellow-500 to-yellow-600',
-      stats: 'This Month'
+      title: 'Good Faith Estimator',
+      description: 'Treatment cost calculator',
+      icon: CalculatorIcon,
+      href: '/dashboard/cost-estimator',
+      color: 'from-yellow-500 to-orange-600',
+      stats: 'Calculate'
     },
     {
-      title: 'Settings',
-      description: 'Account and privacy settings',
-      icon: CogIcon,
-      href: '/settings',
-      color: 'from-gray-500 to-gray-600',
+      title: 'Loyalty Points',
+      description: 'Rewards & benefits',
+      icon: GiftIcon,
+      href: '/dashboard/loyalty-points',
+      color: 'from-purple-500 to-pink-600',
+      stats: `${dashboardStats.loyaltyPoints} Points`
+    },
+    {
+      title: 'Notifications',
+      description: 'Messages & alerts',
+      icon: BellIcon,
+      href: '/dashboard/notifications',
+      color: 'from-green-500 to-emerald-600',
+      stats: 'View All'
+    },
+    {
+      title: 'Billing',
+      description: 'Payments & invoices',
+      icon: CreditCardIcon,
+      href: '/dashboard/billing',
+      color: 'from-slate-500 to-gray-600',
       stats: 'Manage'
     }
   ]
@@ -101,11 +196,7 @@ export default function DashboardPage() {
               </p>
             </div>
             <div className="hidden md:block">
-              <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-2xl font-bold">
-                  {user.firstName.charAt(0)}{user.lastName.charAt(0)}
-                </span>
-              </div>
+              <UserAvatar size="2xl" className="bg-white/20 text-white ring-2 ring-white/30" />
             </div>
           </div>
         </div>
@@ -117,7 +208,9 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-neutral-500 dark:text-neutral-400">Total Bookings</p>
-              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">24</p>
+              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                {statsLoading ? '...' : dashboardStats.totalBookings}
+              </p>
             </div>
             <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center">
               <CalendarIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
@@ -128,11 +221,13 @@ export default function DashboardPage() {
         <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">Saved Clinics</p>
-              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">12</p>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400">Loyalty Points</p>
+              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                {statsLoading ? '...' : dashboardStats.loyaltyPoints}
+              </p>
             </div>
-            <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center">
-              <HeartIcon className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center">
+              <GiftIcon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             </div>
           </div>
         </div>
@@ -140,11 +235,13 @@ export default function DashboardPage() {
         <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">Reviews Written</p>
-              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">8</p>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400">Completed Treatments</p>
+              <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                {statsLoading ? '...' : dashboardStats.completedTreatments}
+              </p>
             </div>
-            <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl flex items-center justify-center">
-              <DocumentTextIcon className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
+            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center">
+              <DocumentTextIcon className="w-6 h-6 text-green-600 dark:text-green-400" />
             </div>
           </div>
         </div>
@@ -157,8 +254,8 @@ export default function DashboardPage() {
                 {new Date(user.createdAt).getFullYear()}
               </p>
             </div>
-            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center">
-              <UserIcon className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center">
+              <UserIcon className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
             </div>
           </div>
         </div>

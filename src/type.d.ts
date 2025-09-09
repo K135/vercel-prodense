@@ -30,6 +30,7 @@ export interface User {
   dateOfBirth?: string
   gender?: 'male' | 'female' | 'other'
   profession?: string
+  address?: string
   isPhoneVerified: boolean
   isEmailVerified: boolean
   lastLogin?: string
@@ -66,6 +67,7 @@ export interface SignupRequest {
   gender?: 'male' | 'female' | 'other'
   country?: string
   profession?: string
+  address?: string
 }
 
 export {}

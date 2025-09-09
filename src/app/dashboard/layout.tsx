@@ -5,6 +5,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useAuth } from '@/contexts/AuthContext'
+import { useProtectedRoute } from '@/hooks/useProtectedRoute'
+import { useUserAvatar } from '@/hooks/useUserAvatar'
+import UserAvatar from '@/components/UserAvatar'
 import { 
   HomeIcon, 
   CreditCardIcon, 
@@ -21,7 +25,8 @@ import {
   XMarkIcon,
   ChevronRightIcon,
   SparklesIcon,
-  ChatBubbleLeftRightIcon
+  ChatBubbleLeftRightIcon,
+  DocumentMagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
 import { 
   HomeIcon as HomeIconSolid, 
@@ -34,7 +39,8 @@ import {
   UserGroupIcon as UserGroupIconSolid, 
   GiftIcon as GiftIconSolid, 
   BellIcon as BellIconSolid, 
-  HeartIcon as HeartIconSolid
+  HeartIcon as HeartIconSolid,
+  DocumentMagnifyingGlassIcon as DocumentMagnifyingGlassIconSolid
 } from '@heroicons/react/24/solid'
 
 const navigation = [
@@ -79,7 +85,7 @@ const navigation = [
     description: 'Medical Records & Documents'
   },
   { 
-    name: 'Cost Estimator', 
+    name: 'Good Faith Estimator', 
     href: '/dashboard/cost-estimator', 
     icon: CalculatorIcon, 
     iconSolid: CalculatorIconSolid,
@@ -87,7 +93,7 @@ const navigation = [
     description: 'Treatment Cost Calculator'
   },
   { 
-    name: 'Dentist Profile', 
+    name: 'Saved Clinic', 
     href: '/dashboard/dentist-profile', 
     icon: UserGroupIcon, 
     iconSolid: UserGroupIconSolid,
@@ -126,6 +132,14 @@ const navigation = [
     gradient: 'from-slate-500 to-gray-600',
     description: 'Payments & Invoices'
   },
+  { 
+    name: 'System Logs', 
+    href: '/dashboard/logs', 
+    icon: DocumentMagnifyingGlassIcon, 
+    iconSolid: DocumentMagnifyingGlassIconSolid,
+    gradient: 'from-gray-500 to-slate-600',
+    description: 'Debug & Monitor System'
+  },
 ]
 
 export default function DashboardLayout({
@@ -136,12 +150,21 @@ export default function DashboardLayout({
   const pathname = usePathname()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const { isAuthenticated, isLoading } = useProtectedRoute('/login')
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  if (!mounted) {
+  if (!mounted || isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
     return null
   }
 
@@ -221,16 +244,7 @@ export default function DashboardLayout({
 
               {/* Profile dropdown */}
               <div className="relative">
-                <button className="flex items-center gap-x-3 text-sm leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full px-3 py-2 transition-colors">
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 flex items-center justify-center text-white font-medium text-sm">
-                    JD
-                  </div>
-                  <span className="hidden lg:flex lg:items-center">
-                    <span className="ml-2 text-sm font-semibold" aria-hidden="true">
-                      John Doe
-                    </span>
-                  </span>
-                </button>
+                <UserProfileButton />
               </div>
             </div>
           </div>
@@ -349,5 +363,22 @@ function SidebarContent({ pathname, onClose }: { pathname: string; onClose?: () 
         </div>
       </nav>
     </>
+  )
+}
+
+function UserProfileButton() {
+  const { user, userInitials, avatarSrc, hasVerification } = useUserAvatar()
+  
+  if (!user) return null
+  
+  return (
+    <button className="flex items-center gap-x-3 text-sm leading-6 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full px-3 py-2 transition-colors">
+      <UserAvatar size="sm" className="bg-gradient-to-br from-pink-500 to-rose-600" />
+      <span className="hidden lg:flex lg:items-center">
+        <span className="ml-2 text-sm font-semibold" aria-hidden="true">
+          {user.firstName} {user.lastName}
+        </span>
+      </span>
+    </button>
   )
 }
