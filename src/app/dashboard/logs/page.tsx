@@ -91,12 +91,7 @@ const LogsPage = () => {
     if (!token || eventSourceRef.current) return
 
     const eventSource = new EventSource(
-      `${process.env.NEXT_PUBLIC_API_URL}/logs/stream`,
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }
+      `${process.env.NEXT_PUBLIC_API_URL}/logs/stream?token=${encodeURIComponent(token)}`
     )
 
     eventSource.onopen = () => {
