@@ -240,7 +240,7 @@ export default function BookingPage() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#DB3116] to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D35C2F] to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
         >
           <PlusIcon className="h-5 w-5" />
           Book New Appointment
@@ -340,7 +340,7 @@ export default function BookingPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#DB3116] to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D35C2F] to-red-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <PlusIcon className="h-5 w-5" />
                 Book Your First Appointment

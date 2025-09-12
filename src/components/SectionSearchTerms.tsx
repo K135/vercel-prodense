@@ -84,7 +84,7 @@ const SectionSearchTerms: React.FC<SectionSearchTermsProps> = ({ className = '' 
         "Prodense Dental Travel Portal",
         "Prodense Dental Packages",
         "Prodense Dentist Network",
-        "Prodense AI Dental Assistant",
+        "Prodense Talk to us",
         "Prodense Good Faith Cost Estimator",
         "Prodense Dental Clinics India",
         "Prodense Accommodation and Travel",

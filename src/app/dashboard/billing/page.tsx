@@ -267,7 +267,7 @@ export default function BillingPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#DB3116]"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#D35C2F]"></div>
       </div>
     )
   }
@@ -381,7 +381,7 @@ export default function BillingPage() {
                 placeholder="Search invoices..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-[#DB3116] focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent"
               />
             </div>
           </div>
@@ -390,7 +390,7 @@ export default function BillingPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#DB3116] focus:border-transparent"
+              className="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent"
             >
               <option value="all">All Status</option>
               <option value="draft">Draft</option>
@@ -404,7 +404,7 @@ export default function BillingPage() {
             <select
               value={paymentStatusFilter}
               onChange={(e) => setPaymentStatusFilter(e.target.value)}
-              className="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#DB3116] focus:border-transparent"
+              className="px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent"
             >
               <option value="all">All Payments</option>
               <option value="pending">Pending</option>
@@ -523,7 +523,7 @@ export default function BillingPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button
                           onClick={() => fetchBillDetails(bill._id)}
-                          className="text-[#DB3116] hover:text-red-700 transition-colors"
+                          className="text-[#D35C2F] hover:text-red-700 transition-colors"
                         >
                           View Details
                         </button>

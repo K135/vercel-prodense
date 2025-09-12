@@ -281,7 +281,7 @@ export default function ReportsPage() {
             <FunnelIcon className="h-4 w-4 mr-2" />
             Filter
           </button>
-          <button className="inline-flex items-center px-4 py-2 bg-[#DB3116] text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
+          <button className="inline-flex items-center px-4 py-2 bg-[#D35C2F] text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
             <PlusIcon className="h-4 w-4 mr-2" />
             Upload Document
           </button>
@@ -310,7 +310,7 @@ export default function ReportsPage() {
                 </p>
               </div>
             </div>
-            <button className="text-[#DB3116] hover:text-red-700 text-sm font-medium flex items-center">
+            <button className="text-[#D35C2F] hover:text-red-700 text-sm font-medium flex items-center">
               View All
               <ChevronRightIcon className="h-4 w-4 ml-1" />
             </button>
@@ -329,7 +329,7 @@ export default function ReportsPage() {
                   onClick={() => toggleBookingExpansion(booking._id)}
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="h-12 w-12 rounded-lg bg-gradient-to-r from-[#DB3116] to-red-600 flex items-center justify-center">
+                    <div className="h-12 w-12 rounded-lg bg-gradient-to-r from-[#D35C2F] to-red-600 flex items-center justify-center">
                       <DocumentTextIconSolid className="h-6 w-6 text-white" />
                     </div>
                     <div>
@@ -517,7 +517,7 @@ export default function ReportsPage() {
                               placeholder="Search documents..."
                               value={searchTerm}
                               onChange={(e) => setSearchTerm(e.target.value)}
-                              className="pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-[#DB3116] focus:border-transparent"
+                              className="pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent"
                             />
                           </div>
                           <div className="flex space-x-2">
@@ -527,7 +527,7 @@ export default function ReportsPage() {
                                 onClick={() => setSelectedCategory(category)}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                                   selectedCategory === category
-                                    ? 'bg-[#DB3116] text-white'
+                                    ? 'bg-[#D35C2F] text-white'
                                     : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
                                 }`}
                               >

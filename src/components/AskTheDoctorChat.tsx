@@ -219,7 +219,7 @@ export default function AskTheDoctorChat() {
                   width: 42,
                   height: 42,
                   borderRadius: "50%",
-                  background: "linear-gradient(135deg, #DB3116 0%, #ff4d2e 100%)",
+                  background: "linear-gradient(135deg, #D35C2F 0%, #ff4d2e 100%)",
                   marginRight: showInitialAnimation ? 0 : 12
                 }}
               >
@@ -285,7 +285,7 @@ export default function AskTheDoctorChat() {
                     className="flex items-center gap-2 mb-1"
                   >
                     <h3 className="text-sm font-bold text-gray-800">Ask the Doctor</h3>
-                    <ChatBubbleLeftRightIcon className="w-4 h-4 text-[#DB3116]" />
+                    <ChatBubbleLeftRightIcon className="w-4 h-4 text-[#D35C2F]" />
                   </motion.div>
                   
                   <motion.div
@@ -300,7 +300,7 @@ export default function AskTheDoctorChat() {
                         <motion.span
                           animate={{ opacity: [1, 0] }}
                           transition={{ duration: 0.8, repeat: Infinity }}
-                          className="ml-1 text-[#DB3116]"
+                          className="ml-1 text-[#D35C2F]"
                         >
                           |
                         </motion.span>
@@ -312,7 +312,7 @@ export default function AskTheDoctorChat() {
 
               {/* Hover glow effect */}
               <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#DB3116]/10 via-transparent to-[#DB3116]/10 animate-pulse"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#D35C2F]/10 via-transparent to-[#D35C2F]/10 animate-pulse"></div>
               </div>
             </motion.div>
           </motion.div>
@@ -331,7 +331,7 @@ export default function AskTheDoctorChat() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex justify-between items-center p-4 border-b border-gray-100 bg-gradient-to-r from-[#DB3116] to-[#ff4d2e]"
+              className="flex justify-between items-center p-4 border-b border-gray-100 bg-gradient-to-r from-[#D35C2F] to-[#ff4d2e]"
             >
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
@@ -345,7 +345,7 @@ export default function AskTheDoctorChat() {
                 </div>
                 <div>
                   <h3 className="font-bold text-white text-lg">Ask the Doctor</h3>
-                  <p className="text-white/80 text-xs">AI Dental Assistant</p>
+                  <p className="text-white/80 text-xs">Talk to us</p>
                 </div>
               </div>
               <motion.button
@@ -395,7 +395,7 @@ export default function AskTheDoctorChat() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 1.1 }}
-                  className="bg-gradient-to-r from-[#DB3116]/10 to-[#ff4d2e]/10 p-3 rounded-2xl border border-[#DB3116]/20 max-w-[80%]"
+                  className="bg-gradient-to-r from-[#D35C2F]/10 to-[#ff4d2e]/10 p-3 rounded-2xl border border-[#D35C2F]/20 max-w-[80%]"
                 >
                   <p className="text-gray-700 text-sm">
                     What would you like to know about your dental health? 😊
@@ -415,12 +415,12 @@ export default function AskTheDoctorChat() {
                 <input
                   type="text"
                   placeholder="Type your dental question..."
-                  className="flex-1 p-3 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#DB3116]/50 focus:border-[#DB3116] text-sm transition-all"
+                  className="flex-1 p-3 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#D35C2F]/50 focus:border-[#D35C2F] text-sm transition-all"
                 />
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-4 py-3 bg-gradient-to-r from-[#DB3116] to-[#ff4d2e] text-white rounded-2xl hover:shadow-lg transition-all flex items-center gap-2 font-medium"
+                  className="px-4 py-3 bg-gradient-to-r from-[#D35C2F] to-[#ff4d2e] text-white rounded-2xl hover:shadow-lg transition-all flex items-center gap-2 font-medium"
                 >
                   <PaperAirplaneIcon className="w-4 h-4" />
                   Send
@@ -442,7 +442,7 @@ export default function AskTheDoctorChat() {
                     transition={{ delay: 1.4 + index * 0.1 }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-3 py-1.5 bg-gray-100 hover:bg-[#DB3116]/10 text-gray-600 hover:text-[#DB3116] rounded-full text-xs font-medium transition-all border hover:border-[#DB3116]/30"
+                    className="px-3 py-1.5 bg-gray-100 hover:bg-[#D35C2F]/10 text-gray-600 hover:text-[#D35C2F] rounded-full text-xs font-medium transition-all border hover:border-[#D35C2F]/30"
                   >
                     {suggestion}
                   </motion.button>

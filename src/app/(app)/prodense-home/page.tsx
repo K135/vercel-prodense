@@ -42,7 +42,7 @@ async function Page() {
       {/* Hero Section replaced with dental hero */}
       <div className="relative container mb-8 lg:mb-1">
         <HeroSectionWithSearchForm1
-          heading="Your Smile, <span style='color: #DB3116;'>Perfectly Personalised!</span>"
+          heading="Your Smile, <span style='color: #D35C2F;'>Perfectly Personalised!</span>"
           image={heroImage}
           imageAlt="hero"
           searchForm={<CarDentalHeroSearchForm />}
@@ -112,7 +112,7 @@ async function Page() {
             <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl -m-8" />
             <div className="relative z-10 p-8">
               <HeadingWithSub 
-                subheading="Discover our comprehensive range of advanced dental treatments designed to give you the perfect smile you deserve."
+                subheading="Discover state-of-the-art dental procedures trusted worldwide, tailored to deliver precision, comfort, and excellence.."
                 isCenter={true}
               >
                 Popular Dental <span className="text-[#E5BA47] drop-shadow-sm">Procedures</span>

@@ -100,7 +100,7 @@ const AnimatedCounter: FC<{ value: string; duration?: number }> = ({ value, dura
 
 const SectionTrustedStats: FC<Props> = ({
   className = '',
-  heading = 'See Why We Are Trusted The World Over',
+  heading = 'Trusted By Patients Worldwide',
   stats = [
     { number: '2500+', label: 'Patients Treated' },
     { number: '50+', label: 'Partner Clinics' },
@@ -117,14 +117,14 @@ const SectionTrustedStats: FC<Props> = ({
   ],
   featureCards = [
     {
-      title: 'We Create Smiles Without Borders',
-      description: "At Prodense, we believe a smile shouldn't be limited by geography. From affordable, world-class treatments in India's top clinics, to seamless travel and accommodation, we make your dental journey stress-free and memorable.",
-      image: '/We Create Smiles Without Borders.png',
+      title: 'One Platform. Endless Smiles',
+      description: "Prodense is the trusted one-stop destination for patients globally. From diagnosis to dental care to accommodation, we integrate technology and hospitality to simplify every step of your journey.",
+      image: '/One-Platform-Endless-Smiles.png',
       hasAppStoreLinks: true,
     },
     {
-      title: 'Prodense Is Peoples 1st Choice',
-      description: 'Experience world-class dental care with our comprehensive approach to your oral health journey',
+      title: 'Smiles Backed by Trust & Technology',
+      description: 'At Prodense, we merge adaptive dentistry with adaptive tourism — making global dental care simpler, smarter, and stress-free.',
       hasGetStartedButton: true,
       bgClass: 'bg-gradient-to-br from-[#E85D04]/10 to-[#F77F00]/20 dark:from-[#E85D04]/20 dark:to-[#F77F00]/30',
       isFeatureGrid: true,
@@ -160,9 +160,7 @@ const SectionTrustedStats: FC<Props> = ({
                 <h2 className="text-3xl font-semibold text-neutral-950 sm:text-4xl/10 dark:text-white">
                   {heading}
                 </h2>
-                <h3 className="text-lg font-normal text-neutral-500 dark:text-neutral-400 mt-2">
-                  Trusted by patients worldwide
-                </h3>
+                
               </div>
               <div className="grid grid-cols-2 gap-6">
                 {stats.map((stat, index) => (
@@ -171,7 +169,7 @@ const SectionTrustedStats: FC<Props> = ({
                     className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-1 border border-neutral-100 dark:border-neutral-700"
                   >
                     <div className="text-center">
-                      <h3 className="text-4xl lg:text-5xl font-bold text-[#DB3116] dark:text-[#DB3116] mb-3">
+                      <h3 className="text-4xl lg:text-5xl font-bold text-[#D35C2F] dark:text-[#D35C2F] mb-3">
                         <AnimatedCounter value={stat.number} duration={2500} />
                       </h3>
                       <p className="text-lg font-semibold text-neutral-700 dark:text-neutral-300">
@@ -225,39 +223,39 @@ const SectionTrustedStats: FC<Props> = ({
                   {/* Feature Grid for "Why People Choose Prodense" */}
                   {card.isFeatureGrid && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-                      {/* Accredited Dentists */}
+                      {/* Globally Accredited Specialists */}
                       <div className="group hover:transform hover:scale-105 transition-all duration-300">
-                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#DB3116]/20 dark:border-[#DB3116]/30 hover:border-[#DB3116]/50 dark:hover:border-[#DB3116]/60 hover:shadow-lg transition-all duration-300">
+                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#D35C2F]/20 dark:border-[#D35C2F]/30 hover:border-[#D35C2F]/50 dark:hover:border-[#D35C2F]/60 hover:shadow-lg transition-all duration-300">
                           <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-12 h-12 bg-[#DB3116]/20 backdrop-blur-sm border border-[#DB3116]/30 dark:border-[#DB3116]/40 rounded-xl flex items-center justify-center shadow-lg">
-                              <svg className="w-6 h-6 text-[#DB3116] dark:text-[#DB3116]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="flex-shrink-0 w-12 h-12 bg-[#D35C2F]/20 backdrop-blur-sm border border-[#D35C2F]/30 dark:border-[#D35C2F]/40 rounded-xl flex items-center justify-center shadow-lg">
+                              <svg className="w-6 h-6 text-[#D35C2F] dark:text-[#D35C2F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                             </div>
                             <div className="flex-1">
-                              <h4 className="text-lg font-bold text-[#DB3116] dark:text-[#DB3116] mb-2">
-                                Accredited Dentists
+                              <h4 className="text-lg font-bold text-[#D35C2F] dark:text-[#D35C2F] mb-2">
+                                Globally Accredited Specialists
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                                Certified professionals with international standards and years of specialized experience
+                                Highly trained experts providing care that meets the highest international standards. 
                               </p>
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      {/* Post-Treatment Support */}
+                      {/* Always by Your Side 24/7 */}
                       <div className="group hover:transform hover:scale-105 transition-all duration-300">
-                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#DB3116]/20 dark:border-[#DB3116]/30 hover:border-[#DB3116]/50 dark:hover:border-[#DB3116]/60 hover:shadow-lg transition-all duration-300">
+                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#D35C2F]/20 dark:border-[#D35C2F]/30 hover:border-[#D35C2F]/50 dark:hover:border-[#D35C2F]/60 hover:shadow-lg transition-all duration-300">
                           <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-12 h-12 bg-[#DB3116]/20 backdrop-blur-sm border border-[#DB3116]/30 dark:border-[#DB3116]/40 rounded-xl flex items-center justify-center shadow-lg">
-                              <svg className="w-6 h-6 text-[#DB3116] dark:text-[#DB3116]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="flex-shrink-0 w-12 h-12 bg-[#D35C2F]/20 backdrop-blur-sm border border-[#D35C2F]/30 dark:border-[#D35C2F]/40 rounded-xl flex items-center justify-center shadow-lg">
+                              <svg className="w-6 h-6 text-[#D35C2F] dark:text-[#D35C2F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                               </svg>
                             </div>
                             <div className="flex-1">
-                              <h4 className="text-lg font-bold text-[#DB3116] dark:text-[#DB3116] mb-2">
-                                Post-Treatment Support
+                              <h4 className="text-lg font-bold text-[#D35C2F] dark:text-[#D35C2F] mb-2">
+                                Always by Your Side
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                                 24/7 care and comprehensive follow-up services to ensure your complete recovery
@@ -267,42 +265,42 @@ const SectionTrustedStats: FC<Props> = ({
                         </div>
                       </div>
 
-                      {/* Worldwide Continuity */}
+                      {/* Care Without Borders */}
                       <div className="group hover:transform hover:scale-105 transition-all duration-300">
-                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#DB3116]/20 dark:border-[#DB3116]/30 hover:border-[#DB3116]/50 dark:hover:border-[#DB3116]/60 hover:shadow-lg transition-all duration-300">
+                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#D35C2F]/20 dark:border-[#D35C2F]/30 hover:border-[#D35C2F]/50 dark:hover:border-[#D35C2F]/60 hover:shadow-lg transition-all duration-300">
                           <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-12 h-12 bg-[#DB3116]/20 backdrop-blur-sm border border-[#DB3116]/30 dark:border-[#DB3116]/40 rounded-xl flex items-center justify-center shadow-lg">
-                              <svg className="w-6 h-6 text-[#DB3116] dark:text-[#DB3116]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="flex-shrink-0 w-12 h-12 bg-[#D35C2F]/20 backdrop-blur-sm border border-[#D35C2F]/30 dark:border-[#D35C2F]/40 rounded-xl flex items-center justify-center shadow-lg">
+                              <svg className="w-6 h-6 text-[#D35C2F] dark:text-[#D35C2F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                             </div>
                             <div className="flex-1">
-                              <h4 className="text-lg font-bold text-[#DB3116] dark:text-[#DB3116] mb-2">
-                                Worldwide Continuity
+                              <h4 className="text-lg font-bold text-[#D35C2F] dark:text-[#D35C2F] mb-2">
+                                Care Without Borders
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                                Prodense global network coverage ensuring seamless care wherever you are
+                                A global care ecosystem designed for continuity — before, during, and after treatment. 
                               </p>
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      {/* Transparent Pricing */}
+                      {/* Good Faith Estimation */}
                       <div className="group hover:transform hover:scale-105 transition-all duration-300">
-                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#DB3116]/20 dark:border-[#DB3116]/30 hover:border-[#DB3116]/50 dark:hover:border-[#DB3116]/60 hover:shadow-lg transition-all duration-300">
+                        <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#D35C2F]/20 dark:border-[#D35C2F]/30 hover:border-[#D35C2F]/50 dark:hover:border-[#D35C2F]/60 hover:shadow-lg transition-all duration-300">
                           <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-12 h-12 bg-[#DB3116]/20 backdrop-blur-sm border border-[#DB3116]/30 dark:border-[#DB3116]/40 rounded-xl flex items-center justify-center shadow-lg">
-                              <svg className="w-6 h-6 text-[#DB3116] dark:text-[#DB3116]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="flex-shrink-0 w-12 h-12 bg-[#D35C2F]/20 backdrop-blur-sm border border-[#D35C2F]/30 dark:border-[#D35C2F]/40 rounded-xl flex items-center justify-center shadow-lg">
+                              <svg className="w-6 h-6 text-[#D35C2F] dark:text-[#D35C2F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                             </div>
                             <div className="flex-1">
-                              <h4 className="text-lg font-bold text-[#DB3116] dark:text-[#DB3116] mb-2">
-                                Transparent Pricing
+                              <h4 className="text-lg font-bold text-[#D35C2F] dark:text-[#D35C2F] mb-2">
+                                Good Faith Estimation
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                                No hidden fees with clear, upfront cost breakdown for all treatments and services
+                                No surprises, just clear, detailed estimates and fair pricing at every step.
                               </p>
                             </div>
                           </div>
@@ -316,7 +314,7 @@ const SectionTrustedStats: FC<Props> = ({
                     <div className="mb-6">
                       <Link 
                         href="#" 
-                        className="inline-flex items-center px-6 py-3 bg-[#DB3116] hover:bg-[#DB3116]/90 text-white font-medium rounded-lg transition-colors duration-200"
+                        className="inline-flex items-center px-6 py-3 bg-[#D35C2F] hover:bg-[#D35C2F]/90 text-white font-medium rounded-lg transition-colors duration-200"
                       >
                         Get Started Now
                         <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

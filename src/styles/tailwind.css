@@ -297,6 +297,74 @@
     transform: translateX(100%);
   }
 }
+
+@keyframes glow-rotate {
+  0% {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3)) 
+            drop-shadow(0 0 40px rgba(139, 92, 246, 0.2)) 
+            drop-shadow(0 0 60px rgba(236, 72, 153, 0.2));
+  }
+  16.66% {
+    filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.3)) 
+            drop-shadow(0 0 40px rgba(236, 72, 153, 0.2)) 
+            drop-shadow(0 0 60px rgba(245, 158, 11, 0.2));
+  }
+  33.33% {
+    filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.3)) 
+            drop-shadow(0 0 40px rgba(245, 158, 11, 0.2)) 
+            drop-shadow(0 0 60px rgba(16, 185, 129, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.3)) 
+            drop-shadow(0 0 40px rgba(16, 185, 129, 0.2)) 
+            drop-shadow(0 0 60px rgba(59, 130, 246, 0.2));
+  }
+  66.66% {
+    filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.3)) 
+            drop-shadow(0 0 40px rgba(59, 130, 246, 0.2)) 
+            drop-shadow(0 0 60px rgba(139, 92, 246, 0.2));
+  }
+  83.33% {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3)) 
+            drop-shadow(0 0 40px rgba(139, 92, 246, 0.2)) 
+            drop-shadow(0 0 60px rgba(236, 72, 153, 0.2));
+  }
+  100% {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3)) 
+            drop-shadow(0 0 40px rgba(139, 92, 246, 0.2)) 
+            drop-shadow(0 0 60px rgba(236, 72, 153, 0.2));
+  }
+}
+
+@keyframes premium-glow {
+  0% {
+    box-shadow: 
+      0 0 20px rgba(211, 92, 47, 0.4),
+      0 0 40px rgba(211, 92, 47, 0.2),
+      0 0 60px rgba(211, 92, 47, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(255, 74, 43, 0.6),
+      0 0 60px rgba(255, 74, 43, 0.3),
+      0 0 90px rgba(255, 74, 43, 0.15);
+  }
+  100% {
+    box-shadow: 
+      0 0 20px rgba(211, 92, 47, 0.4),
+      0 0 40px rgba(211, 92, 47, 0.2),
+      0 0 60px rgba(211, 92, 47, 0.1);
+  }
+}
+
+@keyframes border-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 @utility custom-shadow-1 {
   box-shadow:
     rgba(17, 17, 26, 0.05) 0px 4px 16px,

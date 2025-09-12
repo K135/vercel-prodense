@@ -166,7 +166,7 @@ export default function DentistProfilePage() {
             <FunnelIcon className="h-4 w-4 mr-2" />
             Filter
           </button>
-          <button className="inline-flex items-center px-4 py-2 bg-[#DB3116] text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
+          <button className="inline-flex items-center px-4 py-2 bg-[#D35C2F] text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
             <PlusIcon className="h-4 w-4 mr-2" />
             Find Dentist
           </button>
@@ -188,13 +188,13 @@ export default function DentistProfilePage() {
               placeholder="Search dentists by name or specialty..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-[#DB3116] focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent"
             />
           </div>
           <select
             value={selectedFilter}
             onChange={(e) => setSelectedFilter(e.target.value)}
-            className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#DB3116] focus:border-transparent"
+            className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent"
           >
             {filters.map(filter => (
               <option key={filter} value={filter}>{filter}</option>
@@ -261,7 +261,7 @@ export default function DentistProfilePage() {
                         {dentist.status.charAt(0).toUpperCase() + dentist.status.slice(1)}
                       </span>
                     </div>
-                    <p className="text-sm text-[#DB3116] font-medium">{dentist.specialty}</p>
+                    <p className="text-sm text-[#D35C2F] font-medium">{dentist.specialty}</p>
                     <div className="flex items-center mt-1">
                       <div className="flex items-center">
                         {[...Array(5)].map((_, i) => (
@@ -309,7 +309,7 @@ export default function DentistProfilePage() {
                 </div>
 
                 <div className="mt-4 flex space-x-2">
-                  <button className="flex-1 bg-[#DB3116] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors flex items-center justify-center">
+                  <button className="flex-1 bg-[#D35C2F] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors flex items-center justify-center">
                     <ChatBubbleLeftRightIcon className="h-4 w-4 mr-2" />
                     Message
                   </button>
@@ -378,7 +378,7 @@ export default function DentistProfilePage() {
                       <h3 className="text-lg font-semibold text-slate-900 dark:text-white truncate">
                         {dentist.name}
                       </h3>
-                      <p className="text-sm text-[#DB3116] font-medium">{dentist.specialty}</p>
+                      <p className="text-sm text-[#D35C2F] font-medium">{dentist.specialty}</p>
                     </div>
                   </div>
                   <button className="text-red-500 hover:text-red-600 transition-colors">
@@ -436,7 +436,7 @@ export default function DentistProfilePage() {
                 </div>
 
                 <div className="flex space-x-2">
-                  <button className="flex-1 bg-[#DB3116] text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
+                  <button className="flex-1 bg-[#D35C2F] text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
                     Book Now
                   </button>
                   <button className="px-3 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">

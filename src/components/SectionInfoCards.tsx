@@ -96,7 +96,7 @@ const SectionInfoCards: React.FC<SectionInfoCardsProps> = ({ className = '' }) =
                 </div>
                 
                 {/* Find Clinic Button */}
-                <button className="w-full bg-[#DB3116] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#DB3116]/90 transition-colors duration-200">
+                <button className="w-full bg-[#D35C2F] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#D35C2F]/90 transition-colors duration-200">
                   Start Your Journey
                 </button>
               </div>
@@ -113,7 +113,7 @@ const SectionInfoCards: React.FC<SectionInfoCardsProps> = ({ className = '' }) =
                 </p>
                 
                 {/* Talk to Expert Button */}
-                <button className="w-full bg-[#DB3116] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#DB3116]/90 transition-colors duration-200">
+                <button className="w-full bg-[#D35C2F] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#D35C2F]/90 transition-colors duration-200">
                   Talk to an expert
                 </button>
               </div>

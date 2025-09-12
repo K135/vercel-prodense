@@ -188,7 +188,7 @@ const DentalSearchForm: React.FC<DentalSearchFormProps> = ({
           type="submit" 
           className="px-8 py-3 text-base font-semibold bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200"
           style={{
-            background: 'linear-gradient(135deg, #DB3116, #006666)',
+            background: 'linear-gradient(135deg, #D35C2F, #006666)',
           }}
         >
           <HugeiconsIcon icon={Search01Icon} size={18} className="mr-2" />

@@ -11,7 +11,7 @@ export default function CostEstimatorPage() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center py-20"
       >
-        <div className="h-24 w-24 rounded-full bg-gradient-to-r from-[#DB3116] to-red-600 flex items-center justify-center mx-auto mb-6 shadow-2xl">
+        <div className="h-24 w-24 rounded-full bg-gradient-to-r from-[#D35C2F] to-red-600 flex items-center justify-center mx-auto mb-6 shadow-2xl">
           <CalculatorIcon className="h-12 w-12 text-white" />
         </div>
         <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">

@@ -490,7 +490,7 @@ export default function ContinuityPage() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center"
       >
-        <div className="h-20 w-20 rounded-full bg-gradient-to-r from-[#DB3116] to-red-600 flex items-center justify-center mx-auto mb-6 shadow-2xl">
+        <div className="h-20 w-20 rounded-full bg-gradient-to-r from-[#D35C2F] to-red-600 flex items-center justify-center mx-auto mb-6 shadow-2xl">
           <HeartIconSolid className="h-10 w-10 text-white" />
         </div>
         <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
@@ -656,7 +656,7 @@ export default function ContinuityPage() {
                 placeholder="Search by name, location, or specialty..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#DB3116] focus:border-transparent text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400"
+                className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400"
               />
             </div>
           </div>
@@ -700,7 +700,7 @@ export default function ContinuityPage() {
               <div className="p-6 pb-4">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-[#DB3116] transition-colors">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-[#D35C2F] transition-colors">
                       {clinic.name}
                     </h3>
                     <div className="flex items-center space-x-2 text-slate-600 dark:text-slate-400 mb-2">
@@ -745,7 +745,7 @@ export default function ContinuityPage() {
                   <PhoneIcon className="h-4 w-4" />
                   <a 
                     href={`tel:${clinic.phone}`}
-                    className="text-sm hover:text-[#DB3116] transition-colors"
+                    className="text-sm hover:text-[#D35C2F] transition-colors"
                   >
                     {clinic.phone}
                   </a>
@@ -762,7 +762,7 @@ export default function ContinuityPage() {
                     View Map
                     <ArrowTopRightOnSquareIcon className="h-3 w-3 ml-1" />
                   </a>
-                  <button className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-[#DB3116] text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium">
+                  <button className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-[#D35C2F] text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium">
                     <BuildingOfficeIcon className="h-4 w-4 mr-2" />
                     Book Visit
                   </button>
@@ -793,7 +793,7 @@ export default function ContinuityPage() {
               setSelectedState('')
               setSearchTerm('')
             }}
-            className="inline-flex items-center px-4 py-2 bg-[#DB3116] text-white rounded-lg hover:bg-red-700 transition-colors"
+            className="inline-flex items-center px-4 py-2 bg-[#D35C2F] text-white rounded-lg hover:bg-red-700 transition-colors"
           >
             Clear Filters
           </button>

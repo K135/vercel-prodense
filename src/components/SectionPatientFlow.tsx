@@ -38,9 +38,9 @@ interface FlowStep {
 const PATIENT_FLOW_STEPS: FlowStep[] = [
   {
     id: 1,
-    title: "Discover & Research",
+    title: "Discover",
     subtitle: "Find Perfect Treatment",
-    description: "Browse verified clinics and compare treatment options with authentic patient reviews.",
+    description: "Leverage AI-powered recommendations to identify the right clinic, treatment, and cost estimate tailored just for you. ",
     icon: MagnifyingGlassIcon,
     solidIcon: CheckCircleIcon,
     features: [
@@ -56,7 +56,7 @@ const PATIENT_FLOW_STEPS: FlowStep[] = [
   },
   {
     id: 2,
-    title: "Book & Prepare",
+    title: "Book",
     subtitle: "Secure Your Journey",
     description: "Complete secure booking and receive comprehensive travel preparation guidance.",
     icon: CalendarDaysIcon,
@@ -74,7 +74,7 @@ const PATIENT_FLOW_STEPS: FlowStep[] = [
   },
   {
     id: 3,
-    title: "Experience & Treatment",
+    title: "Experience",
     subtitle: "World-Class Care",
     description: "Experience premium dental treatment with luxury accommodations and cultural tours.",
     icon: HeartIcon,
@@ -92,9 +92,9 @@ const PATIENT_FLOW_STEPS: FlowStep[] = [
   },
   {
     id: 4,
-    title: "Aftercare & Loyalty",
+    title: "Aftercare",
     subtitle: "Lifelong Partnership",
-    description: "Continue your care journey with global network support and exclusive rewards.",
+    description: "Access follow-ups anytime, anywhere through Prodense’s global care network and lifelong patient support.",
     icon: TrophyIcon,
     solidIcon: GiftIcon,
     features: [
@@ -181,13 +181,13 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
       {/* Red Glassmorphism Background Effects */}
       <div className="absolute inset-0 -z-10">
         {/* Large glassmorphism blobs */}
-        <div className="absolute top-20 left-10 w-80 h-80 bg-[#DB3116]/8 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#DB3116]/6 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#DB3116]/4 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-10 w-80 h-80 bg-[#D35C2F]/8 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#D35C2F]/6 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#D35C2F]/4 rounded-full blur-3xl"></div>
         
         {/* Medium glassmorphism elements */}
-        <div className="absolute top-32 right-1/4 w-48 h-48 bg-[#DB3116]/10 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-32 left-1/4 w-56 h-56 bg-[#DB3116]/7 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-32 right-1/4 w-48 h-48 bg-[#D35C2F]/10 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-32 left-1/4 w-56 h-56 bg-[#D35C2F]/7 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         
         {/* Small floating glassmorphism dots */}
         {[
@@ -214,7 +214,7 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
         ].map((dot, i) => (
           <div
             key={i}
-            className="absolute w-4 h-4 bg-[#DB3116]/20 rounded-full blur-sm animate-pulse"
+            className="absolute w-4 h-4 bg-[#D35C2F]/20 rounded-full blur-sm animate-pulse"
             style={{
               left: `${dot.left}%`,
               top: `${dot.top}%`,
@@ -240,7 +240,7 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
                 level={2}
               >
                 Journey Of Your
-                <span className="block text-[#DB3116] mt-2">Perfect Smile</span>
+                <span className="block text-[#D35C2F] mt-2">Perfect Smile</span>
               </Heading>
               
               <div className="space-y-4">
@@ -256,10 +256,10 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
             <div className="relative h-[600px] lg:h-[700px]">
               
               {/* Additional glassmorphism scattered around */}
-              <div className="absolute top-16 right-16 w-40 h-40 bg-[#DB3116]/5 rounded-full blur-2xl animate-pulse"></div>
-              <div className="absolute bottom-16 left-16 w-32 h-32 bg-[#DB3116]/8 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-              <div className="absolute top-1/3 left-1/2 w-28 h-28 bg-[#DB3116]/6 rounded-full blur-xl animate-pulse" style={{ animationDelay: '3s' }}></div>
-              <div className="absolute bottom-1/3 right-1/3 w-36 h-36 bg-[#DB3116]/4 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+              <div className="absolute top-16 right-16 w-40 h-40 bg-[#D35C2F]/5 rounded-full blur-2xl animate-pulse"></div>
+              <div className="absolute bottom-16 left-16 w-32 h-32 bg-[#D35C2F]/8 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute top-1/3 left-1/2 w-28 h-28 bg-[#D35C2F]/6 rounded-full blur-xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+              <div className="absolute bottom-1/3 right-1/3 w-36 h-36 bg-[#D35C2F]/4 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
               
               {/* S-Shaped Path SVG */}
               <svg 
@@ -269,9 +269,9 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
               >
                 <defs>
                   <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#DB3116" stopOpacity="0.8" />
-                    <stop offset="50%" stopColor="#DB3116" stopOpacity="0.6" />
-                    <stop offset="100%" stopColor="#DB3116" stopOpacity="0.8" />
+                    <stop offset="0%" stopColor="#D35C2F" stopOpacity="0.8" />
+                    <stop offset="50%" stopColor="#D35C2F" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="#D35C2F" stopOpacity="0.8" />
                   </linearGradient>
                   <filter id="glow">
                     <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
@@ -285,7 +285,7 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
                 {/* Background S-path */}
                 <path
                   d={generateSPath()}
-                  stroke="#DB3116"
+                  stroke="#D35C2F"
                   strokeWidth="0.4"
                   fill="none"
                   opacity="0.3"
@@ -324,22 +324,22 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
                   }}
                 >
                   {/* Expandable Step Card */}
-                  <div className="w-72 group-hover:w-80 p-5 rounded-3xl shadow-2xl border bg-white/95 dark:bg-neutral-800/95 border-[#DB3116]/20 backdrop-blur-sm hover:scale-105 transition-all duration-500 hover:shadow-3xl hover:border-[#DB3116]/40">
+                  <div className="w-72 group-hover:w-80 p-5 rounded-3xl shadow-2xl border bg-white/95 dark:bg-neutral-800/95 border-[#D35C2F]/20 backdrop-blur-sm hover:scale-105 transition-all duration-500 hover:shadow-3xl hover:border-[#D35C2F]/40">
                     
                     {/* Step Header */}
                     <div className="flex items-start gap-4 mb-4">
-                      <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-r from-[#DB3116] to-[#DB3116]/80 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-r from-[#D35C2F] to-[#D35C2F]/80 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                         <step.icon className="w-7 h-7 text-white" />
                         
                         {/* Step number */}
-                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-white dark:bg-neutral-800 rounded-full flex items-center justify-center shadow-lg border-2 border-[#DB3116]">
-                          <span className="text-xs font-bold text-[#DB3116]">{step.id}</span>
+                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-white dark:bg-neutral-800 rounded-full flex items-center justify-center shadow-lg border-2 border-[#D35C2F]">
+                          <span className="text-xs font-bold text-[#D35C2F]">{step.id}</span>
                         </div>
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-neutral-900 dark:text-white leading-tight group-hover:text-[#DB3116] transition-colors duration-300">{step.title}</h3>
-                        <p className="text-sm text-[#DB3116] font-semibold mt-1">{step.subtitle}</p>
+                        <h3 className="text-base font-bold text-neutral-900 dark:text-white leading-tight group-hover:text-[#D35C2F] transition-colors duration-300">{step.title}</h3>
+                        <p className="text-sm text-[#D35C2F] font-semibold mt-1">{step.subtitle}</p>
                       </div>
                     </div>
                     
@@ -350,7 +350,7 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
                     
                     {/* Highlight */}
                     <div className="mb-4">
-                      <span className="px-3 py-1 bg-[#DB3116]/10 text-[#DB3116] text-xs font-semibold rounded-full border border-[#DB3116]/20 group-hover:bg-[#DB3116]/20 group-hover:border-[#DB3116]/40 transition-all duration-300">
+                      <span className="px-3 py-1 bg-[#D35C2F]/10 text-[#D35C2F] text-xs font-semibold rounded-full border border-[#D35C2F]/20 group-hover:bg-[#D35C2F]/20 group-hover:border-[#D35C2F]/40 transition-all duration-300">
                         {step.highlights[0]}
                       </span>
                     </div>
@@ -366,7 +366,7 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
                               transitionDelay: `${featureIndex * 50}ms` 
                             }}
                           >
-                            <step.solidIcon className="w-4 h-4 text-[#DB3116] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
+                            <step.solidIcon className="w-4 h-4 text-[#D35C2F] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
                             <span>{feature}</span>
                           </li>
                         ))}
@@ -375,7 +375,7 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
 
                     {/* Hover indicator - shown when not hovering */}
                     <div className="mt-3 text-center opacity-60 group-hover:opacity-0 transition-opacity duration-300">
-                      <div className="text-xs text-[#DB3116] font-medium">
+                      <div className="text-xs text-[#D35C2F] font-medium">
                         Hover to see features
                       </div>
                     </div>
@@ -384,7 +384,7 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
                   {/* Connection line to path */}
                   <div 
                     className={clsx(
-                      'absolute w-px h-8 bg-gradient-to-b from-[#DB3116] to-transparent transition-all duration-500',
+                      'absolute w-px h-8 bg-gradient-to-b from-[#D35C2F] to-transparent transition-all duration-500',
                       step.side === 'left' ? 'right-0 top-1/2' : 'left-0 top-1/2',
                       visibleSteps.includes(step.id) ? 'opacity-100' : 'opacity-0'
                     )}

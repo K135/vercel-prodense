@@ -70,7 +70,7 @@ export const CarDentalSearchForm = ({ className, formStyle = 'default' }: Props)
             <div className="text-xs text-neutral-500 dark:text-neutral-400"></div>
             <button
               type="button"
-              className="text-sm font-medium text-[#DB3116] hover:text-[#DB3116]/80 transition-colors"
+              className="text-sm font-medium text-[#D35C2F] hover:text-[#D35C2F]/80 transition-colors"
               onClick={() => {
                 // Handle consultation action
                 console.log('Consultation requested')
@@ -85,7 +85,7 @@ export const CarDentalSearchForm = ({ className, formStyle = 'default' }: Props)
         <button 
           type="submit" 
           className={clsx(
-            'absolute z-10 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#DB3116] via-[#FF4A2B] to-[#DB3116] hover:from-[#B8280F] hover:via-[#DB3116] hover:to-[#B8280F] text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center',
+            'absolute z-10 top-1/2 -translate-y-1/2 bg-gradient-to-r from-[#D35C2F] via-[#FF4A2B] to-[#D35C2F] hover:from-[#B8280F] hover:via-[#D35C2F] hover:to-[#B8280F] text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center',
             formStyle === 'default' ? 'h-14 px-6 end-2 xl:end-4' : 'h-12 px-4 end-2'
           )}
         >

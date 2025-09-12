@@ -53,7 +53,7 @@ async function Page() {
         <PopularProceduresGrid />
       </div>
 
-      {/* Trusted Stats Section - We Create Smiles Without Borders & Prodense Is Peoples 1st Choice */}
+      {/* Trusted Stats Section - One Platform. Endless Smiles & Smiles Backed by Trust & Technology */}
       <SectionTrustedStats className="mb-4 lg:mb-6" />
 
       {/* YouTube Video Grid Section */}

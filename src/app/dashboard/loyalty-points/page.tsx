@@ -221,7 +221,7 @@ export default function LoyaltyPointsPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#DB3116] via-red-600 to-orange-600 p-8 text-white shadow-2xl"
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#D35C2F] via-red-600 to-orange-600 p-8 text-white shadow-2xl"
       >
         <div className="absolute inset-0 bg-black/10" />
         <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-white/10 blur-xl" />
@@ -368,7 +368,7 @@ export default function LoyaltyPointsPage() {
                     className={clsx(
                       "px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200 capitalize",
                       selectedCategory === category
-                        ? "bg-[#DB3116] text-white shadow-lg"
+                        ? "bg-[#D35C2F] text-white shadow-lg"
                         : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                     )}
                   >
@@ -438,7 +438,7 @@ export default function LoyaltyPointsPage() {
                       className={clsx(
                         "px-4 py-2 rounded-lg font-medium transition-all duration-300",
                         loyaltyData.currentPoints >= reward.points
-                          ? "bg-gradient-to-r from-[#DB3116] to-red-600 text-white shadow-lg hover:shadow-xl"
+                          ? "bg-gradient-to-r from-[#D35C2F] to-red-600 text-white shadow-lg hover:shadow-xl"
                           : "bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 cursor-not-allowed"
                       )}
                     >

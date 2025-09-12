@@ -301,7 +301,7 @@ export default function ItineraryPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#DB3116]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D35C2F]"></div>
       </div>
     )
   }
@@ -314,7 +314,7 @@ export default function ItineraryPage() {
         <p className="text-gray-500 dark:text-gray-400 mb-4">{error}</p>
         <button
           onClick={fetchBookings}
-          className="bg-[#DB3116] text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+          className="bg-[#D35C2F] text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
         >
           Try Again
         </button>
@@ -362,7 +362,7 @@ export default function ItineraryPage() {
               key={booking._id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-r from-[#DB3116] to-orange-600 rounded-2xl shadow-lg border border-red-300 dark:border-red-700 overflow-hidden"
+              className="bg-gradient-to-r from-[#D35C2F] to-orange-600 rounded-2xl shadow-lg border border-red-300 dark:border-red-700 overflow-hidden"
             >
               {/* Booking Card Header */}
               <div 
@@ -692,7 +692,7 @@ export default function ItineraryPage() {
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                               onClick={() => addTimelineItem(booking._id)}
-                              className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#DB3116] to-orange-600 backdrop-blur-xl border border-red-300/50 rounded-2xl text-white font-semibold hover:from-red-700 hover:to-orange-700 transition-all duration-300 shadow-lg"
+                              className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-[#D35C2F] to-orange-600 backdrop-blur-xl border border-red-300/50 rounded-2xl text-white font-semibold hover:from-red-700 hover:to-orange-700 transition-all duration-300 shadow-lg"
                             >
                               <PlusIcon className="h-5 w-5" />
                               Add Activity

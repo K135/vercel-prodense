@@ -216,11 +216,11 @@ const DentalClinicCard: FC<DentalClinicCardProps> = ({ className = '', data }) =
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 mb-6">
             <Link href={clinicHref} className="flex-[2]">
-              <div className="w-full bg-[#DB3116] hover:bg-[#B91C1C] text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 text-base border border-[#DB3116] text-center cursor-pointer">
+              <div className="w-full bg-[#D35C2F] hover:bg-[#B91C1C] text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 text-base border border-[#D35C2F] text-center cursor-pointer">
                 View / Book
               </div>
             </Link>
-            <div className="flex-1 border-2 border-[#DB3116] text-[#DB3116] hover:bg-[#DB3116] hover:text-white dark:border-[#DB3116] dark:text-[#DB3116] dark:hover:bg-[#DB3116] dark:hover:text-white font-bold py-4 rounded-2xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 text-base bg-transparent text-center cursor-pointer">
+            <div className="flex-1 border-2 border-[#D35C2F] text-[#D35C2F] hover:bg-[#D35C2F] hover:text-white dark:border-[#D35C2F] dark:text-[#D35C2F] dark:hover:bg-[#D35C2F] dark:hover:text-white font-bold py-4 rounded-2xl hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 text-base bg-transparent text-center cursor-pointer">
               Contact Clinic
             </div>
           </div>

@@ -380,7 +380,7 @@ export default function ProfilePage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#DB3116] via-red-600 to-orange-600 p-8 text-white shadow-2xl"
+        className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#D35C2F] via-red-600 to-orange-600 p-8 text-white shadow-2xl"
       >
         <div className="absolute inset-0 bg-black/10" />
         <div className="absolute -top-4 -right-4 h-24 w-24 rounded-full bg-white/10 blur-xl" />

@@ -129,4 +129,4 @@ PLEASE SEE THE ATTACHED
 
 
 Band Colours 
-Red (primary) #DB3116
+Red (primary) #D35C2F

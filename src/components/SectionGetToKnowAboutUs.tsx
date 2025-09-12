@@ -62,7 +62,7 @@ const AnimatedCounter: FC<{ end: number; duration?: number }> = ({ end, duration
 
 const SectionGetToKnowAboutUs: FC<Props> = ({ className = '' }) => {
   return (
-    <section className={`relative py-4 lg:py-8 bg-gradient-to-br from-neutral-50 via-white to-[#DB3116]/10 dark:from-neutral-900 dark:via-neutral-900 dark:to-[#DB3116]/5 overflow-hidden ${className}`}>
+    <section className={`relative py-4 lg:py-8 bg-gradient-to-br from-neutral-50 via-white to-[#D35C2F]/10 dark:from-neutral-900 dark:via-neutral-900 dark:to-[#D35C2F]/5 overflow-hidden ${className}`}>
       {/* Background Shapes - Enhanced with better positioning */}
       <div className="absolute top-20 left-10 lg:top-32 lg:left-20 opacity-40 hidden lg:block animate-pulse">
         <img src="/assets/img/shape/about-three__shape1.png" alt="decorative shape" className="w-16 h-16 lg:w-24 lg:h-24" />
@@ -82,7 +82,7 @@ const SectionGetToKnowAboutUs: FC<Props> = ({ className = '' }) => {
             {/* Header Section */}
             <div className="space-y-6">
               <div className="inline-flex items-center">
-                <span className="inline-flex items-center px-4 py-2.5 bg-gradient-to-r from-[#DB3116]/10 to-[#DB3116]/20 dark:from-[#DB3116]/30 dark:to-[#DB3116]/20 text-[#DB3116] dark:text-[#DB3116] text-sm font-semibold rounded-full border border-[#DB3116]/20 dark:border-[#DB3116]/50 shadow-sm">
+                <span className="inline-flex items-center px-4 py-2.5 bg-gradient-to-r from-[#D35C2F]/10 to-[#D35C2F]/20 dark:from-[#D35C2F]/30 dark:to-[#D35C2F]/20 text-[#D35C2F] dark:text-[#D35C2F] text-sm font-semibold rounded-full border border-[#D35C2F]/20 dark:border-[#D35C2F]/50 shadow-sm">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
@@ -95,7 +95,7 @@ const SectionGetToKnowAboutUs: FC<Props> = ({ className = '' }) => {
                 level={2}
               >
                 World-Class Dental Care<br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#DB3116] to-[#DB3116]/80 dark:from-[#DB3116] dark:to-[#DB3116]/80">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D35C2F] to-[#D35C2F]/80 dark:from-[#D35C2F] dark:to-[#D35C2F]/80">
                   Without Borders
                 </span>
               </Heading>
@@ -111,11 +111,11 @@ const SectionGetToKnowAboutUs: FC<Props> = ({ className = '' }) => {
             {/* Key Features Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Feature 1 */}
-              <div className="group relative bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-[#DB3116]/10 transition-all duration-500 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#DB3116]/30 dark:hover:border-[#DB3116]/50 hover:-translate-y-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#DB3116]/5 to-[#DB3116]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="group relative bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-[#D35C2F]/10 transition-all duration-500 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#D35C2F]/30 dark:hover:border-[#D35C2F]/50 hover:-translate-y-1">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D35C2F]/5 to-[#D35C2F]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#DB3116] to-[#DB3116]/80 rounded-xl flex items-center justify-center mr-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#D35C2F] to-[#D35C2F]/80 rounded-xl flex items-center justify-center mr-4">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                       </svg>
@@ -131,11 +131,11 @@ const SectionGetToKnowAboutUs: FC<Props> = ({ className = '' }) => {
               </div>
 
               {/* Feature 2 */}
-              <div className="group relative bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-[#DB3116]/10 transition-all duration-500 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#DB3116]/30 dark:hover:border-[#DB3116]/50 hover:-translate-y-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#DB3116]/5 to-[#DB3116]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="group relative bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-[#D35C2F]/10 transition-all duration-500 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#D35C2F]/30 dark:hover:border-[#D35C2F]/50 hover:-translate-y-1">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D35C2F]/5 to-[#D35C2F]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#DB3116] to-[#DB3116]/80 rounded-xl flex items-center justify-center mr-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#D35C2F] to-[#D35C2F]/80 rounded-xl flex items-center justify-center mr-4">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -152,17 +152,17 @@ const SectionGetToKnowAboutUs: FC<Props> = ({ className = '' }) => {
               </div>
 
               {/* Feature 3 */}
-              <div className="group relative bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-[#DB3116]/10 transition-all duration-500 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#DB3116]/30 dark:hover:border-[#DB3116]/50 hover:-translate-y-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#DB3116]/5 to-[#DB3116]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="group relative bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-[#D35C2F]/10 transition-all duration-500 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#D35C2F]/30 dark:hover:border-[#D35C2F]/50 hover:-translate-y-1">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D35C2F]/5 to-[#D35C2F]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#DB3116] to-[#DB3116]/80 rounded-xl flex items-center justify-center mr-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#D35C2F] to-[#D35C2F]/80 rounded-xl flex items-center justify-center mr-4">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
-                      Transparent Pricing
+                      Good Faith Estimation
                     </h3>
                   </div>
                   <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
@@ -172,11 +172,11 @@ const SectionGetToKnowAboutUs: FC<Props> = ({ className = '' }) => {
               </div>
 
               {/* Feature 4 */}
-              <div className="group relative bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-[#DB3116]/10 transition-all duration-500 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#DB3116]/30 dark:hover:border-[#DB3116]/50 hover:-translate-y-1">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#DB3116]/5 to-[#DB3116]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="group relative bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl hover:shadow-[#D35C2F]/10 transition-all duration-500 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-[#D35C2F]/30 dark:hover:border-[#D35C2F]/50 hover:-translate-y-1">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D35C2F]/5 to-[#D35C2F]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#DB3116] to-[#DB3116]/80 rounded-xl flex items-center justify-center mr-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#D35C2F] to-[#D35C2F]/80 rounded-xl flex items-center justify-center mr-4">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
@@ -193,11 +193,11 @@ const SectionGetToKnowAboutUs: FC<Props> = ({ className = '' }) => {
             </div>
 
             {/* Mission & Vision */}
-            <div className="bg-gradient-to-r from-[#DB3116]/5 to-[#DB3116]/10 dark:from-[#DB3116]/10 dark:to-[#DB3116]/20 rounded-3xl p-8 border border-[#DB3116]/20 dark:border-[#DB3116]/30">
+            <div className="bg-gradient-to-r from-[#D35C2F]/5 to-[#D35C2F]/10 dark:from-[#D35C2F]/10 dark:to-[#D35C2F]/20 rounded-3xl p-8 border border-[#D35C2F]/20 dark:border-[#D35C2F]/30">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-[#DB3116] to-[#DB3116]/80 rounded-lg flex items-center justify-center mr-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#D35C2F] to-[#D35C2F]/80 rounded-lg flex items-center justify-center mr-3">
                       <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
@@ -210,7 +210,7 @@ const SectionGetToKnowAboutUs: FC<Props> = ({ className = '' }) => {
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-[#DB3116] to-[#DB3116]/80 rounded-lg flex items-center justify-center mr-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#D35C2F] to-[#D35C2F]/80 rounded-lg flex items-center justify-center mr-3">
                       <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

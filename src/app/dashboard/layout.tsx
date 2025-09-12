@@ -49,7 +49,7 @@ const navigation = [
     href: '/dashboard', 
     icon: HomeIcon, 
     iconSolid: HomeIconSolid,
-    gradient: 'from-[#DB3116] to-red-600',
+    gradient: 'from-[#D35C2F] to-red-600',
     description: 'Overview & Quick Actions'
   },
   { 
@@ -122,7 +122,7 @@ const navigation = [
     icon: HeartIcon, 
     iconSolid: HeartIconSolid,
     gradient: 'from-red-500 to-pink-600',
-    description: 'Post-Treatment Support'
+    description: 'Always by Your Side 24/7'
   },
   { 
     name: 'Billing', 
@@ -272,11 +272,11 @@ function SidebarContent({ pathname, onClose }: { pathname: string; onClose?: () 
     <>
       <div className="flex h-16 shrink-0 items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-[#DB3116] to-red-600 flex items-center justify-center shadow-lg">
+          <div className="h-10 w-10 rounded-xl bg-gradient-to-r from-[#D35C2F] to-red-600 flex items-center justify-center shadow-lg">
             <SparklesIcon className="h-6 w-6 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold bg-gradient-to-r from-[#DB3116] to-red-600 bg-clip-text text-transparent">
+            <h2 className="text-xl font-bold bg-gradient-to-r from-[#D35C2F] to-red-600 bg-clip-text text-transparent">
               Prodense
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400">Premium Care</p>

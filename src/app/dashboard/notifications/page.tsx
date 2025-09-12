@@ -316,7 +316,7 @@ export default function NotificationsPage() {
           <p className="text-slate-600 dark:text-slate-400 mb-6">{error}</p>
           <button
             onClick={fetchNotifications}
-            className="bg-[#DB3116] text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
+            className="bg-[#D35C2F] text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
           >
             Try Again
           </button>
@@ -353,7 +353,7 @@ export default function NotificationsPage() {
           )}
           <button
             onClick={() => setShowPreferences(true)}
-            className="inline-flex items-center px-4 py-2 bg-[#DB3116] text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
+            className="inline-flex items-center px-4 py-2 bg-[#D35C2F] text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
           >
             <Cog6ToothIcon className="h-4 w-4 mr-2" />
             Settings
@@ -420,14 +420,14 @@ export default function NotificationsPage() {
               placeholder="Search notifications..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-[#DB3116] focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent"
             />
           </div>
           <div className="flex gap-3">
             <select
               value={selectedFilter}
               onChange={(e) => setSelectedFilter(e.target.value)}
-              className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#DB3116] focus:border-transparent"
+              className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent"
             >
               {filters.map(filter => (
                 <option key={filter} value={filter}>
@@ -438,7 +438,7 @@ export default function NotificationsPage() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#DB3116] focus:border-transparent"
+              className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#D35C2F] focus:border-transparent"
             >
               {categories.map(category => (
                 <option key={category} value={category}>
@@ -542,7 +542,7 @@ export default function NotificationsPage() {
                               {notification.actions.map((action, actionIndex) => (
                                 <button
                                   key={actionIndex}
-                                  className="px-3 py-1 bg-[#DB3116] text-white rounded-lg text-sm hover:bg-red-700 transition-colors"
+                                  className="px-3 py-1 bg-[#D35C2F] text-white rounded-lg text-sm hover:bg-red-700 transition-colors"
                                 >
                                   {action.label}
                                 </button>
@@ -619,7 +619,7 @@ export default function NotificationsPage() {
                         type="checkbox"
                         checked={preferences.email}
                         onChange={(e) => setPreferences(prev => ({ ...prev, email: e.target.checked }))}
-                        className="rounded border-slate-300 text-[#DB3116] focus:ring-[#DB3116]"
+                        className="rounded border-slate-300 text-[#D35C2F] focus:ring-[#D35C2F]"
                       />
                       <EnvelopeIcon className="h-4 w-4 ml-3 mr-2 text-slate-500" />
                       <span className="text-sm text-slate-700 dark:text-slate-300">Email</span>
@@ -630,7 +630,7 @@ export default function NotificationsPage() {
                         type="checkbox"
                         checked={preferences.push}
                         onChange={(e) => setPreferences(prev => ({ ...prev, push: e.target.checked }))}
-                        className="rounded border-slate-300 text-[#DB3116] focus:ring-[#DB3116]"
+                        className="rounded border-slate-300 text-[#D35C2F] focus:ring-[#D35C2F]"
                       />
                       <BellIcon className="h-4 w-4 ml-3 mr-2 text-slate-500" />
                       <span className="text-sm text-slate-700 dark:text-slate-300">Push Notifications</span>
@@ -641,7 +641,7 @@ export default function NotificationsPage() {
                         type="checkbox"
                         checked={preferences.sms}
                         onChange={(e) => setPreferences(prev => ({ ...prev, sms: e.target.checked }))}
-                        className="rounded border-slate-300 text-[#DB3116] focus:ring-[#DB3116]"
+                        className="rounded border-slate-300 text-[#D35C2F] focus:ring-[#D35C2F]"
                       />
                       <DevicePhoneMobileIcon className="h-4 w-4 ml-3 mr-2 text-slate-500" />
                       <span className="text-sm text-slate-700 dark:text-slate-300">SMS</span>
@@ -664,7 +664,7 @@ export default function NotificationsPage() {
                             ...prev,
                             types: { ...prev.types, [type]: e.target.checked }
                           }))}
-                          className="rounded border-slate-300 text-[#DB3116] focus:ring-[#DB3116]"
+                          className="rounded border-slate-300 text-[#D35C2F] focus:ring-[#D35C2F]"
                         />
                         <span className="ml-3 text-sm text-slate-700 dark:text-slate-300 capitalize">
                           {type.replace(/([A-Z])/g, ' $1').trim()}
@@ -684,7 +684,7 @@ export default function NotificationsPage() {
                 </button>
                 <button
                   onClick={updatePreferences}
-                  className="flex-1 px-4 py-2 bg-[#DB3116] text-white rounded-lg hover:bg-red-700 transition-colors"
+                  className="flex-1 px-4 py-2 bg-[#D35C2F] text-white rounded-lg hover:bg-red-700 transition-colors"
                 >
                   Save Changes
                 </button>

@@ -587,7 +587,7 @@ const TriHero = () => {
         }
 
         .highlight {
-          color: #DB3116;
+          color: #D35C2F;
         }
 
         .hero-subtitle {
