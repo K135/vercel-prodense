@@ -15,6 +15,11 @@ declare global {
       NEXT_PUBLIC_API_BASE_URL?: string
     }
   }
+
+  // Extend Canvas API types for createConicGradient
+  interface CanvasRenderingContext2D {
+    createConicGradient(startAngle: number, x: number, y: number): CanvasGradient
+  }
 }
 
 // Auth types

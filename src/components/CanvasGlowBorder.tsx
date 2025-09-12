@@ -19,7 +19,7 @@ export default function CanvasGlowBorder({
 }: CanvasGlowBorderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number | undefined>(undefined)
 
   useEffect(() => {
     const canvas = canvasRef.current
