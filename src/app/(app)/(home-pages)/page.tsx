@@ -48,7 +48,7 @@ async function Page() {
         />
       </div>
 
-      {/* Popular Dental Procedures - Ultra Modern Background Design */}
+      {/* Advanced Dentistry, Redefined - Ultra Modern Background Design */}
       <div className="relative py-8 lg:py-12 mb-8 lg:mb-12 overflow-hidden">
         {/* Multi-layered Modern Background */}
         <div className="absolute inset-0">

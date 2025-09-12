@@ -45,10 +45,10 @@ async function Page() {
       {/* Thrillophilia Hero Section - Exact Replica */}
       <TriHero />
       
-      {/* Popular Dental Procedures - moved right after hero */}
+      {/* Advanced Dentistry, Redefined - moved right after hero */}
       <div className="container mx-auto px-4 mb-8 lg:mb-12">
         <HeadingWithSub subheading="Explore our most sought-after dental treatments and procedures.">
-          Popular Dental Procedures
+          Advanced Dentistry, Redefined
         </HeadingWithSub>
         <PopularProceduresGrid />
       </div>

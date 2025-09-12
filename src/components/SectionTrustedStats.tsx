@@ -102,7 +102,7 @@ const SectionTrustedStats: FC<Props> = ({
   className = '',
   heading = 'Trusted By Patients Worldwide',
   stats = [
-    { number: '2500+', label: 'Patients Treated' },
+    { number: '2500+', label: 'Smiles Transformed' },
     { number: '50+', label: 'Partner Clinics' },
   ],
   partnerLogos = [
