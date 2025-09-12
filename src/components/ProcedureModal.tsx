@@ -3,7 +3,6 @@
 import { Dialog, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
 import { FC, Fragment } from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import ButtonClose from '@/shared/ButtonClose'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 
@@ -60,11 +59,7 @@ const ProcedureModal: FC<ProcedureModalProps> = ({ procedure, isOpen, onClose })
             leaveFrom="opacity-100 scale-100 translate-y-0"
             leaveTo="opacity-0 scale-95 translate-y-4"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            <div
               className="relative w-full max-w-2xl max-h-[90vh] transform overflow-hidden rounded-3xl bg-white text-left align-middle shadow-2xl transition-all"
               onClick={(e) => e.stopPropagation()}
             >
@@ -136,16 +131,13 @@ const ProcedureModal: FC<ProcedureModalProps> = ({ procedure, isOpen, onClose })
                     <h3 className="text-lg font-semibold text-gray-800 mb-3">Key Benefits</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {procedure.benefits.map((benefit, index) => (
-                        <motion.div
+                        <div
                           key={index}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
                           className="flex items-start gap-3"
                         >
                           <div className="w-2 h-2 bg-[#D35C2F] rounded-full mt-2 flex-shrink-0" />
                           <span className="text-gray-600 text-sm leading-relaxed">{benefit}</span>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -177,7 +169,7 @@ const ProcedureModal: FC<ProcedureModalProps> = ({ procedure, isOpen, onClose })
                 </div>
               </div>
               </div> {/* Close scrollable wrapper */}
-            </motion.div>
+            </div>
           </TransitionChild>
         </div>
       </Dialog>
