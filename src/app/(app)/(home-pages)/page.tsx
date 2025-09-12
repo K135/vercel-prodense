@@ -102,7 +102,7 @@ async function Page() {
                 subheading="Discover state-of-the-art dental procedures trusted worldwide, tailored to deliver precision, comfort, and excellence.."
                 isCenter={true}
               >
-                Popular Dental <span className="text-[#D35C2F] ">Procedures</span>
+                Advanced Dentistry, <span className="text-[#D35C2F] ">Redefined</span>
               </HeadingWithSub>
             </div>
           </div>

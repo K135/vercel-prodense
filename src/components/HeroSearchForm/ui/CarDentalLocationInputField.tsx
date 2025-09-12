@@ -276,7 +276,7 @@ export const CarDentalLocationInputField: FC<Props> = ({
                 <div className="flex items-center gap-3 mb-4">
                   <MapPinIcon className="h-5 w-5 text-[#0480ea]" />
                   <div className="text-sm font-semibold text-neutral-800 dark:text-neutral-100">
-                    Popular Dental Tourism Destinations
+                    Advanced Dentistry Tourism Destinations
                   </div>
                 </div>
                 
