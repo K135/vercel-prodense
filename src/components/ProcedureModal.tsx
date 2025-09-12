@@ -114,16 +114,7 @@ const ProcedureModal: FC<ProcedureModalProps> = ({ procedure, isOpen, onClose })
                           {procedure.description}
                         </p>
                       )}
-                      
-                      {/* Quick info badges */}
-                      <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
-                        <span className="px-3 py-1 bg-gradient-to-r from-[#D35C2F] to-[#E6B862] text-white rounded-full text-sm font-medium shadow-md">
-                          Duration: {procedure.duration}
-                        </span>
-                        <span className="px-3 py-1 bg-gradient-to-r from-[#E6B862] to-[#D35C2F] text-white rounded-full text-sm font-medium shadow-md">
-                          Recovery: {procedure.recovery}
-                        </span>
-                      </div>
+
                     </div>
                   </div>
                 </div>
