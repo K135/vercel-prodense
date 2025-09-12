@@ -365,10 +365,47 @@
     background-position: 200% 0;
   }
 }
+
+@keyframes orange-shadow-glow {
+  0% {
+    box-shadow: 
+      0 0 20px rgba(249, 115, 22, 0.2),
+      0 0 40px rgba(251, 146, 60, 0.1),
+      0 4px 16px rgba(17, 17, 26, 0.05),
+      0 8px 32px rgba(17, 17, 26, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(249, 115, 22, 0.4),
+      0 0 60px rgba(251, 146, 60, 0.2),
+      0 4px 16px rgba(17, 17, 26, 0.05),
+      0 8px 32px rgba(17, 17, 26, 0.05);
+  }
+  100% {
+    box-shadow: 
+      0 0 20px rgba(249, 115, 22, 0.2),
+      0 0 40px rgba(251, 146, 60, 0.1),
+      0 4px 16px rgba(17, 17, 26, 0.05),
+      0 8px 32px rgba(17, 17, 26, 0.05);
+  }
+}
+
 @utility custom-shadow-1 {
   box-shadow:
     rgba(17, 17, 26, 0.05) 0px 4px 16px,
     rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+@utility shadow-orange-glow {
+  animation: orange-shadow-glow 3s ease-in-out infinite;
+}
+
+@utility shadow-orange-glow-hover {
+  box-shadow: 
+    0 0 40px rgba(249, 115, 22, 0.5),
+    0 0 80px rgba(251, 146, 60, 0.3),
+    0 4px 16px rgba(17, 17, 26, 0.05),
+    0 8px 32px rgba(17, 17, 26, 0.05);
 }
 
 /* FOR SEARCH FORM DEFAULT */

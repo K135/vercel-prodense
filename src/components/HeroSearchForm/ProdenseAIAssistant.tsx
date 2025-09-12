@@ -16,6 +16,7 @@ import {
   ClockIcon
 } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
+import CanvasGlowBorder from '../CanvasGlowBorder'
 
 const quickSuggestions = [
   {
@@ -256,32 +257,28 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
               className="relative cursor-pointer"
               onClick={handleExpand}
             >
-              {/* Premium Border Effect */}
-              <div className="relative p-[2px] rounded-3xl"
-                   style={{
-                     background: 'linear-gradient(90deg, transparent, rgba(211, 92, 47, 0.3), rgba(255, 74, 43, 0.4), rgba(211, 92, 47, 0.3), transparent)',
-                     backgroundSize: '400% 100%',
-                     animation: 'border-shimmer 4s ease-in-out infinite'
-                   }}>
-                
+              {/* Canvas Glow Border Effect */}
+              <CanvasGlowBorder 
+                className="p-[8px]"
+                glowColor="#FF8C42"
+                sharpColor="#FF6B1A"
+                animationSpeed={0.012}
+              >
                 {/* Compact Chat Interface */}
                 <div 
-                  className="relative overflow-hidden rounded-3xl bg-white hover:scale-[1.02] transition-all duration-500"
-                  style={{
-                    animation: 'premium-glow 3s ease-in-out infinite'
-                  }}
+                  className="relative overflow-hidden rounded-3xl bg-white hover:scale-[1.02] transition-all duration-500 shadow-orange-glow hover:shadow-orange-glow-hover"
                 >
                 
                 {/* Content Container */}
                 <div className="relative z-10">
                   {/* Decorative Elements */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#D35C2F]/10 to-transparent rounded-full -translate-y-16 translate-x-16" />
-                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-500/10 to-transparent rounded-full translate-y-12 -translate-x-12" />
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-orange-400/10 to-transparent rounded-full -translate-y-16 translate-x-16" />
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-orange-300/10 to-transparent rounded-full translate-y-12 -translate-x-12" />
 
                   {/* Preview Messages */}
                   <div className="p-6 pt-8 space-y-4 relative">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#D35C2F] to-[#FF4A2B] flex items-center justify-center shadow-lg p-2">
+                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg p-2">
                       <img 
                         src="/images/prodence p white.png" 
                         alt="Prodence Logo" 
@@ -289,7 +286,7 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
                       />
                     </div>
                     <div className="flex-1">
-                      <div className="text-2xl font-bold bg-gradient-to-r from-[#D35C2F] to-[#FF4A2B] bg-clip-text text-transparent">
+                      <div className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                         Talk to us
                       </div>
                     </div>
@@ -314,17 +311,17 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
                       {displayedText}
                       <span className="animate-pulse">|</span>
                     </span>
-                    <div className="w-10 h-10 bg-gradient-to-r from-[#D35C2F] to-[#FF4A2B] rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+                    <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
                       <PaperAirplaneIcon className="w-5 h-5 text-white" />
                     </div>
                   </div>
                   </div>
 
                   {/* Hover Effect Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#D35C2F]/5 to-[#FF4A2B]/5 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-orange-500/5 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
               </div>
-              </div>
+              </CanvasGlowBorder>
             </motion.div>
           ) : null}
         </AnimatePresence>
@@ -356,14 +353,12 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
               <div className="w-80 bg-gray-50 border-r border-gray-200 flex flex-col">
                 {/* Sidebar Header */}
                 <div className="p-4 border-b border-gray-200 bg-white">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-gray-800">Prodense</h3>
-                    <button
-                      onClick={handleNewChat}
-                      className="p-2 bg-gradient-to-r from-[#D35C2F] to-[#FF4A2B] text-white rounded-xl hover:shadow-lg transition-all duration-200 hover:scale-105"
-                    >
-                      <PlusIcon className="w-4 h-4" />
-                    </button>
+                  <div className="flex items-center mb-4">
+                    <img 
+                      src="/images/prodense orange.png" 
+                      alt="Prodense Logo" 
+                      className="h-8 w-auto object-contain"
+                    />
                   </div>
                   <div className="text-sm text-gray-600">
                   </div>
