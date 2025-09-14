@@ -10,7 +10,6 @@ import SectionSliderNewCategories from '@/components/SectionSliderNewCategories'
 import SectionVideos from '@/components/SectionVideos'
 import { getCarCategories } from '@/data/categories'
 import { getCarListings } from '@/data/listings'
-import heroImage from '@/images/hero-right-car.png'
 import ourFeatureImage from '@/images/our-features-2.png'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import HeadingWithSub from '@/shared/Heading'
@@ -31,8 +30,6 @@ async function PageHome() {
       <div className="relative container mb-24 flex flex-col gap-y-24 lg:mb-28 lg:gap-y-32">
         <HeroSectionWithSearchForm1
           heading="Find rides."
-          image={heroImage}
-          imageAlt="hero"
           searchForm={<HeroSearchForm initTab="Cars" />}
           description={
             <>
