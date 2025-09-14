@@ -4,14 +4,19 @@ import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { SparklesIcon, ChatBubbleLeftRightIcon, XMarkIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import clsx from 'clsx';
+import GeminiBorder from './GeminiBorder';
+import { useAIAssistant } from '@/contexts/AIAssistantContext';
 
 export default function AskTheDoctorChat() {
+  const { openAssistant, isExpanded } = useAIAssistant();
   const [expanded, setExpanded] = useState(false);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [currentText, setCurrentText] = useState("");
   const [showInitialAnimation, setShowInitialAnimation] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
+  const [shouldShow, setShouldShow] = useState(false);
 
   const placeholders = useMemo(() => [
     "Got a toothache? 🦷",
@@ -22,15 +27,30 @@ export default function AskTheDoctorChat() {
     "Questions about dental implants? 💎"
   ], []);
 
-  // Initial animation sequence
+  // Scroll detection to show chat after hero section
   useEffect(() => {
+    const handleScroll = () => {
+      // Show chat when user scrolls past 80vh (hero section height)
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight * 0.8;
+      setShouldShow(scrollY > heroHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Initial animation delay
+  useEffect(() => {
+    if (!shouldShow) return;
+    
     const timer = setTimeout(() => {
       setShowInitialAnimation(false);
     }, 2000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [shouldShow]);
 
-  // Typing effect for placeholder texts
+  // Typing animation effect
   useEffect(() => {
     if (showInitialAnimation) return;
 
@@ -47,411 +67,206 @@ export default function AskTheDoctorChat() {
         clearInterval(typingInterval);
         setIsTyping(false);
         
-        // Wait before switching to next placeholder
+        // Wait before starting next placeholder
         setTimeout(() => {
           setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
         }, 2000);
       }
-    }, 80);
+    }, 100);
 
     return () => clearInterval(typingInterval);
-  }, [placeholderIndex, showInitialAnimation, placeholders]);
+  }, [placeholderIndex, placeholders, showInitialAnimation]);
 
-  // Handle exit animation sequence
+  const handleExpand = () => {
+    if (expanded) return;
+    
+    setExpanded(true);
+    // Open the shared AI assistant popup instead of showing local chat
+    setTimeout(() => {
+      openAssistant();
+      // Reset to collapsed state after opening popup
+      setExpanded(false);
+    }, 300);
+  };
+
   const handleClose = () => {
     setIsExiting(true);
-    
-    // First, collapse the popup
-    setExpanded(false);
-    
-    // Then show the tooth icon (round state)
     setTimeout(() => {
-      setShowInitialAnimation(true);
-    }, 200);
-    
-    // Finally expand to bar and finish
-    setTimeout(() => {
-      setShowInitialAnimation(false);
-    }, 1000);
-    
-    // Clean up exit state
-    setTimeout(() => {
+      setExpanded(false);
       setIsExiting(false);
-    }, 1800);
+    }, 300);
   };
 
-  const toothMorphVariants: Variants = {
-    initial: { 
-      scale: 0, 
-      borderRadius: "50%"
-    },
-    tooth: { 
+  const containerVariants: Variants = {
+    initial: { scale: 0, opacity: 0 },
+    animate: { 
       scale: 1, 
-      borderRadius: "50%",
+      opacity: 1,
       transition: { 
         type: "spring", 
-        stiffness: 200, 
-        damping: 15
-      }
-    },
-    bar: { 
-      scale: 1, 
-      borderRadius: "30px",
-      transition: { 
-        duration: 0.8, 
-        ease: [0.42, 0, 0.58, 1],
+        stiffness: 260, 
+        damping: 20,
         delay: 0.5
       }
     },
-    exitToTooth: {
-      scale: 1,
-      borderRadius: "50%",
-      transition: {
-        type: "spring",
-        stiffness: 200,
-        damping: 15
-      }
-    },
-    exitToBar: {
-      scale: 1,
-      borderRadius: "30px",
-      transition: {
-        duration: 0.8,
-        ease: [0.42, 0, 0.58, 1],
-        delay: 0.5
-      }
-    }
+    exit: { scale: 0, opacity: 0 }
   };
 
-  const sparkleVariants: Variants = {
-    animate: {
-      scale: [1, 1.05, 1],
-      opacity: [0.8, 1, 0.8],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: [0.42, 0, 0.58, 1]
-      }
-    }
-  };
-
-  const glowVariants: Variants = {
-    hover: {
-      boxShadow: [
-        "0 0 20px rgba(219, 49, 22, 0.3)",
-        "0 0 40px rgba(219, 49, 22, 0.5)",
-        "0 0 20px rgba(219, 49, 22, 0.3)"
-      ],
-      transition: {
-        duration: 1.5,
-        repeat: Infinity,
-        ease: [0.42, 0, 0.58, 1]
-      }
-    }
-  };
-
-  const waveRevealVariants: Variants = {
-    hidden: { 
-      height: 60, 
-      borderRadius: 30,
-      background: "#ffffff",
-      y: 0
-    },
-    visible: { 
-      height: 450, 
-      borderRadius: 20,
-      y: -390, // Move up by the difference in height (450 - 60 = 390)
-      background: ["#ffffff", "#fff5f5", "#ffffff"],
-      transition: { 
-        duration: 0.8, 
-        ease: [0.42, 0, 0.58, 1],
-        times: [0, 0.5, 1]
-      }
-    },
-    exit: {
-      height: 60,
-      borderRadius: 30,
-      y: 0,
+  const circleVariants: Variants = {
+    initial: { scale: 1, opacity: 1 },
+    exit: { 
+      scale: 0, 
       opacity: 0,
-      transition: {
-        duration: 0.4,
-        ease: [0.42, 0, 0.58, 1]
+      transition: { duration: 0.3 }
+    }
+  };
+
+  const expandedVariants: Variants = {
+    initial: { 
+      width: 64, 
+      height: 64, 
+      borderRadius: "50%" 
+    },
+    animate: { 
+      width: 320, 
+      height: 56, 
+      borderRadius: "28px",
+      paddingLeft: 16,
+      paddingRight: 16,
+      transition: { 
+        type: "spring", 
+        stiffness: 300, 
+        damping: 30,
+        duration: 0.6
       }
     }
   };
+
+  // Don't render if AI assistant popup is open or if not scrolled past hero
+  if (isExpanded || !shouldShow) {
+    return null;
+  }
 
   return (
-    <div className="relative z-10 flex justify-center">
-      <AnimatePresence mode="wait">
-        {!expanded ? (
-          <motion.div
-            key="collapsed"
-            variants={toothMorphVariants}
-            initial="initial"
-            animate={
-              isExiting 
-                ? (showInitialAnimation ? "exitToTooth" : "exitToBar")
-                : (showInitialAnimation ? "tooth" : "bar")
-            }
-            exit={{ opacity: 0, scale: 1, y: 0 }}
-            whileHover={!isExiting ? "hover" : undefined}
-            className="relative cursor-pointer group"
-            onClick={() => !isExiting && setExpanded(true)}
-          >
+    <AnimatePresence>
+      <motion.div
+        variants={containerVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="relative"
+      >
+        {/* Initial circular state */}
+        <AnimatePresence>
+          {showInitialAnimation && (
             <motion.div
-              variants={glowVariants}
-              className="bg-gradient-to-r from-white via-gray-50 to-white shadow-2xl flex items-center border border-gray-100"
-              style={{
-                width: showInitialAnimation ? 70 : 380,
-                height: 70,
-                borderRadius: showInitialAnimation ? "50%" : "35px",
-                padding: showInitialAnimation ? "14px" : "12px 16px",
-                justifyContent: showInitialAnimation ? "center" : "flex-start",
-                transition: showInitialAnimation 
-                  ? "width 0.1s ease-out, border-radius 0.1s ease-out, padding 0.1s ease-out"
-                  : "width 0.8s ease-in-out 0.5s, border-radius 0.8s ease-in-out 0.5s, padding 0.8s ease-in-out 0.5s"
-              }}
+              variants={circleVariants}
+              initial="initial"
+              exit="exit"
+              onClick={handleExpand}
+              className="w-16 h-16 bg-[#D35C2F] rounded-full shadow-2xl cursor-pointer flex items-center justify-center hover:scale-110 transition-transform duration-200"
             >
-              {/* Tooth/Sparkle Icon */}
-              <motion.div 
-                className="relative flex items-center justify-center"
-                style={{
-                  width: 42,
-                  height: 42,
-                  borderRadius: "50%",
-                  background: "linear-gradient(135deg, #D35C2F 0%, #ff4d2e 100%)",
-                  marginRight: showInitialAnimation ? 0 : 12
-                }}
-              >
-                <div className="text-white flex items-center justify-center">
-                  {showInitialAnimation ? (
-                    <Image
-                      src="/images/prodence p white.png"
-                      alt="Prodense Logo"
-                      width={24}
-                      height={24}
-                      className="object-contain"
-                    />
-                  ) : (
-                    <motion.div
-                      variants={sparkleVariants}
-                      animate="animate"
-                    >
-                      <SparklesIcon className="w-6 h-6" />
-                    </motion.div>
-                  )}
-                </div>
-                
-                {/* Floating sparkles around the icon */}
-                <motion.div
-                  className="absolute -top-1 -right-1 text-yellow-400 text-xs"
-                  animate={{
-                    scale: [0, 1, 0],
-                    rotate: [0, 180, 360],
-                    opacity: [0, 1, 0]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: 0.5
-                  }}
-                >
-                  ✨
-                </motion.div>
-                <motion.div
-                  className="absolute -bottom-1 -left-1 text-blue-400 text-xs"
-                  animate={{
-                    scale: [0, 1, 0],
-                    rotate: [360, 180, 0],
-                    opacity: [0, 1, 0]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: 1
-                  }}
-                >
-                  💫
-                </motion.div>
-              </motion.div>
-
-              {/* Title and Placeholder Text */}
-              {!showInitialAnimation && (
-                <div className="flex-1 min-w-0">
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1.3, duration: 0.5 }}
-                    className="flex items-center gap-2 mb-1"
-                  >
-                    <h3 className="text-sm font-bold text-gray-800">Ask the Doctor</h3>
-                    <ChatBubbleLeftRightIcon className="w-4 h-4 text-[#D35C2F]" />
-                  </motion.div>
-                  
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1.5, duration: 0.5 }}
-                    className="text-gray-600 text-sm h-5 flex items-center"
-                  >
-                    <span className="truncate">
-                      {currentText}
-                      {isTyping && (
-                        <motion.span
-                          animate={{ opacity: [1, 0] }}
-                          transition={{ duration: 0.8, repeat: Infinity }}
-                          className="ml-1 text-[#D35C2F]"
-                        >
-                          |
-                        </motion.span>
-                      )}
-                    </span>
-                  </motion.div>
-                </div>
-              )}
-
-              {/* Hover glow effect */}
-              <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#D35C2F]/10 via-transparent to-[#D35C2F]/10 animate-pulse"></div>
-              </div>
+              <Image
+                src="/images/prodence%20p%20white.png"
+                alt="Prodence"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
             </motion.div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="expanded"
-            variants={waveRevealVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="bg-white w-96 shadow-2xl border border-gray-200 flex flex-col overflow-hidden"
-            style={{ borderRadius: 20 }}
-          >
-            {/* Header */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex justify-between items-center p-4 border-b border-gray-100 bg-gradient-to-r from-[#D35C2F] to-[#ff4d2e]"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                  <Image
-                    src="/images/prodence p white.png"
-                    alt="Prodense Logo"
-                    width={20}
-                    height={20}
-                    className="object-contain"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-bold text-white text-lg">Ask the Doctor</h3>
-                  <p className="text-white/80 text-xs">Talk to us</p>
-                </div>
-              </div>
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={handleClose}
-                className="text-white/80 hover:text-white p-1 rounded-full hover:bg-white/20 transition-colors"
-              >
-                <XMarkIcon className="w-5 h-5" />
-              </motion.button>
-            </motion.div>
+          )}
+        </AnimatePresence>
 
-            {/* Chat Area */}
+        {/* Expanded horizontal state */}
+        <AnimatePresence>
+          {!showInitialAnimation && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="flex-1 p-4 bg-gradient-to-b from-gray-50 to-white"
+              variants={expandedVariants}
+              initial="initial"
+              animate="animate"
+              onClick={handleExpand}
+              className="bg-gradient-to-r from-[#E6B862] to-[#D35C2F] shadow-2xl cursor-pointer flex items-center hover:scale-105 transition-transform duration-200 relative overflow-hidden"
             >
-              <div className="space-y-3">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7 }}
-                  className="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 max-w-[80%]"
-                >
-                  <p className="text-gray-700 text-sm">
-                    👋 Hi! I&apos;m your AI dental assistant. I can help you with:
-                  </p>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.9 }}
-                  className="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 max-w-[80%]"
-                >
-                  <ul className="text-gray-600 text-sm space-y-1">
-                    <li>• Dental procedure information</li>
-                    <li>• Appointment scheduling</li>
-                    <li>• Treatment recommendations</li>
-                    <li>• Oral health tips</li>
-                  </ul>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.1 }}
-                  className="bg-gradient-to-r from-[#D35C2F]/10 to-[#ff4d2e]/10 p-3 rounded-2xl border border-[#D35C2F]/20 max-w-[80%]"
-                >
-                  <p className="text-gray-700 text-sm">
-                    What would you like to know about your dental health? 😊
-                  </p>
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Input Area */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="p-4 border-t border-gray-100 bg-white"
-            >
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Type your dental question..."
-                  className="flex-1 p-3 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#D35C2F]/50 focus:border-[#D35C2F] text-sm transition-all"
+              {/* Left icon - fixed position */}
+              <div className="absolute left-4 w-8 h-8 bg-[#D35C2F] rounded-full flex items-center justify-center">
+                <Image
+                  src="/images/prodence%20p%20white.png"
+                  alt="Prodence"
+                  width={20}
+                  height={20}
+                  className="object-contain"
                 />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-3 bg-gradient-to-r from-[#D35C2F] to-[#ff4d2e] text-white rounded-2xl hover:shadow-lg transition-all flex items-center gap-2 font-medium"
-                >
-                  <PaperAirplaneIcon className="w-4 h-4" />
-                  Send
-                </motion.button>
               </div>
               
-              {/* Quick suggestions */}
+              {/* Content area - with left margin to avoid icon */}
+              <div className="flex flex-col items-start ml-16 flex-1">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-white font-semibold text-sm whitespace-nowrap"
+                >
+                  Ask the Doctor
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-white/80 text-xs h-4 flex items-center w-full"
+                >
+                  <span className="block w-48 overflow-hidden">
+                    {currentText}
+                  </span>
+                  {isTyping && (
+                    <motion.span
+                      animate={{ opacity: [1, 0] }}
+                      transition={{ duration: 0.8, repeat: Infinity }}
+                      className="ml-1"
+                    >
+                      |
+                    </motion.span>
+                  )}
+                </motion.div>
+              </div>
+
+              {/* Right icon - fixed position */}
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.3 }}
-                className="flex gap-2 mt-3 flex-wrap"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.7 }}
+                className="absolute right-4 w-6 h-6 bg-white/20 rounded-full flex items-center justify-center"
               >
-                {["Tooth pain", "Whitening", "Braces", "Checkup"].map((suggestion, index) => (
-                  <motion.button
-                    key={suggestion}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.4 + index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-3 py-1.5 bg-gray-100 hover:bg-[#D35C2F]/10 text-gray-600 hover:text-[#D35C2F] rounded-full text-xs font-medium transition-all border hover:border-[#D35C2F]/30"
-                  >
-                    {suggestion}
-                  </motion.button>
-                ))}
+                <ChatBubbleLeftRightIcon className="w-4 h-4 text-white" />
               </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+          )}
+        </AnimatePresence>
+
+        {/* Floating particles effect */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-[#E6B862] rounded-full"
+              animate={{
+                x: [0, 20, -20, 0],
+                y: [0, -20, 20, 0],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                delay: i * 0.5,
+              }}
+              style={{
+                left: `${20 + i * 20}%`,
+                top: `${20 + i * 15}%`,
+              }}
+            />
+          ))}
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

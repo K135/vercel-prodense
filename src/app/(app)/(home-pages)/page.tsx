@@ -5,6 +5,8 @@ import PopularProceduresGrid from '@/components/PopularProceduresGrid'
 import SectionTrustedStats from '@/components/SectionTrustedStats'
 import SectionYouTubeGrid from '@/components/SectionYouTubeGrid'
 import SectionPatientFlow from '@/components/SectionPatientFlow'
+import AskTheDoctorChat from '@/components/AskTheDoctorChat'
+import { AIAssistantProvider } from '@/contexts/AIAssistantContext'
 
 import SectionFAQ from '@/components/SectionFAQ'
 
@@ -29,17 +31,18 @@ async function Page() {
   const authors = await getAuthors()
 
   return (
-    <main className="relative overflow-hidden">
-      <BgGlassmorphism />
+    <AIAssistantProvider>
+      <main className="relative overflow-hidden">
+        <BgGlassmorphism />
 
-      {/* Hero Section replaced with dental hero */}
-      <div className="relative container mb-4 lg:mb-2">
-        <HeroSectionWithSearchForm1
-          heading="DIY with AI: <span style='color: #E6B862;'>Smile, Travel, Belong.</span>"
-          searchForm={<ProdenseAIHeroForm />}
-          description={<></>}
-        />
-      </div>
+        {/* Hero Section replaced with dental hero */}
+        <div className="relative container mb-4 lg:mb-2">
+          <HeroSectionWithSearchForm1
+            heading="DIY with AI: <span style='color: #E6B862;'>Smile, Travel, Belong.</span>"
+            searchForm={<ProdenseAIHeroForm />}
+            description={<></>}
+          />
+        </div>
 
       {/* Advanced Dentistry, Redefined - Ultra Modern Background Design */}
       <div className="relative py-8 lg:py-12 mb-8 lg:mb-12 overflow-hidden">
@@ -124,8 +127,13 @@ async function Page() {
       {/* FAQ Section */}
       <SectionFAQ />
 
-      
-    </main>
+        {/* Floating Ask the Doctor Chat - Bottom Right */}
+        <div className="fixed bottom-6 right-6 z-50">
+          <AskTheDoctorChat />
+        </div>
+        
+      </main>
+    </AIAssistantProvider>
   )
 }
 

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import clsx from 'clsx'
+import { useAIAssistant } from '@/contexts/AIAssistantContext'
 import { 
   SparklesIcon, 
   PaperAirplaneIcon, 
@@ -80,12 +81,14 @@ const dentalQuestions = [
 ]
 
 const ProdenseAIAssistant = ({ className }: { className?: string }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
+  const { isExpanded, setIsExpanded } = useAIAssistant()
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [displayedText, setDisplayedText] = useState('')
   const [currentChatId, setCurrentChatId] = useState('current')
+  const [showTypingDots, setShowTypingDots] = useState(true)
+  const [showMainText, setShowMainText] = useState(false)
   const [savedChats, setSavedChats] = useState([
     {
       id: 'chat-1',
@@ -127,6 +130,18 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // Typing dots animation for main text
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowTypingDots(false)
+      setTimeout(() => {
+        setShowMainText(true)
+      }, 200) // Small delay before fade-up
+    }, 2000) // Show typing dots for 2 seconds
+
+    return () => clearTimeout(timer)
+  }, [])
 
   // Typing effect for dental questions
   useEffect(() => {
@@ -294,9 +309,50 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
                   
 
                   <div className="flex justify-start ml-[2px]">
-                    <div className="bg-gradient-to-r from-white to-purple-50/50 px-5 py-3 rounded-2xl rounded-bl-md border border-purple-100/50 max-w-md backdrop-blur-sm shadow-lg">
-                      <p className="text-gray-800 text-sm font-medium ml-[5px] whitespace-nowrap">Your D-AI-Y smile assistant - right here!</p>
-                    </div>
+                    <AnimatePresence mode="wait">
+                      {showTypingDots && (
+                        <motion.div
+                          key="typing"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -5 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex items-center gap-2 ml-[5px] mb-2"
+                        >
+                          <span className="text-gray-500 text-sm font-medium">Typing</span>
+                          <div className="flex gap-1">
+                            <motion.div
+                              className="w-1.5 h-1.5 bg-gray-400 rounded-full"
+                              animate={{ opacity: [0.3, 1, 0.3] }}
+                              transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
+                            />
+                            <motion.div
+                              className="w-1.5 h-1.5 bg-gray-400 rounded-full"
+                              animate={{ opacity: [0.3, 1, 0.3] }}
+                              transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+                            />
+                            <motion.div
+                              className="w-1.5 h-1.5 bg-gray-400 rounded-full"
+                              animate={{ opacity: [0.3, 1, 0.3] }}
+                              transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
+                            />
+                          </div>
+                        </motion.div>
+                      )}
+                      {showMainText && (
+                        <motion.div
+                          key="main-text"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, ease: "easeOut" }}
+                          className="bg-gradient-to-r from-white to-purple-50/50 px-5 py-3 rounded-2xl rounded-bl-md border border-purple-100/50 max-w-md backdrop-blur-sm shadow-lg"
+                        >
+                          <p className="text-gray-800 text-sm font-medium ml-[5px] whitespace-nowrap">
+                            Your D-AI-Y smile assistant - right here!
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
 
