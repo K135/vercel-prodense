@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai'
 
 // Gemini API configuration
 const GEMINI_API_KEY = 'AIzaSyAaNVQW0KuVwtUE6vQmwvTLtkKsfWdIXGQ'
@@ -25,20 +25,20 @@ export const GEMINI_MODELS = {
 // Safety settings for content generation
 export const SAFETY_SETTINGS = [
   {
-    category: 'HARM_CATEGORY_HARASSMENT',
-    threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
   },
   {
-    category: 'HARM_CATEGORY_HATE_SPEECH',
-    threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
   },
   {
-    category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-    threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
   },
   {
-    category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-    threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
   },
 ]
 
