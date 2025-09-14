@@ -5,8 +5,10 @@ export function parseMessageOptions(content: string): { cleanContent: string; op
   const options: MessageOption[] = []
   let cleanContent = content
 
-  // Pattern to match options like "A) Teeth Whitening? ✨" or "1. Dental Implants 🦷"
+  // Pattern to match options like "A) Teeth Whitening? ✨" or "1. Dental Implants 🦷" or "🔘 Only while chewing"
   const optionPatterns = [
+    // Pattern: 🔘 Text (for diagnostic questions)
+    /🔘\s*([^\n]+)/g,
     // Pattern: A) Text ✨ or A) Text? ✨
     /([A-Z])\)\s*([^?\n]+)(\??)?\s*([^\n]*)/g,
     // Pattern: 1. Text 🦷 or 1) Text 🦷
@@ -21,7 +23,19 @@ export function parseMessageOptions(content: string): { cleanContent: string; op
     
     if (matches.length >= 2) { // Only if we find multiple options
       matches.forEach((match, index) => {
-        const [fullMatch, identifier, text, questionMark, emoji] = match
+        let identifier, text, questionMark, emoji
+        
+        // Handle different pattern structures
+        if (pattern.source.includes('🔘')) {
+          // For 🔘 pattern: [fullMatch, text]
+          [, text] = match
+          identifier = '🔘'
+          questionMark = ''
+          emoji = ''
+        } else {
+          // For other patterns: [fullMatch, identifier, text, questionMark, emoji]
+          [, identifier, text, questionMark, emoji] = match
+        }
         
         // Extract emoji from the text or emoji part
         const emojiMatch = (text + ' ' + (emoji || '')).match(/[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu)
@@ -62,6 +76,48 @@ export function parseMessageOptions(content: string): { cleanContent: string; op
 // Generate options for common scenarios
 export function generateContextualOptions(content: string): MessageOption[] {
   const lowerContent = content.toLowerCase()
+  
+  // RCT Diagnostic Flow - Pain Location
+  if (lowerContent.includes('where do you feel the pain') || lowerContent.includes('pain? please choose')) {
+    return [
+      { id: 'pain-loc-1', text: 'Only while chewing', value: 'only-while-chewing', emoji: '🦷' },
+      { id: 'pain-loc-2', text: 'Lingers for a few minutes after eating/drinking', value: 'lingers-after-eating', emoji: '⏰' },
+      { id: 'pain-loc-3', text: 'Severe throbbing pain even when you are not eating', value: 'severe-throbbing-pain', emoji: '😰' }
+    ]
+  }
+  
+  // RCT Diagnostic Flow - Temperature Sensitivity
+  if (lowerContent.includes('sensitivity to hot/cold') || lowerContent.includes('hot or cold drinks')) {
+    return [
+      { id: 'temp-sens-1', text: 'No', value: 'no-sensitivity', emoji: '❌' },
+      { id: 'temp-sens-2', text: 'Yes, but it fades quickly', value: 'fades-quickly', emoji: '⚡' },
+      { id: 'temp-sens-3', text: 'Yes, it stays for a long time', value: 'stays-long-time', emoji: '⏳' }
+    ]
+  }
+  
+  // RCT Diagnostic Flow - Swelling
+  if (lowerContent.includes('swelling or a pimple-like bump') || lowerContent.includes('swelling around')) {
+    return [
+      { id: 'swelling-1', text: 'No', value: 'no-swelling', emoji: '❌' },
+      { id: 'swelling-2', text: 'Yes', value: 'yes-swelling', emoji: '🚨' }
+    ]
+  }
+  
+  // RCT Diagnostic Flow - Tooth Color Change
+  if (lowerContent.includes('tooth changed color') || lowerContent.includes('yellow/grey compared')) {
+    return [
+      { id: 'color-1', text: 'No', value: 'no-color-change', emoji: '❌' },
+      { id: 'color-2', text: 'Yes', value: 'yes-color-change', emoji: '🦷' }
+    ]
+  }
+  
+  // RCT Treatment Options
+  if (lowerContent.includes('would you like me to:') && lowerContent.includes('book an appointment')) {
+    return [
+      { id: 'rct-action-1', text: 'Book an Appointment Now (nearest partner clinic in India)', value: 'book-appointment-now', emoji: '📅' },
+      { id: 'rct-action-2', text: 'Talk to a Dentist First (Free Video Call)', value: 'talk-to-dentist-first', emoji: '👨‍⚕️' }
+    ]
+  }
   
   // Check for dental procedure questions
   if (lowerContent.includes('dental') && (lowerContent.includes('procedure') || lowerContent.includes('work'))) {

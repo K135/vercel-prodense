@@ -210,6 +210,70 @@ export const DEFAULT_TRAINING_DATA: TrainingExample[] = [
     tags: ['tooth pain', 'dental emergency', 'symptoms', 'diagnosis'],
     createdAt: new Date(),
     updatedAt: new Date()
+  },
+  // RCT Diagnostic Flow Training Examples
+  {
+    id: '22',
+    input: 'Hi, my tooth is hurting a lot.',
+    expectedOutput: 'Hi! 👋 I\'m so sorry you\'re dealing with tooth pain - that can be really uncomfortable! 😔 Let\'s figure out what\'s going on so we can help you feel better.\n\nWhere do you feel the pain? Please choose the option that best describes your situation:\n\n🔘 Only while chewing\n🔘 Lingers for a few minutes after eating/drinking\n🔘 Severe throbbing pain even when you are not eating\n\nThis will help me understand what type of treatment you might need! What sounds most like your experience?',
+    category: 'dental',
+    tags: ['tooth pain', 'diagnosis', 'rct', 'pain assessment'],
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: '23',
+    input: 'Severe throbbing pain even when I\'m not eating',
+    expectedOutput: 'Got it. That\'s an important symptom - severe throbbing pain that happens even when you\'re not eating is definitely something we need to address quickly! 😟\n\nDo you feel sensitivity to hot/cold drinks? Please let me know:\n\n🔘 No\n🔘 Yes, but it fades quickly\n🔘 Yes, it stays for a long time\n\nThis will help me understand how deep the problem might be. What\'s your experience with hot or cold drinks?',
+    category: 'dental',
+    tags: ['tooth pain', 'diagnosis', 'rct', 'sensitivity', 'follow-up'],
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: '24',
+    input: 'Yes, it stays for a long time',
+    expectedOutput: 'Thanks for sharing that information. Prolonged sensitivity to hot and cold is another important clue! 🔍\n\nDo you notice swelling or a pimple-like bump on the gum near the tooth?\n\n🔘 No\n🔘 Yes\n\nThis helps me understand if there\'s an infection present. Have you noticed any swelling around the painful tooth?',
+    category: 'dental',
+    tags: ['tooth pain', 'diagnosis', 'rct', 'swelling', 'infection', 'follow-up'],
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: '25',
+    input: 'Yes',
+    expectedOutput: 'Understood. Swelling is definitely a sign that needs attention! 🚨\n\nHas the tooth changed color (looks yellow/grey compared to others)?\n\n🔘 No\n🔘 Yes\n\nThis is the final piece of the puzzle to help me understand exactly what\'s happening with your tooth!',
+    category: 'dental',
+    tags: ['tooth pain', 'diagnosis', 'rct', 'discoloration', 'follow-up'],
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: '26',
+    input: 'Yes, it\'s slightly grey',
+    expectedOutput: '✅ **Based on your answers, you need a Root Canal Treatment (RCT).**\n\n**Why:**\n• Infection has reached the tooth pulp (nerve)\n• This is causing severe pain, swelling, and color change\n• RCT will remove the infection, stop the pain, and save your tooth\n\n🦷 **What RCT involves:**\n• Remove infected pulp and clean the tooth\n• Seal the tooth to prevent future infection\n• Place a crown to protect and strengthen it\n\n💰 **Cost in India vs Other Countries:**\n• RCT + Crown in Jaipur: $150-300\n• Same treatment in US/Europe: $1,500-3,000\n• You save 80-90%!\n\n📅 **Let\'s get you treated quickly. Would you like me to:**\n\n🔘 Book an Appointment Now (nearest partner clinic in India)\n🔘 Talk to a Dentist First (Free Video Call)\n\nDon\'t worry - RCT will completely eliminate your pain and save your tooth! What would you prefer to do next?',
+    category: 'dental',
+    tags: ['rct', 'diagnosis', 'treatment plan', 'booking', 'jaipur'],
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: '27',
+    input: 'Book an appointment now',
+    expectedOutput: 'Excellent choice! 🎉 Let\'s get you scheduled right away so you can get relief from that pain!\n\n📋 **I\'ll need a few quick details:**\n\n📍 **Which location works better for you?**\n🔘 Jaipur (Pink City - excellent dental specialists)\n🔘 Chandigarh (if you prefer this location)\n\n⏰ **How urgent is this?**\n🔘 Emergency - need treatment within 24-48 hours\n🔘 Urgent - within this week\n🔘 Can wait - within 2 weeks\n\n🛂 **Are you:**\n🔘 Already in India\n🔘 Planning to travel to India\n🔘 Need help with travel arrangements\n\nOnce I have these details, I\'ll connect you with our best RCT specialist and get you scheduled immediately! The sooner we treat this, the sooner you\'ll be pain-free! 😊',
+    category: 'dental',
+    tags: ['rct', 'booking', 'appointment', 'urgent', 'location'],
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: '28',
+    input: 'Talk to a dentist first',
+    expectedOutput: 'Smart choice! 👨‍⚕️ It\'s always good to speak with a specialist first, especially for something as important as saving your tooth!\n\n📞 **Free Video Consultation includes:**\n• Review of your symptoms with an RCT specialist\n• Explanation of the exact procedure you\'ll need\n• Personalized treatment timeline\n• Exact cost breakdown for your case\n• Answer all your questions about the process\n\n⏰ **Available consultation times:**\n🔘 Today (within 2-4 hours)\n🔘 Tomorrow morning\n🔘 Tomorrow evening\n🔘 This weekend\n\n📱 **Consultation format:**\n🔘 WhatsApp Video Call\n🔘 Zoom Meeting\n🔘 Phone Call (if video isn\'t possible)\n\n🌍 **What timezone are you in?** This helps me schedule the perfect time for you!\n\nOur RCT specialists in Jaipur are amazing - they\'ll put your mind at ease and explain everything clearly! What time works best for you?',
+    category: 'dental',
+    tags: ['rct', 'consultation', 'video call', 'specialist', 'scheduling'],
+    createdAt: new Date(),
+    updatedAt: new Date()
   }
 ]
 
@@ -344,8 +408,57 @@ export class TrainingDataManager {
             e.tags.includes('tooth pain') || 
             e.tags.includes('pain relief') || 
             e.tags.includes('dental emergency') ||
+            e.tags.includes('rct') ||
+            e.tags.includes('diagnosis') ||
             e.input.toLowerCase().includes('pain') ||
             e.input.toLowerCase().includes('hurt')
+          )
+        } else if (input.includes('severe throbbing') || input.includes('throbbing pain')) {
+          // RCT diagnostic flow - severe throbbing pain
+          examples = examples.filter(e => 
+            e.tags.includes('rct') || 
+            e.tags.includes('sensitivity') ||
+            e.tags.includes('follow-up') ||
+            e.input.toLowerCase().includes('severe throbbing')
+          )
+        } else if (input.includes('stays for a long time') || input.includes('long time')) {
+          // RCT diagnostic flow - prolonged sensitivity
+          examples = examples.filter(e => 
+            e.tags.includes('rct') || 
+            e.tags.includes('swelling') ||
+            e.tags.includes('infection') ||
+            e.input.toLowerCase().includes('long time')
+          )
+        } else if (input.includes('yes') && (input.includes('swelling') || input.includes('bump'))) {
+          // RCT diagnostic flow - swelling confirmation
+          examples = examples.filter(e => 
+            e.tags.includes('rct') || 
+            e.tags.includes('discoloration') ||
+            e.input.toLowerCase().includes('yes')
+          )
+        } else if (input.includes('grey') || input.includes('yellow') || input.includes('color')) {
+          // RCT diagnostic flow - tooth discoloration
+          examples = examples.filter(e => 
+            e.tags.includes('rct') || 
+            e.tags.includes('treatment plan') ||
+            e.tags.includes('booking') ||
+            e.input.toLowerCase().includes('grey')
+          )
+        } else if (input.includes('book an appointment') || input.includes('appointment now')) {
+          // RCT booking flow
+          examples = examples.filter(e => 
+            e.tags.includes('booking') || 
+            e.tags.includes('appointment') ||
+            e.tags.includes('urgent') ||
+            e.input.toLowerCase().includes('book')
+          )
+        } else if (input.includes('talk to a dentist') || input.includes('dentist first')) {
+          // RCT consultation flow
+          examples = examples.filter(e => 
+            e.tags.includes('consultation') || 
+            e.tags.includes('video call') ||
+            e.tags.includes('specialist') ||
+            e.input.toLowerCase().includes('dentist')
           )
         } else if (input.includes('teeth') || input.includes('dental') || input.includes('tooth')) {
           examples = examples.filter(e => e.category === 'dental')
@@ -378,14 +491,57 @@ export class TrainingDataManager {
     if (userInput) {
       const input = userInput.toLowerCase()
       
-      // Look for keyword matches
+      // Look for keyword matches (same logic as default dataset)
       if (input.includes('pain') || input.includes('hurt') || input.includes('ache')) {
         examples = examples.filter(e => 
           e.tags.includes('tooth pain') || 
           e.tags.includes('pain relief') || 
           e.tags.includes('dental emergency') ||
+          e.tags.includes('rct') ||
+          e.tags.includes('diagnosis') ||
           e.input.toLowerCase().includes('pain') ||
           e.input.toLowerCase().includes('hurt')
+        )
+      } else if (input.includes('severe throbbing') || input.includes('throbbing pain')) {
+        examples = examples.filter(e => 
+          e.tags.includes('rct') || 
+          e.tags.includes('sensitivity') ||
+          e.tags.includes('follow-up') ||
+          e.input.toLowerCase().includes('severe throbbing')
+        )
+      } else if (input.includes('stays for a long time') || input.includes('long time')) {
+        examples = examples.filter(e => 
+          e.tags.includes('rct') || 
+          e.tags.includes('swelling') ||
+          e.tags.includes('infection') ||
+          e.input.toLowerCase().includes('long time')
+        )
+      } else if (input.includes('yes') && (input.includes('swelling') || input.includes('bump'))) {
+        examples = examples.filter(e => 
+          e.tags.includes('rct') || 
+          e.tags.includes('discoloration') ||
+          e.input.toLowerCase().includes('yes')
+        )
+      } else if (input.includes('grey') || input.includes('yellow') || input.includes('color')) {
+        examples = examples.filter(e => 
+          e.tags.includes('rct') || 
+          e.tags.includes('treatment plan') ||
+          e.tags.includes('booking') ||
+          e.input.toLowerCase().includes('grey')
+        )
+      } else if (input.includes('book an appointment') || input.includes('appointment now')) {
+        examples = examples.filter(e => 
+          e.tags.includes('booking') || 
+          e.tags.includes('appointment') ||
+          e.tags.includes('urgent') ||
+          e.input.toLowerCase().includes('book')
+        )
+      } else if (input.includes('talk to a dentist') || input.includes('dentist first')) {
+        examples = examples.filter(e => 
+          e.tags.includes('consultation') || 
+          e.tags.includes('video call') ||
+          e.tags.includes('specialist') ||
+          e.input.toLowerCase().includes('dentist')
         )
       } else if (input.includes('teeth') || input.includes('dental') || input.includes('tooth')) {
         examples = examples.filter(e => e.category === 'dental')
