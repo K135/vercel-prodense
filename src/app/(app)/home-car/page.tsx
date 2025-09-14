@@ -15,12 +15,6 @@ import { getStayCategories } from '@/data/categories'
 import { getStayListings } from '@/data/listings'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import HeadingWithSub from '@/shared/Heading'
-// Using public image path for smiling-collage.png
-const heroImage = {
-  src: '/images/homepage7/smiling-collage.png',
-  width: 800,
-  height: 600
-}
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -43,8 +37,6 @@ async function Page() {
       <div className="relative container mb-8 lg:mb-1">
         <HeroSectionWithSearchForm1
           heading="Your Smile, <span style='color: #D35C2F;'>Perfectly Personalised!</span>"
-          image={heroImage}
-          imageAlt="hero"
           searchForm={<CarDentalHeroSearchForm />}
           description={
             <>
