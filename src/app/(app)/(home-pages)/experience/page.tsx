@@ -12,7 +12,6 @@ import SectionSubscribe2 from '@/components/SectionSubscribe2'
 import { getAuthors } from '@/data/authors'
 import { getExperienceCategories } from '@/data/categories'
 import { getExperienceListings } from '@/data/listings'
-import heroImage from '@/images/hero-right-experience.png'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Divider } from '@/shared/divider'
 import HeadingWithSub from '@/shared/Heading'
@@ -36,8 +35,6 @@ async function Home() {
       <div className="relative container mb-24 flex flex-col gap-y-24 lg:mb-28 lg:gap-y-32">
         <HeroSectionWithSearchForm1
           heading="Discover Adventures"
-          image={heroImage}
-          imageAlt="hero"
           searchForm={<HeroSearchForm initTab="Experiences" />}
           description={
             <>
