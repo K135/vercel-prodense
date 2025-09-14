@@ -42,8 +42,6 @@ const Page = async ({ params }: { params: Promise<{ handle?: string[] }> }) => {
       <div className="container">
         <HeroSectionWithSearchForm1
           heading={category.name}
-          image={category.coverImage}
-          imageAlt={category.name}
           searchForm={<FlightSearchForm formStyle="default" />}
           description={
             <div className="flex items-center sm:text-lg">
