@@ -39,16 +39,8 @@ const SectionSearchTerms: React.FC<SectionSearchTermsProps> = ({ className = '' 
         "Dental Clinics in Kochi",
         "Dental Treatments in Pune",
         "Dental Crowns in Chandigarh",
-        "Dental Tourism India",
-        "Dental Tourism Thailand",
-        "Dental Clinics in Dubai",
-        "Dental Tourism Turkey",
-        "Dental Implants in Hungary",
-        "Dental Clinics in Spain",
-        "Dental Care in Mexico",
-        "Dental Tourism in Philippines",
-        "Dental Tourism in Vietnam",
-        "Dental Tourism in Malaysia"
+        "Dental Tourism India"
+       
       ]
     },
     {

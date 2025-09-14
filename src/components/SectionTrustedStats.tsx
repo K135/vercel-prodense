@@ -1,6 +1,5 @@
 'use client'
 
-import HeadingWithSub from '@/shared/Heading'
 import { FC, useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 
@@ -106,19 +105,14 @@ const SectionTrustedStats: FC<Props> = ({
     { number: '50+', label: 'Partner Clinics' },
   ],
   partnerLogos = [
-    { src: '/images/partners/placed.png', alt: 'Placed' },
-    { src: '/images/partners/cuebiq.png', alt: 'Cuebiq' },
-    { src: '/images/partners/factual.png', alt: 'Factual' },
-    { src: '/images/partners/placeiq.png', alt: 'PlaceIQ' },
     { src: '/images/partners/airmeet.png', alt: 'Airmeet' },
     { src: '/images/partners/spen.png', alt: 'Spen' },
     { src: '/images/partners/klippa.png', alt: 'Klippa' },
-    { src: '/images/partners/matrix.png', alt: 'Matrix' },
   ],
   featureCards = [
     {
-      title: 'One Platform. Endless Smiles',
-      description: "Prodense is the trusted one-stop destination for patients globally. From diagnosis to dental care to accommodation, we integrate technology and hospitality to simplify every step of your journey.",
+      title: '',
+      description: "",
       image: '/One-Platform-Endless-Smiles.png',
       hasAppStoreLinks: true,
     },
@@ -157,7 +151,7 @@ const SectionTrustedStats: FC<Props> = ({
             {/* Stats Section */}
             <div className="lg:w-1/3 mb-8 lg:mb-0">
               <div className="mb-4">
-                <h2 className="text-3xl font-semibold text-neutral-950 sm:text-4xl/10 dark:text-white">
+                <h2 className="text-3xl font-semibold text-neutral-950 sm:text-4xl/10 dark:text-white whitespace-nowrap">
                   {heading}
                 </h2>
                 
@@ -189,7 +183,7 @@ const SectionTrustedStats: FC<Props> = ({
                     <img 
                       src={logo.src} 
                       alt={logo.alt}
-                      className="h-8 lg:h-10 w-auto object-contain vertical-align-middle inline-block opacity-70 hover:opacity-100 transition-opacity duration-300"
+                      className="h-12 lg:h-16 w-auto object-contain vertical-align-middle inline-block opacity-70 hover:opacity-100 transition-opacity duration-300"
                     />
                   </li>
                 ))}
@@ -206,11 +200,11 @@ const SectionTrustedStats: FC<Props> = ({
             {featureCards.map((card, index) => (
               <div 
                 key={index} 
-                className={`rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ${
+                className={`relative rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ${
                   card.bgClass || 'bg-white dark:bg-neutral-800'
                 }`}
               >
-                <div className="p-8 lg:p-10">
+                <div className="relative z-10 p-8 lg:p-10">
                   <div className="mb-6">
                     <h3 className="text-2xl lg:text-3xl font-medium text-black dark:text-white mb-4">
                       {card.title}
@@ -237,14 +231,14 @@ const SectionTrustedStats: FC<Props> = ({
                                 Globally Accredited Specialists
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                                Highly trained experts providing care that meets the highest international standards. 
+                                Highly trained experts providing care that meets the highest international standards.
                               </p>
                             </div>
                           </div>
                         </div>
                       </div>
 
-                      {/* Always by Your Side 24/7 */}
+                      {/* Always by Your Side24/7 */}
                       <div className="group hover:transform hover:scale-105 transition-all duration-300">
                         <div className="bg-white/70 dark:bg-neutral-700/50 rounded-xl p-6 h-full border border-[#D35C2F]/20 dark:border-[#D35C2F]/30 hover:border-[#D35C2F]/50 dark:hover:border-[#D35C2F]/60 hover:shadow-lg transition-all duration-300">
                           <div className="flex items-start gap-4">
@@ -279,7 +273,7 @@ const SectionTrustedStats: FC<Props> = ({
                                 Care Without Borders
                               </h4>
                               <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                                A global care ecosystem designed for continuity — before, during, and after treatment. 
+                                A global care ecosystem designed for continuity — before, during, and after treatment.
                               </p>
                             </div>
                           </div>
@@ -308,33 +302,16 @@ const SectionTrustedStats: FC<Props> = ({
                       </div>
                     </div>
                   )}
-
-                  {/* Get Started Button */}
-                  {card.hasGetStartedButton && (
-                    <div className="mb-6">
-                      <Link 
-                        href="#" 
-                        className="inline-flex items-center px-6 py-3 bg-[#D35C2F] hover:bg-[#D35C2F]/90 text-white font-medium rounded-lg transition-colors duration-200"
-                      >
-                        Get Started Now
-                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                      </Link>
-                    </div>
-                  )}
                 </div>
 
                 {/* Card Image - Only show if image exists and it's not a feature grid */}
                 {card.image && !card.isFeatureGrid && (
-                  <div className="px-8 pb-8">
-                    <div className="rounded-2xl overflow-hidden">
-                      <img 
-                        src={card.image} 
-                        alt={card.title}
-                        className="w-full h-auto object-cover"
-                      />
-                    </div>
+                  <div className="absolute inset-0">
+                    <img 
+                      src={card.image} 
+                      alt={card.title}
+                      className="w-full h-full object-cover rounded-3xl"
+                    />
                   </div>
                 )}
               </div>

@@ -13,12 +13,7 @@ import { getStayCategories } from '@/data/categories'
 import { getStayListings } from '@/data/listings'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import HeadingWithSub from '@/shared/Heading'
-// Using public image path for smiling-collage.png
-const heroImage = {
-  src: '/images/homepage7/smiling-collage.png',
-  width: 800,
-  height: 600
-}
+// Hero image grid will be handled by HeroImageGrid component
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -41,8 +36,6 @@ async function Page() {
       <div className="relative container mb-4 lg:mb-2">
         <HeroSectionWithSearchForm1
           heading="DIY with AI: <span style='color: #E6B862;'>Smile, Travel, Belong.</span>"
-          image={heroImage}
-          imageAlt="hero"
           searchForm={<ProdenseAIHeroForm />}
           description={<></>}
         />
@@ -99,10 +92,10 @@ async function Page() {
             <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl -m-2" />
             <div className="relative z-10 p-1">
               <HeadingWithSub 
-                subheading="Discover state-of-the-art dental procedures trusted worldwide, tailored to deliver precision, comfort, and excellence.."
+                subheading="Discover how AI-enabled planning and modern techniques ensure accurate, comfortable, and effective treatments"
                 isCenter={true}
               >
-                Advanced Dentistry, <span className="text-[#D35C2F] ">Redefined</span>
+                Your Smile, <span className="text-[#D35C2F] ">Backed By Technology</span>
               </HeadingWithSub>
             </div>
           </div>

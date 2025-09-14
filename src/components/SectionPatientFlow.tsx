@@ -305,12 +305,12 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
                 />
               </svg>
 
-              {/* Expandable Step Cards */}
+              {/* Step Cards */}
               {PATIENT_FLOW_STEPS.map((step, index) => (
                 <div
                   key={step.id}
                   className={clsx(
-                    'absolute transition-all duration-800 ease-out group hover:z-50',
+                    'absolute transition-all duration-800 ease-out',
                     // Top cards (1,2) get higher z-index, bottom cards (3,4) get lower z-index
                     step.id <= 2 ? 'z-30' : 'z-10',
                     visibleSteps.includes(step.id) 
@@ -323,12 +323,12 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
                     transitionDelay: `${step.delay}ms`
                   }}
                 >
-                  {/* Expandable Step Card */}
-                  <div className="w-72 group-hover:w-80 p-5 rounded-3xl shadow-2xl border bg-white/95 dark:bg-neutral-800/95 border-[#D35C2F]/20 backdrop-blur-sm hover:scale-105 transition-all duration-500 hover:shadow-3xl hover:border-[#D35C2F]/40">
+                  {/* Step Card */}
+                  <div className="w-72 p-5 rounded-3xl shadow-2xl border bg-white/95 dark:bg-neutral-800/95 border-[#D35C2F]/20 backdrop-blur-sm">
                     
                     {/* Step Header */}
                     <div className="flex items-start gap-4 mb-4">
-                      <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-r from-[#D35C2F] to-[#D35C2F]/80 flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-r from-[#D35C2F] to-[#D35C2F]/80 flex items-center justify-center shadow-lg flex-shrink-0">
                         <step.icon className="w-7 h-7 text-white" />
                         
                         {/* Step number */}
@@ -338,46 +338,21 @@ const SectionPatientFlow: FC<Props> = ({ className }) => {
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-bold text-neutral-900 dark:text-white leading-tight group-hover:text-[#D35C2F] transition-colors duration-300">{step.title}</h3>
+                        <h3 className="text-base font-bold text-neutral-900 dark:text-white leading-tight">{step.title}</h3>
                         <p className="text-sm text-[#D35C2F] font-semibold mt-1">{step.subtitle}</p>
                       </div>
                     </div>
                     
                     {/* Description */}
-                    <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4 group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors duration-300">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mb-4">
                       {step.description}
                     </p>
                     
                     {/* Highlight */}
                     <div className="mb-4">
-                      <span className="px-3 py-1 bg-[#D35C2F]/10 text-[#D35C2F] text-xs font-semibold rounded-full border border-[#D35C2F]/20 group-hover:bg-[#D35C2F]/20 group-hover:border-[#D35C2F]/40 transition-all duration-300">
+                      <span className="px-3 py-1 bg-[#D35C2F]/10 text-[#D35C2F] text-xs font-semibold rounded-full border border-[#D35C2F]/20">
                         {step.highlights[0]}
                       </span>
-                    </div>
-                    
-                    {/* Features List - Hidden by default, shown on hover */}
-                    <div className="opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-96 overflow-hidden transition-all duration-500 ease-out">
-                      <ul className="space-y-2 pt-2">
-                        {step.features.map((feature, featureIndex) => (
-                          <li 
-                            key={featureIndex}
-                            className="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-all duration-300"
-                            style={{ 
-                              transitionDelay: `${featureIndex * 50}ms` 
-                            }}
-                          >
-                            <step.solidIcon className="w-4 h-4 text-[#D35C2F] flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Hover indicator - shown when not hovering */}
-                    <div className="mt-3 text-center opacity-60 group-hover:opacity-0 transition-opacity duration-300">
-                      <div className="text-xs text-[#D35C2F] font-medium">
-                        Hover to see features
-                      </div>
                     </div>
                   </div>
 

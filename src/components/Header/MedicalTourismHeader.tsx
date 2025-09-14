@@ -83,11 +83,14 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
           : 'relative'
       )}>
         <div className="container mx-auto px-2">
-          <div className="flex items-center py-4">
+          <div className="flex items-center py-4 relative">
+            {/* Left spacer for balance */}
+            <div className="hidden lg:flex flex-1">
+              {/* Empty space to balance the right side */}
+            </div>
 
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8 flex-1 justify-center">
+            {/* Desktop Navigation - Centered */}
+            <nav className="hidden lg:flex items-center space-x-8">
               {/* Home */}
               <Link href="/" className="text-white hover:text-gray-200 font-bold transition-colors">
                 Home
@@ -182,34 +185,28 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
                   isAboutHovered ? "opacity-100 visible" : "opacity-0 invisible"
                 )}>
                   <Link
-                    href="/who-we-are"
+                    href="/about-us"
                     className="block px-4 py-2 text-gray-700 hover:bg-[#D35C2F]/10 hover:text-[#D35C2F] transition-colors"
                   >
-                    Who We Are
+                    About us
                   </Link>
                   <Link
-                    href="/brand-story"
+                    href="/mission"
                     className="block px-4 py-2 text-gray-700 hover:bg-[#D35C2F]/10 hover:text-[#D35C2F] transition-colors"
                   >
-                    Brand Story
+                    Mission
+                  </Link>
+                  <Link
+                    href="/vision"
+                    className="block px-4 py-2 text-gray-700 hover:bg-[#D35C2F]/10 hover:text-[#D35C2F] transition-colors"
+                  >
+                    Vision
                   </Link>
                   <Link
                     href="/prodense-promises"
                     className="block px-4 py-2 text-gray-700 hover:bg-[#D35C2F]/10 hover:text-[#D35C2F] transition-colors"
                   >
                     Prodense Promises
-                  </Link>
-                  <Link
-                    href="/d-ai-y"
-                    className="block px-4 py-2 text-gray-700 hover:bg-[#D35C2F]/10 hover:text-[#D35C2F] transition-colors"
-                  >
-                    D-AI-Y
-                  </Link>
-                  <Link
-                    href="/good-faith-estimation"
-                    className="block px-4 py-2 text-gray-700 hover:bg-[#D35C2F]/10 hover:text-[#D35C2F] transition-colors"
-                  >
-                    Good Faith Estimation
                   </Link>
                   <Link
                     href="/csr"
@@ -269,36 +266,46 @@ const MedicalTourismHeader: React.FC<MedicalTourismHeaderProps> = ({ className }
                     </div>
                   </div>
 
-                  {/* Essence of India */}
+                  {/* Travel Partners */}
                   <div 
                     className="relative"
-                    onMouseEnter={() => setHoveredPartner('essence')}
+                    onMouseEnter={() => setHoveredPartner('travel')}
                     onMouseLeave={() => setHoveredPartner(null)}
                   >
                     <div className="flex items-center justify-between px-4 py-2 text-gray-700 hover:bg-[#D35C2F]/10 hover:text-[#D35C2F] transition-colors cursor-pointer">
-                      <span>Essence of India</span>
+                      <span>Travel Partners</span>
                       <ChevronDownIcon className="h-4 w-4 rotate-[-90deg]" />
                     </div>
                     
-                    {/* Essence of India Submenu */}
+                    {/* Travel Partners Submenu */}
                     <div className={clsx(
                       "absolute left-full top-0 ml-1 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 transition-all duration-200",
-                      hoveredPartner === 'essence' ? "opacity-100 visible" : "opacity-0 invisible"
+                      hoveredPartner === 'travel' ? "opacity-100 visible" : "opacity-0 invisible"
                     )}>
                       <Link
-                        href="/partners/essence-of-india/about"
+                        href="/partners/travel-partners/about"
                         className="block px-4 py-2 text-gray-700 hover:bg-[#D35C2F]/10 hover:text-[#D35C2F] transition-colors"
                       >
-                        About Essence of India
+                        About Travel Partners
                       </Link>
                     </div>
                   </div>
                 </div>
               </div>
+
+              {/* D-AI-Y */}
+              <Link href="/d-ai-y" className="text-white hover:text-gray-200 font-bold transition-colors">
+                D-AI-Y
+              </Link>
+
+              {/* Good Faith Estimation */}
+              <Link href="/good-faith-estimation" className="text-white hover:text-gray-200 font-bold transition-colors">
+                Good Faith Estimation
+              </Link>
             </nav>
 
-            {/* User Actions */}
-            <div className="flex items-center space-x-4 flex-shrink-0 ml-auto">
+            {/* User Actions - Right side */}
+            <div className="flex items-center space-x-4 flex-shrink-0 flex-1 justify-end">
               {/* Beautiful Login/Signup Button */}
               <div className="hidden md:flex items-center">
                 <Link 

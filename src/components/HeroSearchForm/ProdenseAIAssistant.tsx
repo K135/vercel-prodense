@@ -16,7 +16,7 @@ import {
   ClockIcon
 } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
-import CanvasGlowBorder from '../CanvasGlowBorder'
+import GeminiBorder from '../GeminiBorder'
 
 const quickSuggestions = [
   {
@@ -42,7 +42,7 @@ const quickSuggestions = [
   {
     icon: MapPinIcon,
     text: "Show me before/after photos",
-    color: "from-orange-500 to-red-500"
+    color: "from-[#D35C2F] to-red-500"
   }
 ]
 
@@ -244,7 +244,7 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
 
   return (
     <>
-      <div className={clsx('relative w-full max-w-4xl', className)}>
+      <div className={clsx('relative w-full max-w-4xl ml-7', className)}>
         <AnimatePresence mode="wait">
           {!isExpanded ? (
             // Collapsed State - Compact Chat Box
@@ -257,28 +257,28 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
               className="relative cursor-pointer"
               onClick={handleExpand}
             >
-              {/* Canvas Glow Border Effect */}
-              <CanvasGlowBorder 
-                className="p-[8px]"
-                glowColor="#FF8C42"
-                sharpColor="#FF6B1A"
-                animationSpeed={0.012}
+              {/* Gemini-Style Border Effect */}
+              <GeminiBorder 
+                className="p-[6px]"
+                primaryColor="#D35C2F"
+                secondaryColor="#E6B862"
+                animationSpeed={0.015}
               >
                 {/* Compact Chat Interface */}
                 <div 
-                  className="relative overflow-hidden rounded-3xl bg-white hover:scale-[1.02] transition-all duration-500 shadow-orange-glow hover:shadow-orange-glow-hover"
+                  className="relative overflow-hidden rounded-3xl bg-white hover:scale-[1.02] transition-all duration-500"
                 >
                 
                 {/* Content Container */}
                 <div className="relative z-10">
                   {/* Decorative Elements */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-orange-400/10 to-transparent rounded-full -translate-y-16 translate-x-16" />
-                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-orange-300/10 to-transparent rounded-full translate-y-12 -translate-x-12" />
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#D35C2F]/10 to-transparent rounded-full -translate-y-16 translate-x-16" />
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[#D35C2F]/10 to-transparent rounded-full translate-y-12 -translate-x-12" />
 
                   {/* Preview Messages */}
                   <div className="p-6 pt-8 space-y-4 relative">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg p-2">
+                  <div className="flex items-center gap-3 mb-4 -ml-[20px]">
+                    <div className="w-8 h-8 rounded-2xl bg-gradient-to-br from-[#D35C2F] to-[#D35C2F] flex items-center justify-center p-2">
                       <img 
                         src="/images/prodence p white.png" 
                         alt="Prodence Logo" 
@@ -286,16 +286,16 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
                       />
                     </div>
                     <div className="flex-1">
-                      <div className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+                      <div className="text-2xl font-bold bg-gradient-to-r from-[#D35C2F] to-[#D35C2F] bg-clip-text text-transparent">
                         Talk to us
                       </div>
                     </div>
                   </div>
                   
 
-                  <div className="flex justify-start">
-                    <div className="bg-gradient-to-r from-white to-purple-50/50 px-5 py-3 rounded-2xl rounded-bl-md shadow-lg border border-purple-100/50 max-w-sm backdrop-blur-sm">
-                      <p className="text-gray-800 text-sm font-medium">What would you like to know about your dental journey? 🦷</p>
+                  <div className="flex justify-start ml-[2px]">
+                    <div className="bg-gradient-to-r from-white to-purple-50/50 px-5 py-3 rounded-2xl rounded-bl-md border border-purple-100/50 max-w-md backdrop-blur-sm shadow-lg">
+                      <p className="text-gray-800 text-sm font-medium ml-[5px] whitespace-nowrap">Your D-AI-Y smile assistant - right here!</p>
                     </div>
                   </div>
                 </div>
@@ -304,24 +304,24 @@ const ProdenseAIAssistant = ({ className }: { className?: string }) => {
                 <div className="p-6 pt-4 bg-gradient-to-t from-white to-transparent relative">
                   {/* Input Preview */}
                   <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-gray-50 to-blue-50/30 rounded-2xl border border-gray-200/50 shadow-inner backdrop-blur-sm">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center ml-[5px]">
                       <UserCircleIcon className="w-5 h-5 text-white" />
                     </div>
-                    <span className="text-gray-600 text-sm flex-1 font-medium">
+                    <span className="text-gray-600 text-sm flex-1 font-medium ml-[5px]">
                       {displayedText}
                       <span className="animate-pulse">|</span>
                     </span>
-                    <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
+                    <div className="w-10 h-10 bg-gradient-to-r from-[#D35C2F] to-[#D35C2F] rounded-xl flex items-center justify-center transition-all">
                       <PaperAirplaneIcon className="w-5 h-5 text-white" />
                     </div>
                   </div>
                   </div>
 
                   {/* Hover Effect Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-orange-500/5 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#D35C2F]/5 to-[#D35C2F]/5 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
               </div>
-              </CanvasGlowBorder>
+              </GeminiBorder>
             </motion.div>
           ) : null}
         </AnimatePresence>

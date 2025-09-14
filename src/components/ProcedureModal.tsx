@@ -119,7 +119,6 @@ const ProcedureModal: FC<ProcedureModalProps> = ({ procedure, isOpen, onClose })
               <div className="px-6 pb-6">
                 {/* Detailed description */}
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">About This Procedure</h3>
                   <p className="text-gray-600 leading-relaxed">
                     {procedure.detailedDescription}
                   </p>
