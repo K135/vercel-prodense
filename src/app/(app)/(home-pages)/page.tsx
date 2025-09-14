@@ -95,7 +95,7 @@ async function Page() {
                 subheading="Discover how AI-enabled planning and modern techniques ensure accurate, comfortable, and effective treatments"
                 isCenter={true}
               >
-                Your Smile, <span className="text-[#D35C2F] ">Backed By Technology</span>
+                Smarter Solutions, <span className="text-[#D35C2F] ">Healthier Smiles</span>
               </HeadingWithSub>
             </div>
           </div>

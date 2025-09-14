@@ -62,7 +62,7 @@ export default function WelcomeScreen({ isDarkMode, onSuggestedPrompt }: Welcome
           'text-lg max-w-2xl mx-auto leading-relaxed',
           isDarkMode ? 'text-gray-300' : 'text-gray-600'
         )}>
-          Start a conversation with Prodense AI's advanced AI model. Ask questions, get creative help, 
+          Start a conversation with Prodense AI&apos;s advanced AI model. Ask questions, get creative help, 
           solve problems, or just have an engaging chat!
         </p>
       </motion.div>

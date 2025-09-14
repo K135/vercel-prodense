@@ -16,7 +16,7 @@ import {
 import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react'
 import clsx from 'clsx'
 import _ from 'lodash'
-import { FC, useCallback, useEffect, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ClearDataButton } from './ClearDataButton'
 
 type Suggest = {
@@ -138,8 +138,8 @@ export const LocationInputField: FC<Props> = ({
   //  a custom hook that listens for clicks outside the container
   useInteractOutside(containerRef, closePopover)
 
-  const handleInputChange = useCallback(
-    _.debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+  const debouncedHandleInput = useMemo(
+    () => _.debounce((e: React.ChangeEvent<HTMLInputElement>) => {
       setShowPopover(true)
       // If the input is empty, Combobox will automatically setSelected
       if (e.target.value) {
@@ -151,11 +151,15 @@ export const LocationInputField: FC<Props> = ({
     }, 300),
     []
   )
+
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedHandleInput(e)
+  }, [debouncedHandleInput])
   useEffect(() => {
     return () => {
-      handleInputChange.cancel() // Hủy debounce khi component unmount
+      debouncedHandleInput.cancel() // Hủy debounce khi component unmount
     }
-  }, [handleInputChange])
+  }, [debouncedHandleInput])
 
   const isShowInitSuggests = !selected?.id
   const suggestsToShow = isShowInitSuggests ? initSuggests : searchingSuggests

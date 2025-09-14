@@ -15,7 +15,7 @@ import {
 import { HugeiconsIcon, IconSvgElement } from '@hugeicons/react'
 import clsx from 'clsx'
 import _ from 'lodash'
-import { FC, useCallback, useEffect, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ClearDataButton } from './ClearDataButton'
 
 type Suggest = {
@@ -242,8 +242,8 @@ export const DentalLocationInputField: FC<Props> = ({
     setShowPopover(false)
   }, [])
 
-  const handleInputChange = useCallback(
-    _.debounce((value: string) => {
+  const debouncedUpdateSuggests = useMemo(
+    () => _.debounce((value: string) => {
       if (value) {
         setSuggests(demoSearchingSuggests)
       } else {
@@ -252,6 +252,10 @@ export const DentalLocationInputField: FC<Props> = ({
     }, 300),
     []
   )
+
+  const handleInputChange = useCallback((value: string) => {
+    debouncedUpdateSuggests(value)
+  }, [debouncedUpdateSuggests])
 
   useEffect(() => {
     handleInputChange(searchValue)
